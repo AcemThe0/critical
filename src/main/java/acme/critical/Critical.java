@@ -37,5 +37,4 @@ public class Critical implements ModInitializer {
             }
         }
     }
-
 }
