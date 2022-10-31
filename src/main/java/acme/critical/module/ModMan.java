@@ -58,5 +58,6 @@ public class ModMan {
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
+	modules.add(new KillFX());
     }
 }

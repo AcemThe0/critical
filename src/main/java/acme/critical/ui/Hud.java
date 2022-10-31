@@ -11,12 +11,19 @@ import net.minecraft.client.MinecraftClient;
 import acme.critical.module.client.Arraylist;
 import net.minecraft.client.util.math.MatrixStack;
 
+import acme.critical.module.misc.KillFX;
+
 public class Hud {
     private static MinecraftClient mc = MinecraftClient.getInstance();
     static Arraylist arraylist = new Arraylist();
 
     public static void render(MatrixStack matrices, float tickDelta) {
         mc.textRenderer.drawWithShadow(matrices, "Critical", 0, 0, -1);
+	mc.textRenderer.drawWithShadow(
+		matrices,
+		String.format("Killstreak: %d", KillFX.getKillstreak()),
+		0, 32, -1
+	);
         renderArrayList(matrices);
     }
 
