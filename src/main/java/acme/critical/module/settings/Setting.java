@@ -1,6 +1,6 @@
 package acme.critical.module.settings;
 
-public class Setting {
+public abstract class Setting {
     private String name;
     private boolean visible = true;
 
@@ -19,4 +19,6 @@ public class Setting {
     public String getName() {
         return name;
     }
+
+    public abstract int getIndex();
 }

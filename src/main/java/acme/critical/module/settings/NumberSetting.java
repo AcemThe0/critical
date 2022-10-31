@@ -54,4 +54,8 @@ public class NumberSetting extends Setting {
         if (positive) setValue(getValue()+getIncrement());
         else setValue(getValue() - getIncrement());
     }
+
+    public int getIndex() {
+        return -1;
+    }
 }

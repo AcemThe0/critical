@@ -18,6 +18,8 @@ public class ModMan {
     public static final ModMan INSTANCE = new ModMan();
     private List<Mod> modules = new ArrayList<>();
     private MinecraftClient mc = MinecraftClient.getInstance();
+    private Category category;
+
     public ModMan() {
         addModules();
     }
@@ -34,7 +36,6 @@ public class ModMan {
         return enabledModules;
     }
 
-    private Category category;
     public List<Mod> getModulesInCategory(Category category) {
         List<Mod> categoryModules = new ArrayList();
 
@@ -45,6 +46,10 @@ public class ModMan {
         }
         return categoryModules;
     }
+
+    public int getWatermarkpos(){ return watermarkpos;}
+
+    public int getArraylistpos(){ return arraylistpos;}
 
     private void addModules() {
         modules.add(new Mhop());
@@ -59,24 +64,21 @@ public class ModMan {
         modules.add(new Scaffold());
         modules.add(new Wallhack());
         modules.add(new Arraylist());
+        modules.add(new Watermark());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
+
         modules.sort(Comparator.comparingInt(m->(int)mc.textRenderer.getWidth(((Mod)m).getName())).reversed());
+
         for (int i = 0; i<modules.size(); i++){
-
             if (modules.get(i) instanceof Arraylist) {
-
                 arraylistpos = i;
-
             }
 
             if (modules.get(i) instanceof Watermark) {
-
                 watermarkpos = i;
-
             }
-
         }
     }
 }

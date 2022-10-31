@@ -108,4 +108,8 @@ public class KeybindSetting extends Setting {
     public void toggle() {
         this.enabled = !this.enabled;
     }
+
+    public int getIndex() {
+        return -1;
+    }
 }
