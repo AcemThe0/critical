@@ -19,4 +19,8 @@ public class BooleanSetting extends Setting {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public int getIndex() {
+        return -1;
+    }
 }

@@ -11,8 +11,10 @@ import acme.critical.ui.screens.clickgui.ClickGUI;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 
 public class Critical implements ModInitializer {
-    public static final Critical INSTANCE = new Critical();
+    public static String Hack = "Critical";
+    public static String Version = "1.1.0-cb";
 
+    public static final Critical INSTANCE = new Critical();
     public static final Logger logger = LoggerFactory.getLogger("Critical");
     private MinecraftClient mc = MinecraftClient.getInstance();
     
