@@ -3,33 +3,25 @@ package acme.critical.module.misc;
 import net.minecraft.entity.LivingEntity;
 
 import acme.critical.module.Mod;
-import acme.critical.module.settings.NumberSetting;
 
 public class KillFX extends Mod {
-	public NumberSetting cooldown = new NumberSetting("Cooldown", 1, 10, 5, 0.25);
-
 	private static int killstreak = 0;
 	private static int killstreakTimer = 0;
 	private static boolean killFXEnabled = false;
 
 	public KillFX() {
 		super("KillFX", "Play sound effects on kill.", Category.MISC);
-		addSetting(cooldown);
+		get = this;
 	}
 
 	public static int getKillstreak() {
 		return killstreak;
 	}
-	public static int getKillstreakTimer() {
-		return killstreakTimer;
-	}
 
 	public void onTick() {
 		killstreakTimer++;
-		if (killstreakTimer > cooldown.getValueInt()*20) {
-			killstreak = 0;
+		if (killstreakTimer > 5*20)
 			killstreakTimer = 0;
-		}
 
 		super.onTick();
 	}
@@ -47,10 +39,12 @@ public class KillFX extends Mod {
 	}
 
 	// called in PlayerEntityMixin
-	public static void onKill() {
-		if (!killFXEnabled)
-			return;
+	public static void onKill(LivingEntity entity) {
+		/*if (!killFXEnabled)
+			return;*/
 		killstreak++;
 		killstreakTimer = 0;
 	}
+
+	public static KillFX get;
 }
