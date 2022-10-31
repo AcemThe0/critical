@@ -10,10 +10,5 @@ public class Arraylist extends Mod {
         super("ModuleList", "Customization!", Category.CLIENT);
         addSetting(mode);
     }
-    
-    @Override
-    public void onEnable() {
-        setEnabled(false);
-    }
 
 }
