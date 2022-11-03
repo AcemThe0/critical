@@ -1,25 +1,28 @@
 package acme.critical;
 
+import java.util.List;
 import org.slf4j.Logger;
 import org.lwjgl.glfw.GLFW;
+import java.util.ArrayList;
 import org.slf4j.LoggerFactory;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import acme.critical.ui.screens.clickgui.ClickGUI;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 
 public class Critical implements ModInitializer {
     public static final Critical INSTANCE = new Critical();
 
-    public static final Logger logger = LoggerFactory.getLogger("Critical");
+    public static final Logger logger = LoggerFactory.getLogger("critical");
     private MinecraftClient mc = MinecraftClient.getInstance();
     
+    //No longer vcraft approved :(
     @Override
     public void onInitialize() {
         logger.info("...");
     }
+    List<Mod> enabledModules = new ArrayList<>();
 
     public void onKeyPress(int key, int action) {
         if (action == GLFW.GLFW_PRESS && mc.player != null && mc.currentScreen == null) {
@@ -31,10 +34,8 @@ public class Critical implements ModInitializer {
     }
 
     public void onTick() {
-        if (mc.player != null) {
-            for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
-                module.onTick();
-            }
+        for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
+            if (mc.player != null && mc.world != null) module.onTick();
         }
     }
 }

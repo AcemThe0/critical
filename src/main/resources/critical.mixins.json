@@ -6,12 +6,13 @@
   "mixins": [
   ],
   "client": [
-    "BlockRender",
+    "BlockMixin",
     "KeyboardMixin",
     "InGameHudMixin",
     "SimpleOptionMixin",
     "MinecraftClientMixin",
     "RenderTickCounterMixin",
+    "AbstractBlockStateMixin",
     "ClientPlayerEntityAccessor",
     "PlayerEntityMixin",
     "PlayerMoveC2SPacketAccessor",
