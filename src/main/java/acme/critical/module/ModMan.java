@@ -2,12 +2,14 @@ package acme.critical.module;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Comparator;
 import acme.critical.module.misc.*;
 import acme.critical.module.client.*;
 import acme.critical.module.combat.*;
 import acme.critical.module.visual.*;
 import acme.critical.module.movement.*;
 import acme.critical.module.Mod.Category;
+import net.minecraft.client.MinecraftClient;
 
 public class ModMan {
 
@@ -58,5 +60,7 @@ public class ModMan {
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
+
+        modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
     }
 }

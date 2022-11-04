@@ -16,14 +16,14 @@ public class Wallhack extends Mod {
         get = this;
     }
 
-
+/*
     @Override
     public void onTick() {
         mc.world.getEntities().forEach(entity -> {
             if (entity.isInvisible() && !invisibleEntities.contains(entity)) {
                 invisibleEntities.add(entity);
                 entity.setInvisible(false);
-            }
+            } else {invisibleEntities.remove(entity);}
         });
     super.onTick();
     }
@@ -32,7 +32,7 @@ public class Wallhack extends Mod {
     public void onDisable() {
         invisibleEntities.forEach(entity -> {entity.setInvisible(true);});
         invisibleEntities.clear();
-    }
+    }*/
 
     public boolean shouldRenderEntity(Entity entity) {
         if (!isEnabled()) return false;

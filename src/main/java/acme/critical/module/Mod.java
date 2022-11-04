@@ -2,8 +2,8 @@ package acme.critical.module;
 
 import java.util.List;
 import java.util.ArrayList;
-import acme.critical.module.settings.Setting;
 import net.minecraft.client.MinecraftClient;
+import acme.critical.module.settings.Setting;
 
 public class Mod {
     private int key;
@@ -48,6 +48,7 @@ public class Mod {
     public void onEnable() {
 
     }
+
 
     public void onDisable() {
 
