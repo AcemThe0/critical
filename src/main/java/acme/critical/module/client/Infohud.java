@@ -1,15 +1,13 @@
 package acme.critical.module.client;
 
-import acme.critical.module.Mod;
-import acme.critical.module.settings.BooleanSetting;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-
 import java.util.ArrayList;
+import acme.critical.module.Mod;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.util.math.MatrixStack;
+import acme.critical.module.settings.BooleanSetting;
 
 public class Infohud extends Mod {
 	private BooleanSetting doDrawPos = new BooleanSetting("Draw Pos", true);

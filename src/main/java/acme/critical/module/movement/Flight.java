@@ -53,7 +53,6 @@ public class Flight extends Mod {
 
     @Override
     public void onDisable() {
-        mc.player.setNoGravity(false);
     }
 
 }

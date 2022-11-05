@@ -47,7 +47,6 @@ public class Scaffold extends Mod {
 
         if (mc.world.getBlockState(blockPos).getMaterial().isReplaceable()) {
             if (!blocks.isEmpty()) {
-                Critical.logger.info("Index: "+ blockSlot);
                 if (blockSlot >= blocks.size()) blockSlot = 0;
                 
                 if (type.getMode() == "Single") {slot = blocks.get(0);}

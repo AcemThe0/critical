@@ -8,7 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Wallhack extends Mod {
-    private List<Entity> invisibleEntities = new ArrayList<>();
+    //private List<Entity> invisibleEntities = new ArrayList<>();
 
     public Wallhack() {
         super("Wallhack", "Renders entities through walls.", Category.VISUAL);

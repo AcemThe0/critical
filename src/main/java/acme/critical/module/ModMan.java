@@ -45,6 +45,7 @@ public class ModMan {
     }
 
     private void addModules() {
+        modules.add(new Auto());
         modules.add(new Mhop());
         modules.add(new Xray());
         modules.add(new Speed());
@@ -53,14 +54,15 @@ public class ModMan {
         modules.add(new Friend());
         modules.add(new Nofall());
         modules.add(new Antiaim());
+        modules.add(new Infohud());
         modules.add(new Killaura());
         modules.add(new Scaffold());
         modules.add(new Wallhack());
         modules.add(new Arraylist());
-	modules.add(new Infohud());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
+        //monolith
 
         modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
     }
