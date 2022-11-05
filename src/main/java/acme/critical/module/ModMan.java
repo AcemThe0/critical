@@ -57,6 +57,7 @@ public class ModMan {
         modules.add(new Scaffold());
         modules.add(new Wallhack());
         modules.add(new Arraylist());
+	modules.add(new Infohud());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());

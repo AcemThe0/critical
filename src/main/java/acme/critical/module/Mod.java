@@ -3,6 +3,7 @@ package acme.critical.module;
 import java.util.List;
 import java.util.ArrayList;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.module.settings.Setting;
 
 public class Mod {
@@ -42,6 +43,10 @@ public class Mod {
     }
 
     public void onTick() {
+
+    }
+
+    public void onRender2D(MatrixStack matrices, float tickDelta) {
 
     }
 

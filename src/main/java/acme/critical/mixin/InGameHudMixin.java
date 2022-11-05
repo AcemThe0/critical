@@ -1,5 +1,6 @@
 package acme.critical.mixin;
 
+import acme.critical.Critical;
 import acme.critical.ui.Hud;
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -13,6 +14,7 @@ public class InGameHudMixin {
 
     @Inject(method = "render", at = @At("RETURN"), cancellable = true)
     public void renderHUD(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+	Critical.INSTANCE.onRender2D(matrices, tickDelta);
         Hud.render(matrices, tickDelta);
     }
 }
