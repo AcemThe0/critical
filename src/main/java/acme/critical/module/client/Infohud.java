@@ -10,8 +10,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.module.settings.BooleanSetting;
 
 public class Infohud extends Mod {
-	private BooleanSetting doDrawPos = new BooleanSetting("Draw Pos", true);
-	private BooleanSetting doDrawPosAlt = new BooleanSetting("Draw Nether Pos", true);
+	private BooleanSetting doDrawPos = new BooleanSetting("Pos", true);
+	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -50,9 +50,9 @@ public class Infohud extends Mod {
 		}
 
 		if (otherdim == "Nether") {
-			playerPosAlt = playerPos.multiply(0.125d);
+			playerPosAlt = playerPos.multiply(new Vec3d(0.125d, 1.0d, 0.125d));
 		} else {
-			playerPosAlt = playerPos.multiply(8.0d);
+			playerPosAlt = playerPos.multiply(new Vec3d(8.0d, 1.0d, 8.0d));
 		}
 
 		printedPosAlt = String.format(
@@ -61,6 +61,7 @@ public class Infohud extends Mod {
 		);
 
 		// add everything to TextLines
+		// these will be drawn in reverse order
 		TextLines.clear();
 		if (doDrawPosAlt.isEnabled() & otherdim != "N/A")
 			TextLines.add(printedPosAlt);
