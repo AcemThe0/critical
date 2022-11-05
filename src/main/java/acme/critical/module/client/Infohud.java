@@ -12,8 +12,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.ArrayList;
 
 public class Infohud extends Mod {
-	private BooleanSetting doDrawPos = new BooleanSetting("Draw Pos", true);
-	private BooleanSetting doDrawPosAlt = new BooleanSetting("Draw Nether Pos", true);
+	private BooleanSetting doDrawPos = new BooleanSetting("Pos", true);
+	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
 
