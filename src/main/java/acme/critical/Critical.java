@@ -9,6 +9,7 @@ import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.ClickGUI;
 
 public class Critical implements ModInitializer {
@@ -38,4 +39,11 @@ public class Critical implements ModInitializer {
             for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onTick(); }
         }
     }
+
+    public void onRender2D(MatrixStack matrices, float tickDelta) {
+        if (mc.player != null && mc.world != null) {
+            for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onRender2D(matrices, tickDelta); }
+        }
+    }
 }
+
