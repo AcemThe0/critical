@@ -39,9 +39,11 @@ public class Critical implements ModInitializer {
             for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onTick(); }
         }
     }
+
     public void onRender2D(MatrixStack matrices, float tickDelta) {
-        for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
-            if (mc.player != null && mc.world != null) module.onRender2D(matrices, tickDelta);
+        if (mc.player != null && mc.world != null) {
+            for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onRender2D(matrices, tickDelta); }
         }
     }
 }
+
