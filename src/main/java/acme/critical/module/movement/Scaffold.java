@@ -1,6 +1,9 @@
 package acme.critical.module.movement;
 
+import java.util.List;
+import java.util.ArrayList;
 import net.minecraft.util.Hand;
+import acme.critical.Critical;
 import acme.critical.module.Mod;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.math.Vec3d;
@@ -14,11 +17,13 @@ import acme.critical.module.settings.KeybindSetting;
 public class Scaffold extends Mod {
     public BooleanSetting lock = new BooleanSetting("Lock", true);
     public BooleanSetting swing = new BooleanSetting("Swing", true);
-    public ModeSetting type = new ModeSetting("Type", "Normal", "Normal", "Mixed");
+    public ModeSetting type = new ModeSetting("Type", "Single", "Single", "Cycle");
 
-    Boolean shouldMix = false;
-    int slot, mainSlot;
+    int slot;
     int originalSlot = 0;
+    int blockSlot = 0;
+
+    List<Integer> blocks = new ArrayList<Integer>();
 
     public Scaffold() {
         super("Scaffold", "Places blocks under you.", Category.MOVEMENT);
@@ -29,21 +34,30 @@ public class Scaffold extends Mod {
     @Override
     public void onTick() {
         BlockPos blockPos = mc.player.getBlockPos().down();
+        blocks.clear();
 
         if (!lock.isEnabled()) originalSlot = mc.player.getInventory().selectedSlot;
 
         for (slot = 0; slot < 9; slot++) {
-            if (!shouldMix && mc.player.getInventory().getStack(slot).getItem() instanceof BlockItem) {
-                mc.player.getInventory().selectedSlot = slot;
-                int mainSlot = slot; slot=9;
+            //get all the blocks in the hotbar
+            if (mc.player.getInventory().getStack(slot).getItem() instanceof BlockItem) {
+                blocks.add(slot);
             }
-            if (type.getMode() == "Mixed" && shouldMix && slot != mainSlot && mc.player.getInventory().getStack(slot).getItem() instanceof BlockItem) mc.player.getInventory().selectedSlot = slot;
         }
 
         if (mc.world.getBlockState(blockPos).getMaterial().isReplaceable()) {
-            mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, new BlockHitResult(Vec3d.of(blockPos), Direction.DOWN, blockPos, false));
-            if (swing.isEnabled()) mc.player.swingHand(Hand.MAIN_HAND);
-            shouldMix = !shouldMix;
+            if (!blocks.isEmpty()) {
+                Critical.logger.info("Index: "+ blockSlot);
+                if (blockSlot >= blocks.size()) blockSlot = 0;
+                
+                if (type.getMode() == "Single") {slot = blocks.get(0);}
+                else if (type.getMode() == "Cycle") {slot = blocks.get(blockSlot);}
+
+                mc.player.getInventory().selectedSlot = slot;
+                mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, new BlockHitResult(Vec3d.of(blockPos), Direction.DOWN, blockPos, false));
+                if (swing.isEnabled()) mc.player.swingHand(Hand.MAIN_HAND);
+                blockSlot++;
+            }
         }
 
         if (!lock.isEnabled()) mc.player.getInventory().selectedSlot = originalSlot;
