@@ -10,18 +10,19 @@ import acme.critical.module.settings.KeybindSetting;
 public class Flight extends Mod {
     public ModeSetting mode = new ModeSetting("Mode", "Velocity", "Velocity", "Saki", "Boat");
     public NumberSetting speed = new NumberSetting("Speed", 0.0, 5, 0.4, 0.1);
+    public BooleanSetting boatWave = new BooleanSetting("BoatWave", false);
     public BooleanSetting antiKick = new BooleanSetting("AntiKick", true);
     double oldY;
     int airTicks;
 
     public Flight() {
         super("Flight", "Allows you to fly.", Category.MOVEMENT);
-        addSettings(mode, speed, antiKick, new KeybindSetting("Key", 0));
+        addSettings(mode, speed, boatWave, antiKick, new KeybindSetting("Key", 0));
     }
 
     @Override
     public void onTick() {
-        if (antiKick.isEnabled() && mc.player.getY() >= oldY-0.04d) {
+        if (antiKick.isEnabled() && mc.player.getY() >= oldY-0.1d) {
             airTicks += 1;
         }
 
@@ -40,12 +41,13 @@ public class Flight extends Mod {
                 if(mc.player.hasVehicle()) {
                     Entity boat = mc.player.getVehicle();
                     if (mc.options.jumpKey.isPressed()) boat.addVelocity(0, speed.getValueFloat(), 0);
+                    if (!boatWave.isEnabled() && !mc.options.jumpKey.isPressed()) boat.setVelocity(boat.getVelocity().getX(), 0, boat.getVelocity().getZ());
                 }
             break;
         }
 
         if (antiKick.isEnabled() && airTicks > 20) {
-            mc.player.addVelocity(0, -0.04, 0);
+            mc.player.addVelocity(0, -0.1d, 0);
             airTicks = 0;
         }
         super.onTick();

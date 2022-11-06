@@ -54,6 +54,7 @@ public class ModMan {
         modules.add(new Friend());
         modules.add(new Nofall());
         modules.add(new Antiaim());
+        modules.add(new Clicktp());
         modules.add(new Infohud());
         modules.add(new Killaura());
         modules.add(new Scaffold());

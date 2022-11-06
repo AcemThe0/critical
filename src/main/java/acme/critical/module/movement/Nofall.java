@@ -1,20 +1,46 @@
 package acme.critical.module.movement;
 
 import acme.critical.module.Mod;
+import acme.critical.module.settings.ModeSetting;
 import acme.critical.module.settings.KeybindSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.OnGroundOnly;
 
 public class Nofall extends Mod {
+    public ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet", "Slow", "Lagback");
+    int ticksFallen;
 
     public Nofall() {
         super("Nofall", "Prevent fall damage.", Category.MOVEMENT);
-        addSetting(new KeybindSetting("Key", 0));
+        addSettings(mode, new KeybindSetting("Key", 0));
     }
 
-    //Add checks as to not spam packets
+
     @Override
     public void onTick() {
-            if (mc.player.fallDistance > 2) mc.player.networkHandler.sendPacket(new OnGroundOnly(true));
+            switch(mode.getMode()) {
+                case "Packet":
+                    if (mc.player.fallDistance > 2) {
+                        //Add checks as to not spam packets
+                        mc.player.networkHandler.sendPacket(new OnGroundOnly(true));
+                    }
+                break;
+                case "Slow":
+                    if (mc.player.fallDistance > 2) {
+                        ticksFallen +=1;
+                        if (ticksFallen > 8) {
+                            mc.player.setVelocity(0, 0.01, 0);
+                            ticksFallen = 0;
+                        }
+                    }
+                break;
+                case "Lagback":
+                    if (mc.player.fallDistance > 0.5) {
+                        //Try to trigger an anticheat to get rubberbanded
+                        mc.player.setPosition(mc.player.getX(), 500, mc.player.getZ());
+                    }
+                break;
+            }
+
         super.onTick();
     }
 }
