@@ -7,6 +7,7 @@
   ],
   "client": [
     "BlockMixin",
+    "MouseMixin",
     "KeyboardMixin",
     "InGameHudMixin",
     "SimpleOptionMixin",

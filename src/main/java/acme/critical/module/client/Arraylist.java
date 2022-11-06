@@ -9,6 +9,7 @@ public class Arraylist extends Mod {
     public Arraylist() {
         super("ModuleList", "Customization!", Category.CLIENT);
         addSetting(mode);
+        //removeSetting(key);
     }
 
     @Override

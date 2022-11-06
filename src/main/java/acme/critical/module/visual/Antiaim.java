@@ -1,6 +1,7 @@
 package acme.critical.module.visual;
 
 import acme.critical.module.Mod;
+import acme.critical.module.settings.KeybindSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class Antiaim extends Mod {
@@ -8,6 +9,7 @@ public class Antiaim extends Mod {
 
     public Antiaim() {
         super("AntiAim", "Moves your head.", Category.VISUAL);
+        addSetting(new KeybindSetting("Key", 0));
     }
 
 

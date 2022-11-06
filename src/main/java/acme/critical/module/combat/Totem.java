@@ -2,19 +2,20 @@ package acme.critical.module.combat;
 
 import java.util.List;
 import java.util.ArrayList;
-import org.lwjgl.glfw.GLFW;
 import net.minecraft.item.Item;
 import acme.critical.module.Mod;
 import net.minecraft.item.Items;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.SlotActionType;
+import acme.critical.module.settings.KeybindSetting;
 
 public class Totem extends Mod {
     int totems;
 
     public Totem() {
         super("Totem", "Replaces your totem.", Category.COMBAT);
+        addSetting(new KeybindSetting("Key", 0));
     }
 
     @Override

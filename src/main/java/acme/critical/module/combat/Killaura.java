@@ -28,8 +28,7 @@ public class Killaura extends Mod {
 
     public Killaura() {
         super("Killaura", "Attack entities in a radius.", Category.COMBAT);
-        addSettings(range, speed, attack, players, rotate, lock);
-        addSetting(new KeybindSetting("Key", 0));
+        addSettings(range, speed, attack, players, rotate, lock, new KeybindSetting("Key", 0));
     }
 
     @Override

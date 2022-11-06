@@ -23,8 +23,7 @@ import acme.critical.module.settings.KeybindSetting;
 
     public Xray() {
         super("Xray", "See blocks!", Category.VISUAL);
-        addSettings(mode, containers, other);
-        addSetting(new KeybindSetting("Key", 0));
+        addSettings(mode, containers, other, new KeybindSetting("Key", 0));
     }
 
     @Override

@@ -45,7 +45,7 @@ public class Keybind extends Component {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
-        DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());
+        DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 190).getRGB());
         mc.textRenderer.drawWithShadow(matrices, isBinding ? "Binding..." : "Keybind: " + binding.getKeyChar(binding.getKey()), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset, -1);
 
         super.render(matrices, mouseX, mouseY, delta);

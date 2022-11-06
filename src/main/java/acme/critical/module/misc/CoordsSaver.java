@@ -3,12 +3,14 @@ package acme.critical.module.misc;
 import acme.critical.module.Mod;
 import acme.critical.utils.MathUtils;
 import acme.critical.utils.ChatUtils;
+import acme.critical.module.settings.KeybindSetting;
 
 public class CoordsSaver extends Mod {
     int messagesSent = 0;
 
     public CoordsSaver() {
         super("CoordsSaver", "Displays your death coordinates", Category.MISC);
+        addSetting(new KeybindSetting("Key", 0));
     }
 
     @Override

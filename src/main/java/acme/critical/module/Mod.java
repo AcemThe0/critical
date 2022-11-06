@@ -3,8 +3,8 @@ package acme.critical.module;
 import java.util.List;
 import java.util.ArrayList;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.module.settings.Setting;
+import net.minecraft.client.util.math.MatrixStack;
 
 public class Mod {
     private int key;
@@ -21,6 +21,7 @@ public class Mod {
         this.name = name;
         this.desc = desc;
         this.category = category;
+
     }
 
     public List<Setting> getSettings() {
