@@ -2,6 +2,7 @@ package acme.critical.ui.screens.clickgui.setting;
 
 import java.awt.Color;
 import acme.critical.utils.MathUtils;
+import acme.critical.utils.ColorUtils;
 import acme.critical.module.settings.Setting;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
@@ -23,7 +24,7 @@ public class Slider extends Component{
         
         double diff = Math.min(parent.parent.width, Math.max(0, mouseX - parent.parent.x));
         int renderWidth = (int)(parent.parent.width * (numSet.getValue() - numSet.getMin()) / (numSet.getMax() - numSet.getMin()));
-        DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset+2, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height-2, new Color(0, 100, 255, 160).getRGB());
+        DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset+2, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height-2, ColorUtils.contrast());
         if (sliding) {
             if(diff == 0) {
                 numSet.setValue(numSet.getMin());

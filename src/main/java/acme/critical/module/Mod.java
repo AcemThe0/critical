@@ -104,7 +104,7 @@ public class Mod {
         MOVEMENT("Movement"),   //Movement
         VISUAL("Visual"),       //Visual
         MISC("Misc"),           //Misc
-        CLIENT("Client");       //HUD/Client
+        CLIENT("Client");       //HUD/GUI
 
         public String name;
 

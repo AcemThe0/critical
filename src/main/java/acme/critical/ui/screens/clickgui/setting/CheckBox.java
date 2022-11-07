@@ -1,6 +1,7 @@
 package acme.critical.ui.screens.clickgui.setting;
 
 import java.awt.Color;
+import acme.critical.utils.ColorUtils;
 import net.minecraft.client.MinecraftClient;
 import acme.critical.module.settings.Setting;
 import net.minecraft.client.gui.DrawableHelper;
@@ -24,7 +25,7 @@ public class CheckBox extends Component {
         DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());
 
         DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-16, parent.parent.y+parent.offset+offset+1, parent.parent.x + parent.parent.width-2, parent.parent.y + parent.offset + offset + parent.parent.height-1, Color.black.getRGB());
-        DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-14, parent.parent.y+parent.offset+offset+3, parent.parent.x + parent.parent.width-4, parent.parent.y + parent.offset + offset + parent.parent.height-3, boolSet.isEnabled() ? new Color(0, 100, 255, 160).getRGB() : Color.black.getRGB());
+        DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-14, parent.parent.y+parent.offset+offset+3, parent.parent.x + parent.parent.width-4, parent.parent.y + parent.offset + offset + parent.parent.height-3, boolSet.isEnabled() ? ColorUtils.contrast() : Color.black.getRGB());
         super.render(matrices, mouseX, mouseY, delta);
     }
 

@@ -7,6 +7,7 @@ import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.module.Mod.Category;
 import net.minecraft.client.MinecraftClient;
+import acme.critical.module.client.Clickgui;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.setting.Component;
@@ -85,6 +86,19 @@ public class Frame {
         for (ModuleButton mb : buttons) {
             mb.keyPressed(key);
         }
+        
+        if ((key == 265 || key == 264) && Clickgui.arrows.isEnabled()) scroll(key, 25);
+    }
+
+    public void scroll(int keyCode, int px) {
+        int pixels = 0;
+        //23*px(25) = 575, MUST change if fully extended module size changes, jank
+        if (keyCode == 265 && y >= -575) {
+            pixels = -px;
+        } else if (keyCode == 264 && y <= 575) {
+            pixels = px;
+        }
+        y += pixels;
     }
 
     public boolean isHovered(double mouseX, double mouseY) {
