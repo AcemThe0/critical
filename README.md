@@ -3,14 +3,14 @@
 ![](https://img.shields.io/tokei/lines/github/AcemThe0/critical?style=flat-square)
 ![](https://img.shields.io/github/languages/code-size/AcemThe0/critical?style=flat-square)
 
-**Ebin minecraft client (**No longer vcraft approved :(**)**
+**Ebin minecraft client** (*No longer vcraft approved :(*)
 
 ## Installation
-### Prebuilt
+### Precompiled
   Download the *critical-(version).jar*, under the *Releases* tab  
-  Place aformentioned jar in: /.minecraft/mods
+  Place aformentioned jar in: /.minecraft/mods/
 
-### Compile
+### Compile Source
   On Windows:
   > gradlew build
 
