@@ -3,6 +3,8 @@ package acme.critical.module.client;
 import java.util.ArrayList;
 import acme.critical.module.Mod;
 import net.minecraft.entity.Entity;
+import net.minecraft.world.GameMode;
+import acme.critical.utils.ChatUtils;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,14 +14,17 @@ import acme.critical.module.settings.BooleanSetting;
 public class Infohud extends Mod {
 	private BooleanSetting doDrawPos = new BooleanSetting("Pos", true);
 	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
+	private BooleanSetting doPing = new BooleanSetting("Ping", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
 
+	private ArrayList<String> spectators = new ArrayList<String>();
 	private ArrayList<String> TextLines = new ArrayList();
 	private String dim = "";
 	private String otherdim = "";
 	private String printedPos = "";
 	private String printedPosAlt = "";
+	private String printedPing = "";
 	private Vec3d playerPos = new Vec3d(0, 0, 0);
 	private Vec3d playerPosAlt = new Vec3d(0, 0, 0);
 
@@ -60,6 +65,9 @@ public class Infohud extends Mod {
 			otherdim, playerPosAlt.x, playerPosAlt.y, playerPosAlt.z
 		);
 
+		// format player ping
+		printedPing = String.format("Ping: %d", mc.getNetworkHandler().getPlayerListEntry(mc.player.getUuid()) == null ? 0 : mc.getNetworkHandler().getPlayerListEntry(mc.player.getUuid()).getLatency());
+
 		// add everything to TextLines
 		// these will be drawn in reverse order
 		TextLines.clear();
@@ -67,6 +75,8 @@ public class Infohud extends Mod {
 			TextLines.add(printedPosAlt);
 		if (doDrawPos.isEnabled())
 			TextLines.add(printedPos);
+		if (doPing.isEnabled())
+			TextLines.add(printedPing);
 	}
 
 	public void onRender2D(MatrixStack matrices, float tickDelta) {
@@ -84,4 +94,17 @@ public class Infohud extends Mod {
 			i++;
 		}
 	}
+
+	/*
+	public void antiSpectator(PlayerListEntry player) {
+		GameMode gamemode = player.getGameMode();
+		String name = player.getDisplayName().toString();
+		if (gamemode == GameMode.SPECTATOR && !(spectators.contains(name))) {
+			ChatUtils.warn(name + " is now a spectator!");
+			spectators.add(name);
+		} else if (!(gamemode == GameMode.SPECTATOR) && spectators.contains(name)) {
+			ChatUtils.warn(name + " is no longer a spectator");
+			spectators.remove(name);
+		}
+	}*/
 }

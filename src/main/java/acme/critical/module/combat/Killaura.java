@@ -19,16 +19,16 @@ import acme.critical.module.settings.KeybindSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class Killaura extends Mod {
-    public BooleanSetting lock = new BooleanSetting("Lock", false);
-    public BooleanSetting attack = new BooleanSetting("Attack", true);
-    public BooleanSetting players = new BooleanSetting("JustPlayers", true);
-    public NumberSetting range = new NumberSetting("Range", 1, 10, 4, 1);
-    public ModeSetting rotate = new ModeSetting("Rotate", "Snap", "Snap", "None");
-    public ModeSetting speed = new ModeSetting("Speed", "Cooldwn", "Cooldwn", "Spam");
+    private ModeSetting speed = new ModeSetting("Speed", "Cooldwn", "Cooldwn", "Spam");
+    private NumberSetting range = new NumberSetting("Range", 1, 10, 4, 1);
+    private BooleanSetting attack = new BooleanSetting("Attack", true);
+    private BooleanSetting players = new BooleanSetting("JustPlayers", true);
+    private ModeSetting rotate = new ModeSetting("Rotate", "Snap", "Snap", "None");
+    private BooleanSetting lock = new BooleanSetting("Lock", false);
 
     public Killaura() {
         super("Killaura", "Attack entities in a radius.", Category.COMBAT);
-        addSettings(range, speed, attack, players, rotate, lock, new KeybindSetting("Key", 0));
+        addSettings(speed, range, attack, players, rotate, lock, new KeybindSetting("Key", 0));
     }
 
     @Override

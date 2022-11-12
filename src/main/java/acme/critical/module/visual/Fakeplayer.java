@@ -6,7 +6,8 @@ import acme.critical.utils.FakePlayer;
 import acme.critical.module.settings.KeybindSetting;;
 
 public class Fakeplayer extends Mod {
-    private FakePlayer fakeplayer;
+    FakePlayer fakeplayer;
+    
     public Fakeplayer() {
         super("Fakeplayer", "Spawns a client-side player.", Category.VISUAL);
         addSetting(new KeybindSetting("Key", 0));
@@ -15,6 +16,7 @@ public class Fakeplayer extends Mod {
     @Override
     public void onEnable() {
         fakeplayer = new FakePlayer();
+        fakeplayer.spawn();
     }
 
     @Override

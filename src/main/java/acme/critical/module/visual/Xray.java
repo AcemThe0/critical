@@ -28,6 +28,8 @@ import acme.critical.module.settings.KeybindSetting;
 
     @Override
     public void onEnable() {
+        mc.chunkCullingEnabled = false;
+
         mc.worldRenderer.reload();
         xrayEnabled = true;
 
@@ -39,6 +41,7 @@ import acme.critical.module.settings.KeybindSetting;
 
     @Override
     public void onDisable() {
+        mc.chunkCullingEnabled = true;
         xrayEnabled = false;
 
         if(Nightvision.nightvisionEnabled){Nightvision.setGamma(255.0f);}else{Nightvision.setGamma(1.0f);}

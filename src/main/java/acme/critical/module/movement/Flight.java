@@ -8,10 +8,10 @@ import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Flight extends Mod {
-    public ModeSetting mode = new ModeSetting("Mode", "Velocity", "Velocity", "Saki", "Boat");
-    public NumberSetting speed = new NumberSetting("Speed", 0.0, 5, 0.4, 0.1);
-    public BooleanSetting boatWave = new BooleanSetting("BoatWave", false);
-    public BooleanSetting antiKick = new BooleanSetting("AntiKick", true);
+    private ModeSetting mode = new ModeSetting("Mode", "Velocity", "Velocity", "Saki", "Boat");
+    private NumberSetting speed = new NumberSetting("Speed", 0.0, 5, 0.4, 0.1);
+    private BooleanSetting boatWave = new BooleanSetting("BoatWave", false);
+    private BooleanSetting antiKick = new BooleanSetting("AntiKick", true);
     double oldY;
     int airTicks;
 

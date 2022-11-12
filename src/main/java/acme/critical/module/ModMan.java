@@ -48,6 +48,7 @@ public class ModMan {
         modules.add(new Auto());
         modules.add(new Mhop());
         modules.add(new Xray());
+        modules.add(new Crash());
         modules.add(new Speed());
         modules.add(new Totem());
         modules.add(new Vclip());
@@ -57,6 +58,7 @@ public class ModMan {
         modules.add(new Antiaim());
         modules.add(new Clicktp());
         modules.add(new Infohud());
+        modules.add(new Nodeath());
         modules.add(new Clickgui());
         modules.add(new Killaura());
         modules.add(new Scaffold());

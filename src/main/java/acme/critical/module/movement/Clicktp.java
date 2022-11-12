@@ -13,8 +13,8 @@ import acme.critical.module.settings.KeybindSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class Clicktp extends Mod {
-    public NumberSetting distance = new NumberSetting("Distance", 0, 20, 6, 1);
-    public ModeSetting mode = new ModeSetting("Mode", "Teleport", "Teleport", "Packet");
+    private NumberSetting distance = new NumberSetting("Distance", 0, 20, 6, 1);
+    private ModeSetting mode = new ModeSetting("Mode", "Teleport", "Teleport", "Packet");
 
     public Clicktp() {
         super("ClickTP", "Teleports you on the block you click!", Category.MOVEMENT);

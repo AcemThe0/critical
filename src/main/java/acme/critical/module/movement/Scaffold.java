@@ -15,9 +15,9 @@ import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Scaffold extends Mod {
-    public BooleanSetting lock = new BooleanSetting("Lock", true);
-    public BooleanSetting swing = new BooleanSetting("Swing", true);
-    public ModeSetting type = new ModeSetting("Type", "Single", "Single", "Cycle");
+    private BooleanSetting lock = new BooleanSetting("Lock", true);
+    private BooleanSetting swing = new BooleanSetting("Swing", true);
+    private ModeSetting type = new ModeSetting("Type", "Single", "Single", "Cycle");
 
     int slot;
     int originalSlot = 0;

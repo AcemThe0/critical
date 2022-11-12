@@ -9,6 +9,7 @@ import acme.critical.module.settings.KeybindSetting;
 
 public class Friend extends Mod {
     public static boolean friendEnabled = false;
+
     public Friend() {
         super("Friend", "Middle click friend.", Category.MISC);
         addSetting(new KeybindSetting("Key", 0));
@@ -40,6 +41,6 @@ public class Friend extends Mod {
 
             addedstr = added ? " \u00a7aAdded" : " \u00a74Removed";
             ChatUtils.message(entityName + addedstr);
-        } else {ChatUtils.warn("Look at player!");}
+        } else {ChatUtils.error("Look at player!");}
     }
 }

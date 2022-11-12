@@ -6,7 +6,7 @@ import acme.critical.module.settings.NumberSetting;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Vclip extends Mod {
-    public static NumberSetting distance = new NumberSetting("Distance", -9, 9, 3, 1);
+    private NumberSetting distance = new NumberSetting("Distance", -9, 9, 3, 1);
 
     public Vclip() {
         super("Vclip", "Changes the speed of the game.", Category.MOVEMENT);

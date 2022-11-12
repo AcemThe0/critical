@@ -6,7 +6,7 @@ import acme.critical.module.settings.KeybindSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.OnGroundOnly;
 
 public class Nofall extends Mod {
-    public ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet", "Slow", "Lagback");
+    private ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet", "Slow");
     int ticksFallen;
 
     public Nofall() {
@@ -31,12 +31,6 @@ public class Nofall extends Mod {
                             mc.player.setVelocity(0, 0.01, 0);
                             ticksFallen = 0;
                         }
-                    }
-                break;
-                case "Lagback":
-                    if (mc.player.fallDistance > 0.5) {
-                        //Try to trigger an anticheat to get rubberbanded
-                        mc.player.setPosition(mc.player.getX(), 500, mc.player.getZ());
                     }
                 break;
             }
