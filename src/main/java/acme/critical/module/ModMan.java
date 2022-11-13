@@ -20,6 +20,10 @@ public class ModMan {
         addModules();
     }
 
+    public <T extends Mod> T getMod(Class<T> clasS) {
+        return (T) modules.stream().filter(mod -> mod.getClass() == clasS).findFirst().orElse(null);
+    }
+
     public List<Mod> getModules() {
         return modules;
     }

@@ -1,5 +1,6 @@
 package acme.critical.mixin;
 
+import acme.critical.module.ModMan;
 import acme.critical.module.visual.Xray;
 import net.minecraft.block.AbstractBlock;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AbstractBlockStateMixin {
     @Inject(method = "getLuminance", at = @At("HEAD"), cancellable = true)
     public void getLuminance(CallbackInfoReturnable<Integer> cir) {
-        if (Xray.xrayEnabled) cir.setReturnValue(15);
+        Xray xray = ModMan.INSTANCE.getMod(Xray.class);
+        if (xray.isEnabled()) cir.setReturnValue(15);
     }
 }

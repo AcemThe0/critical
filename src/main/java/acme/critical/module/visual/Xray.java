@@ -31,7 +31,6 @@ import acme.critical.module.settings.KeybindSetting;
         mc.chunkCullingEnabled = false;
 
         mc.worldRenderer.reload();
-        xrayEnabled = true;
 
         Registry.BLOCK.forEach(block -> {
             if (targetBlock(block)) {blocks.add(block);}else{blocks.remove(block);}
@@ -42,7 +41,6 @@ import acme.critical.module.settings.KeybindSetting;
     @Override
     public void onDisable() {
         mc.chunkCullingEnabled = true;
-        xrayEnabled = false;
 
         if(Nightvision.nightvisionEnabled){Nightvision.setGamma(255.0f);}else{Nightvision.setGamma(1.0f);}
         mc.worldRenderer.reload();
