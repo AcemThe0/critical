@@ -82,6 +82,8 @@ public class Infohud extends Mod {
 			TextLines.add(printedPos);
 		if (doPing.isEnabled())
 			TextLines.add(printedPing);
+
+		if (doGamemodes.isEnabled()) {mc.options.playerListKey.setPressed(true);}
 	}
 
 	public void onRender2D(MatrixStack matrices, float tickDelta) {
@@ -100,7 +102,6 @@ public class Infohud extends Mod {
 		}
 	}
 
-	if (doGamemodes.isEnabled()) mc.options.playerListKey.setPressed(true);
 	public Text displayGamemode(PlayerListEntry player) {
 		Text name = player.getDisplayName();
 		name = name==null ? Text.literal(player.getProfile().getName()) : player.getDisplayName();
