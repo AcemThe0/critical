@@ -13,6 +13,7 @@
     "SimpleOptionMixin",
     "PlayerListHudMixin",
     "MinecraftClientMixin",
+    "ClientConnectionMixin",
     "RenderTickCounterMixin",
     "AbstractBlockStateMixin",
     "ClientPlayerEntityAccessor",

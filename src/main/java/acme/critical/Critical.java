@@ -8,19 +8,25 @@ import org.slf4j.LoggerFactory;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import net.fabricmc.api.ModInitializer;
+import org.apache.logging.log4j.LogManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.ClickGUI;
+import acme.critical.event.eventbus.CriticalEventBus;
+import acme.critical.event.eventbus.InexactEventHandler;
 
 public class Critical implements ModInitializer {
     public static final Critical INSTANCE = new Critical();
 
+    public static CriticalEventBus eventBus;
+    public static final org.apache.logging.log4j.Logger EventLogger = LogManager.getFormatterLogger("critical");
     public static final Logger logger = LoggerFactory.getLogger("critical");
     private MinecraftClient mc = MinecraftClient.getInstance();
     
     //No longer vcraft approved :(
     @Override
     public void onInitialize() {
+        eventBus = new CriticalEventBus(new InexactEventHandler("critical"), Critical.EventLogger);
         logger.info("...");
     }
     List<Mod> enabledModules = new ArrayList<>();

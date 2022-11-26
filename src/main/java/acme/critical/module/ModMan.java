@@ -52,7 +52,7 @@ public class ModMan {
         modules.add(new Auto());
         modules.add(new Mhop());
         modules.add(new Xray());
-        modules.add(new Crash());
+        modules.add(new Blink());
         modules.add(new Speed());
         modules.add(new Totem());
         modules.add(new Vclip());

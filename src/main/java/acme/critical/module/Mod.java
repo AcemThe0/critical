@@ -2,6 +2,7 @@ package acme.critical.module;
 
 import java.util.List;
 import java.util.ArrayList;
+import acme.critical.Critical;
 import net.minecraft.client.MinecraftClient;
 import acme.critical.module.settings.Setting;
 import net.minecraft.client.util.math.MatrixStack;
@@ -12,6 +13,7 @@ public class Mod {
     private String desc;
     private boolean enabled;
     private Category category;
+    private boolean subscribed;
 
     private List<Setting> settings = new ArrayList<>();
 
