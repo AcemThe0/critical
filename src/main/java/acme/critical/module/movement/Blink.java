@@ -25,7 +25,6 @@ public class Blink extends Mod {
         if (event.getPacket() instanceof PlayerMoveC2SPacket) {
             packets.add((PlayerMoveC2SPacket) event.getPacket());
             event.setCancelled(true);
-            Critical.logger.info("Cancelled");
         }
     }
 
