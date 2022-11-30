@@ -61,6 +61,7 @@ public class ModMan {
         modules.add(new Nofall());
         modules.add(new Antiaim());
         modules.add(new Clicktp());
+        modules.add(new Freecam());
         modules.add(new Infohud());
         modules.add(new Nodeath());
         modules.add(new Clickgui());

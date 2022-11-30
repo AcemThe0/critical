@@ -16,7 +16,7 @@
     "ClientConnectionMixin",
     "RenderTickCounterMixin",
     "AbstractBlockStateMixin",
-    "ClientPlayerEntityAccessor",
+    "ClientPlayerEntityMixin",
     "PlayerMoveC2SPacketAccessor",
     "RenderEntityDispatcherMixin"
   ],

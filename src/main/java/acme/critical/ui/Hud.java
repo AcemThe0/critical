@@ -14,7 +14,7 @@ public class Hud {
     private static MinecraftClient mc = MinecraftClient.getInstance();
 
     public static void render(MatrixStack matrices, float tickDelta) {
-        mc.textRenderer.drawWithShadow(matrices, "Critical", 1, 1, -1);
+        mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.2.0)", 1, 1, -1);
         renderArrayList(matrices);
     }
 

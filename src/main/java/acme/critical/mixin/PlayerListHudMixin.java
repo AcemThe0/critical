@@ -15,6 +15,6 @@ public class PlayerListHudMixin {
     public void getPlayerName(PlayerListEntry playerListEntry, CallbackInfoReturnable<Text> cir) {
         Infohud infohud = ModMan.INSTANCE.getMod(Infohud.class);
 
-        if (infohud.isEnabled() && infohud.doGamemodes.isEnabled()) cir.setReturnValue(infohud.displayGamemode(playerListEntry));
+        if (infohud.isEnabled() && infohud.doTablist.isEnabled()) cir.setReturnValue(infohud.displayGamemode(playerListEntry));
     }
 }

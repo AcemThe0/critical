@@ -18,8 +18,8 @@ public class Infohud extends Mod {
 	private BooleanSetting doDrawPos = new BooleanSetting("Pos", true);
 	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
 	private BooleanSetting doPing = new BooleanSetting("Ping", true);
-	public static BooleanSetting doGamemodes = new BooleanSetting("Gamemodes", true);
-	public static BooleanSetting doAlarm = new BooleanSetting("JannyAlarm", true);
+	public static BooleanSetting doVersion = new BooleanSetting("Version", true);
+	public static BooleanSetting doTablist = new BooleanSetting("Gamemodes", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -35,7 +35,7 @@ public class Infohud extends Mod {
 
 	public Infohud() {
 		super("InfoHud", "Show additional info in hud.", Category.CLIENT);
-		addSettings(doDrawPos, doDrawPosAlt, doPing, doGamemodes, doAlarm);
+		addSettings(doDrawPos, doDrawPosAlt, doPing, doVersion, doTablist);
 	}
 
 	public void onTick() {
@@ -82,8 +82,6 @@ public class Infohud extends Mod {
 			TextLines.add(printedPos);
 		if (doPing.isEnabled())
 			TextLines.add(printedPing);
-
-		if (doGamemodes.isEnabled()) {mc.options.playerListKey.setPressed(true);}
 	}
 
 	public void onRender2D(MatrixStack matrices, float tickDelta) {
@@ -110,21 +108,11 @@ public class Infohud extends Mod {
 
 		if (gamemode != null) {
 			gamemodeText = switch (gamemode) {
-				case SPECTATOR -> "SPEC";
+				case SPECTATOR -> "SP";
 				case SURVIVAL -> "SV";
 				case CREATIVE -> "CR";
-				case ADVENTURE -> "ADV";
+				case ADVENTURE -> "AD";
 			};
-			if (doAlarm.isEnabled()) {
-				String chatName = name.toString();
-				if (gamemode == GameMode.SPECTATOR && !(spectators.contains(chatName))) {
-					ChatUtils.sendMsg(chatName + " is now a spectator!");
-					spectators.add(chatName);
-				} else if (!(gamemode == GameMode.SPECTATOR) && spectators.contains(chatName)) {
-					ChatUtils.sendMsg(chatName + " is no longer a spectator!");
-					spectators.remove(chatName);
-				}
-			}
 		}
 		MutableText text = Text.literal("");
 		text.append(name);

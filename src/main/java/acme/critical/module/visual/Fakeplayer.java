@@ -1,7 +1,6 @@
 package acme.critical.module.visual;
 
 import acme.critical.module.Mod;
-import acme.critical.utils.ChatUtils;
 import acme.critical.utils.FakePlayer;
 import acme.critical.module.settings.KeybindSetting;;
 
