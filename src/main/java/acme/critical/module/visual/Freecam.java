@@ -45,7 +45,7 @@ public class Freecam extends Mod {
         if (mc.cameraEntity.isInsideWall()) mc.getCameraEntity().noClip = true;
         
         mc.player.setVelocity(0, 0, 0);
-        mc.player.setOnGround(false);
+        //mc.player.setOnGround(false);
         mc.player.setPose(EntityPose.STANDING);
 
         if (mc.player.forwardSpeed != 0 || mc.player.sidewaysSpeed != 0) {

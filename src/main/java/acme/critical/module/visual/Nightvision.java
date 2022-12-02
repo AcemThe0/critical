@@ -8,7 +8,7 @@ public class Nightvision extends Mod {
     public static boolean nightvisionEnabled = false;
 
     public Nightvision() {
-        super("Nightvision", "Dark b gone", Category.VISUAL);
+        super("Nightvision", "Dark b gone!", Category.VISUAL);
         addSetting(new KeybindSetting("Key", 0));
     }
 

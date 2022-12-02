@@ -18,7 +18,6 @@ public class Infohud extends Mod {
 	private BooleanSetting doDrawPos = new BooleanSetting("Pos", true);
 	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
 	private BooleanSetting doPing = new BooleanSetting("Ping", true);
-	public static BooleanSetting doVersion = new BooleanSetting("Version", true);
 	public static BooleanSetting doTablist = new BooleanSetting("Gamemodes", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
@@ -35,7 +34,7 @@ public class Infohud extends Mod {
 
 	public Infohud() {
 		super("InfoHud", "Show additional info in hud.", Category.CLIENT);
-		addSettings(doDrawPos, doDrawPosAlt, doPing, doVersion, doTablist);
+		addSettings(doDrawPos, doDrawPosAlt, doPing, doTablist);
 	}
 
 	public void onTick() {

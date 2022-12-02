@@ -9,7 +9,7 @@ public class CoordsSaver extends Mod {
     int messagesSent = 0;
 
     public CoordsSaver() {
-        super("CoordsSaver", "Displays your death coordinates", Category.MISC);
+        super("CoordsSaver", "Displays your death coordinates.", Category.MISC);
         addSetting(new KeybindSetting("Key", 0));
     }
 

@@ -9,7 +9,7 @@ public class Vclip extends Mod {
     private NumberSetting distance = new NumberSetting("Distance", -9, 9, 3, 1);
 
     public Vclip() {
-        super("Vclip", "Changes the speed of the game.", Category.MOVEMENT);
+        super("Vclip", "Clips you on the Y axis.", Category.MOVEMENT);
         addSettings(distance, new KeybindSetting("Key", 0));
     }
 

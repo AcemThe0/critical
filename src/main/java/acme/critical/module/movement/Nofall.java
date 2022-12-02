@@ -10,7 +10,7 @@ public class Nofall extends Mod {
     int ticksFallen;
 
     public Nofall() {
-        super("Nofall", "Prevent fall damage.", Category.MOVEMENT);
+        super("Nofall", "Prevents fall damage.", Category.MOVEMENT);
         addSettings(mode, new KeybindSetting("Key", 0));
     }
 
