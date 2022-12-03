@@ -60,7 +60,7 @@ public class ModMan {
         modules.add(new Friend());
         modules.add(new Nofall());
         modules.add(new Antiaim());
-        modules.add(new Antibot());
+        modules.add(new Anticheat());
         modules.add(new Clicktp());
         modules.add(new Freecam());
         modules.add(new Infohud());

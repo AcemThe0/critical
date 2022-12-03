@@ -12,7 +12,7 @@ import acme.critical.module.settings.KeybindSetting;
 import acme.critical.event.eventbus.CriticalSubscribe;
 
 public class Flight extends Mod {
-    private ModeSetting mode = new ModeSetting("Mode", "Velocity", "Velocity", "Saki", "Elytra", "Boat", "NoClip");
+    private ModeSetting mode = new ModeSetting("Mode", "Velocity", "Velocity", "Saki", "Elytra", "Boat", "NoClip", "AirWalk");
     private NumberSetting speed = new NumberSetting("Speed", 0.0, 5, 0.4, 0.1);
 
     public Flight() {
@@ -54,6 +54,11 @@ public class Flight extends Mod {
             mc.player.setOnGround(false);
             mc.player.getAbilities().flying = true;
             break;
+            case "AirWalk":
+                mc.player.setOnGround(true);
+                mc.player.setVelocity(mc.player.getVelocity().x, 0, mc.player.getVelocity().z);
+                mc.options.jumpKey.setPressed(false);
+            break;
         }
         super.onTick();
     }
@@ -66,11 +71,12 @@ public class Flight extends Mod {
     @Override
     public void onDisable() {
         Critical.INSTANCE.eventBus.unsubscribe(this);
+        mc.player.getAbilities().flying = false;
     }
 
     @CriticalSubscribe
     public void onClientMove(EventClientMove event) {
-        mc.player.noClip = true;
+        if (mode.getMode() == "NoClip") mc.player.noClip = true;
     }
 
 }

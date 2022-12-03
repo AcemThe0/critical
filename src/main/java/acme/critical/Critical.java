@@ -10,6 +10,7 @@ import acme.critical.module.ModMan;
 import net.fabricmc.api.ModInitializer;
 import org.apache.logging.log4j.LogManager;
 import net.minecraft.client.MinecraftClient;
+import acme.critical.module.client.Clickgui;
 import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.ClickGUI;
 import acme.critical.event.eventbus.CriticalEventBus;

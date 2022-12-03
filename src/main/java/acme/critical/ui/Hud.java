@@ -12,9 +12,10 @@ import net.minecraft.client.util.math.MatrixStack;
 
 public class Hud {
     private static MinecraftClient mc = MinecraftClient.getInstance();
+    static int fHeight = mc.textRenderer.fontHeight;
 
     public static void render(MatrixStack matrices, float tickDelta) {
-        mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.2.1)", 1, 1, -1);
+        mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.2.2)", 1, 1, -1);
         renderArrayList(matrices);
     }
 
@@ -27,9 +28,10 @@ public class Hud {
 
             //There is probably a way to make this neater
             for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
-                DrawableHelper.fill(matrices, scaledWidth-3, 1+(index*mc.textRenderer.fontHeight), scaledWidth-1, mc.textRenderer.fontHeight+2+(index*mc.textRenderer.fontHeight), ColorUtils.arraylistColor(Clickgui.arraylist.getMode(), index, module.getCategory().name));
-                DrawableHelper.fill(matrices, scaledWidth-5-mc.textRenderer.getWidth(module.getName()), 1+(index*mc.textRenderer.fontHeight), scaledWidth-3, mc.textRenderer.fontHeight+2+(index*mc.textRenderer.fontHeight), new Color(0, 0, 0, 160).getRGB());
-                mc.textRenderer.drawWithShadow(matrices, module.getName(), scaledWidth-4-mc.textRenderer.getWidth(module.getName()), 2+(index*mc.textRenderer.fontHeight), -1);
+                int modWidth = mc.textRenderer.getWidth(module.getName());
+                DrawableHelper.fill(matrices, scaledWidth-3, 1+(index*fHeight), scaledWidth-1, fHeight+2+(index*fHeight), ColorUtils.arraylistColor(Clickgui.arraylist.getMode(), index, module.getCategory().name));
+                DrawableHelper.fill(matrices, scaledWidth-5-modWidth, 1+(index*fHeight), scaledWidth-3, fHeight+2+(index*fHeight), new Color(0, 0, 0, 160).getRGB());
+                mc.textRenderer.drawWithShadow(matrices, module.getName(), scaledWidth-4-modWidth, 2+(index*fHeight), -1);
                 index++;
             }
         }

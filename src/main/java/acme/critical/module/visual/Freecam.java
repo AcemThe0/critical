@@ -45,7 +45,6 @@ public class Freecam extends Mod {
         if (mc.cameraEntity.isInsideWall()) mc.getCameraEntity().noClip = true;
         
         mc.player.setVelocity(0, 0, 0);
-        //mc.player.setOnGround(false);
         mc.player.setPose(EntityPose.STANDING);
 
         if (mc.player.forwardSpeed != 0 || mc.player.sidewaysSpeed != 0) {
@@ -73,7 +72,6 @@ public class Freecam extends Mod {
     @CriticalSubscribe
     public void sendPacket(EventPacket.Send event) {
         if (event.getPacket() instanceof PlayerMoveC2SPacket || event.getPacket() instanceof ClientCommandC2SPacket) {
-            mc.player.noClip = true;
             event.setCancelled(true);
         }
     }

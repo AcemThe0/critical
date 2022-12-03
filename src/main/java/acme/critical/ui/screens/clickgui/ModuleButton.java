@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.ArrayList;
 import acme.critical.module.Mod;
+import acme.critical.utils.ColorUtils;
 import acme.critical.module.settings.*;
 import acme.critical.module.client.Clickgui;
 import net.minecraft.client.MinecraftClient;
@@ -44,12 +45,14 @@ public class ModuleButton {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 
-        DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 160).getRGB());
+        DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 190).getRGB());
         if(isHovered(mouseX, mouseY)) {
-            DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 160).getRGB());
+            DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 140).getRGB());
 
             if (Clickgui.descriptions.isEnabled()) {
-                DrawableHelper.fill(matrices, widthOffset, 1, MinecraftClient.getInstance().textRenderer.getWidth(module.getDesc())+3+widthOffset, MinecraftClient.getInstance().textRenderer.fontHeight+3, new Color(0, 0, 0, 160).getRGB());
+                int startOffset = MinecraftClient.getInstance().textRenderer.getWidth(module.getDesc())+3+widthOffset;
+                DrawableHelper.fill(matrices, widthOffset, 1, startOffset, MinecraftClient.getInstance().textRenderer.fontHeight+3, new Color(0, 0, 0, 160).getRGB());
+                DrawableHelper.fill(matrices, startOffset, 1, startOffset+2, MinecraftClient.getInstance().textRenderer.fontHeight+3, ColorUtils.contrast());
                 parent.mc.textRenderer.drawWithShadow(matrices, module.getDesc(), widthOffset+2, 3, -1);
             }
         }
