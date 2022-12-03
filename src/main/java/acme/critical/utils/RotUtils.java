@@ -22,4 +22,10 @@ public class RotUtils {
 
         return mc.player.getPitch() + MathHelper.wrapDegrees((float) - Math.toDegrees(Math.atan2(diffY, diffXZ)) - mc.player.getPitch());
     }
+
+    public static float angleDistance(Entity entity) {
+        float eYaw = Math.abs(getYawToEnt(entity) - mc.player.getYaw());
+        float ePitch = Math.abs(getPitchToEnt(entity) - mc.player.getPitch());
+        return eYaw+ePitch;
+    }
 }

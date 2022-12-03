@@ -19,16 +19,17 @@ import acme.critical.module.settings.KeybindSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class Killaura extends Mod {
+    private NumberSetting range = new NumberSetting("Range", 1, 10, 4, 0.1);
     private ModeSetting speed = new ModeSetting("Speed", "Cooldwn", "Cooldwn", "Spam");
-    private NumberSetting range = new NumberSetting("Range", 1, 10, 4, 1);
-    private BooleanSetting attack = new BooleanSetting("Attack", true);
-    private BooleanSetting players = new BooleanSetting("JustPlayers", true);
     private ModeSetting rotate = new ModeSetting("Rotate", "Snap", "Snap", "None");
+    private ModeSetting priority = new ModeSetting("Priority", "Angle", "Angle", "Health");
+    private BooleanSetting attack = new BooleanSetting("Attack", true);
     private BooleanSetting lock = new BooleanSetting("Lock", false);
+    private BooleanSetting players = new BooleanSetting("JustPlayers", true);
 
     public Killaura() {
         super("Killaura", "Attack entities in a radius.", Category.COMBAT);
-        addSettings(speed, range, attack, players, rotate, lock, new KeybindSetting("Key", 0));
+        addSettings(range, speed, rotate, priority, attack, lock, players, new KeybindSetting("Key", 0));
     }
 
     @Override
@@ -37,13 +38,7 @@ public class Killaura extends Mod {
             List<Entity> targets = new ArrayList<>();
             Entity target;
 
-            for (Entity entity : mc.world.getEntities()) {
-                if (entity instanceof LivingEntity && entity != mc.player && !FriendsUtils.friends.contains(entity.getEntityName()) && mc.player.distanceTo(entity) <= range.getValueInt()) {
-                    if (players.isEnabled() && !entity.isPlayer()) {;}
-                    else {targets.add(entity);}
-                }
-                targets.sort(Comparator.comparingDouble(ent -> mc.player.distanceTo(entity)));
-            }
+            sortKA(targets);
 
             if (targets.size() >= 1) {
                 target = targets.get(0);
@@ -65,10 +60,10 @@ public class Killaura extends Mod {
                 if (attack.isEnabled()) {
                     switch(speed.getMode()) {
                         case "Cooldwn":
-                            if (mc.player.getAttackCooldownProgress(0.5f) == 1) {attack(mc.player, target);}
+                            if (mc.player.getAttackCooldownProgress(0.5f) == 1) {attack(target);}
                         break;
                         case "Spam":
-                            attack(mc.player, target);
+                            attack(target);
                         break;
                     }
                 }
@@ -77,7 +72,25 @@ public class Killaura extends Mod {
     super.onTick();
     }
 
-    public void attack(Entity player, Entity target) {
+    private void sortKA(List<Entity> targets) {
+        for (Entity entity : mc.world.getEntities()) {
+            if (entity instanceof LivingEntity && entity != mc.player && !FriendsUtils.friends.contains(entity.getEntityName()) && mc.player.distanceTo(entity) <= range.getValueFloat()) {
+                if (players.isEnabled() && !entity.isPlayer()) {;}
+                else {targets.add(entity);}
+            }
+        }
+        targets.sort(Comparator.comparingDouble(ent -> mc.player.distanceTo(ent)));
+        switch (priority.getMode()) {
+            case "Health":
+                targets.sort(Comparator.comparingDouble(ent -> ((LivingEntity)ent).getHealth()));
+            break;
+            case "Angle":
+                targets.sort(Comparator.comparingDouble(ent -> RotUtils.angleDistance(ent)));
+            break;
+        }
+    }
+
+    public void attack(Entity target) {
         mc.interactionManager.attackEntity(mc.player, target); //Attack
         mc.player.swingHand(Hand.MAIN_HAND); //Visually swing hand
     }
