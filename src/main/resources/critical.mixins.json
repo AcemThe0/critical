@@ -18,7 +18,8 @@
     "AbstractBlockStateMixin",
     "ClientPlayerEntityMixin",
     "PlayerMoveC2SPacketAccessor",
-    "RenderEntityDispatcherMixin"
+    "RenderEntityDispatcherMixin",
+    "CustomPayloadC2SPacketAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

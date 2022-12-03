@@ -54,13 +54,13 @@ public class ModMan {
         modules.add(new Xray());
         modules.add(new Blink());
         modules.add(new Speed());
+        modules.add(new Spoof());
         modules.add(new Totem());
         modules.add(new Vclip());
         modules.add(new Flight());
         modules.add(new Friend());
         modules.add(new Nofall());
         modules.add(new Antiaim());
-        modules.add(new Anticheat());
         modules.add(new Clicktp());
         modules.add(new Freecam());
         modules.add(new Infohud());
@@ -69,6 +69,7 @@ public class ModMan {
         modules.add(new Killaura());
         modules.add(new Scaffold());
         modules.add(new Wallhack());
+        modules.add(new Anticheat());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
