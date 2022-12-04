@@ -55,6 +55,7 @@ public class ModMan {
         modules.add(new Blink());
         modules.add(new Speed());
         modules.add(new Spoof());
+        modules.add(new Step());
         modules.add(new Totem());
         modules.add(new Vclip());
         modules.add(new Flight());
