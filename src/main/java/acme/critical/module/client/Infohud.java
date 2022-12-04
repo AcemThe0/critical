@@ -18,6 +18,7 @@ public class Infohud extends Mod {
 	private BooleanSetting doDrawPos = new BooleanSetting("Pos", true);
 	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
 	private BooleanSetting doPing = new BooleanSetting("Ping", true);
+	private BooleanSetting doSpeed = new BooleanSetting("Speed", true);
 	public static BooleanSetting doTablist = new BooleanSetting("Gamemodes", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
@@ -28,13 +29,15 @@ public class Infohud extends Mod {
 	private String otherdim = "";
 	private String printedPos = "";
 	private String printedPosAlt = "";
+	private String printedSpeed = "";
 	private String printedPing = "";
 	private Vec3d playerPos = new Vec3d(0, 0, 0);
 	private Vec3d playerPosAlt = new Vec3d(0, 0, 0);
+	private Vec3d playerVec = new Vec3d(0, 0, 0);
 
 	public Infohud() {
 		super("InfoHud", "Show additional info in hud.", Category.CLIENT);
-		addSettings(doDrawPos, doDrawPosAlt, doPing, doTablist);
+		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing, doTablist);
 	}
 
 	public void onTick() {
@@ -46,6 +49,8 @@ public class Infohud extends Mod {
 		);
 
 		// format player nether position
+		// strange switch case should hopefully prevent issues with servers that
+		// change the overworld DIM name
 		dim = mc.world.getRegistryKey().getValue().getPath();
 		switch (dim) {
 			case "the_nether":
@@ -69,6 +74,17 @@ public class Infohud extends Mod {
 			otherdim, playerPosAlt.x, playerPosAlt.y, playerPosAlt.z
 		);
 
+		// format player speed
+		playerVec = new Vec3d(
+			playerPos.x - mc.player.prevX,
+			0,
+			playerPos.z - mc.player.prevZ
+		).multiply(20);
+		printedSpeed = String.format(
+			"Speed: %.01f",
+			Math.abs(Math.sqrt(playerVec.x * playerVec.x + playerVec.z * playerVec.z))
+		);
+
 		// format player ping
 		printedPing = String.format("Ping: %d", mc.getNetworkHandler().getPlayerListEntry(mc.player.getUuid()) == null ? 0 : mc.getNetworkHandler().getPlayerListEntry(mc.player.getUuid()).getLatency());
 
@@ -79,6 +95,8 @@ public class Infohud extends Mod {
 			TextLines.add(printedPosAlt);
 		if (doDrawPos.isEnabled())
 			TextLines.add(printedPos);
+		if (doSpeed.isEnabled())
+			TextLines.add(printedSpeed);
 		if (doPing.isEnabled())
 			TextLines.add(printedPing);
 	}
