@@ -6,6 +6,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import acme.critical.module.visual.Xray;
+import acme.critical.module.movement.Slip;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,5 +30,13 @@ public class BlockMixin {
             if (xray.isEnabled()) {
                 cir.setReturnValue(!Xray.blocks.contains(state.getBlock()));
             }
+        }
+
+        @Inject(method = "getSlipperiness", at = @At("RETURN"), cancellable = true)
+        public void getSlipperiness(CallbackInfoReturnable<Float> info) {
+             Slip slip = ModMan.INSTANCE.getMod(Slip.class);
+             if (slip.isEnabled()) {
+                 info.setReturnValue(slip.getFriction());
+             }
         }
 }
