@@ -73,6 +73,7 @@ public class ModMan {
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
+	modules.add(new Timechanger());
         //monolith
 
         modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
