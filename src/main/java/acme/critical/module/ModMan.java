@@ -53,6 +53,7 @@ public class ModMan {
         modules.add(new Mhop());
         modules.add(new Xray());
         modules.add(new Blink());
+	modules.add(new Slip());
         modules.add(new Speed());
         modules.add(new Spoof());
         modules.add(new Step());
