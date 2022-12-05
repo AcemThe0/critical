@@ -50,8 +50,6 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
     @Redirect(method = "updateNausea", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
     private Screen updateNauseaGetCurrentScreenProxy(MinecraftClient client) {
 	Norender norender = ModMan.INSTANCE.getMod(Norender.class);
-        /*if (Modules.get().isActive(Portals.class)) return null;
-        return client.currentScreen;*/
 	if (norender.isEnabled() & norender.portalsEnabled()) {
 		return null;
 	} else {
