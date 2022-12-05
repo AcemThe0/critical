@@ -26,6 +26,7 @@ public class Killaura extends Mod {
     private BooleanSetting attack = new BooleanSetting("Attack", true);
     private BooleanSetting lock = new BooleanSetting("Lock", false);
     private BooleanSetting players = new BooleanSetting("JustPlayers", true);
+    private BooleanSetting MoreHuman = new BooleanSetting("MoreHuman", true);
 
     public Killaura() {
         super("Killaura", "Attack entities in a radius.", Category.COMBAT);

@@ -12,14 +12,14 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
 
 public class Timechanger extends Mod {
-	private NumberSetting time = new NumberSetting("Time", 0, 24, 15, 1);
+	private NumberSetting time = new NumberSetting("Time", 0, 24, 13, 1);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
 
 	long serverTime;
 
 	public Timechanger() {
-		super("Time changer", "Change time of day clientside.", Category.VISUAL);
+		super("TimeChanger", "Change the time of day clientside.", Category.VISUAL);
 		addSettings(time, new KeybindSetting("Key", 0));
 	}
 
