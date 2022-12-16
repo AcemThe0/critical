@@ -16,6 +16,14 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+import acme.critical.module.ModMan;
+import acme.critical.module.visual.Norender;
+
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
     @Shadow private void autoJump(float dx, float dz) {}
@@ -37,5 +45,15 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
             this.autoJump((float) (this.getX() - double_1), (float) (this.getZ() - double_2));
             ci.cancel();
         }
+    }
+
+    @Redirect(method = "updateNausea", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
+    private Screen updateNauseaGetCurrentScreenProxy(MinecraftClient client) {
+	Norender norender = ModMan.INSTANCE.getMod(Norender.class);
+	if (norender.isEnabled() & norender.portalsEnabled()) {
+		return null;
+	} else {
+		return client.currentScreen;
+	}
     }
 }
