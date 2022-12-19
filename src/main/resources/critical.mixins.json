@@ -19,7 +19,8 @@
     "ClientPlayerEntityMixin",
     "PlayerMoveC2SPacketAccessor",
     "RenderEntityDispatcherMixin",
-    "CustomPayloadC2SPacketAccessor"
+    "CustomPayloadC2SPacketAccessor",
+    "EntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
