@@ -13,6 +13,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Matrix4f;
 
@@ -58,16 +59,25 @@ public abstract class EntityRendererMixin <T extends Entity> {
 		Matrix4f posmat = matrices.peek().getPositionMatrix();
 		TextRenderer textRenderer = this.getTextRenderer();
 
+		String text_format = text.getString();
+
+		if (entity instanceof LivingEntity) {
+			short hp = (short)(((LivingEntity)entity).getHealth());
+			text_format = text_format + " \u00a7a" + hp;
+		}
+
+
 		DrawableHelper.fill(
 			matrices,
-			-textRenderer.getWidth(text) / 2, 0,
-			textRenderer.getWidth(text) / 2, textRenderer.fontHeight,
+			-textRenderer.getWidth(text_format) / 2, -1,
+			textRenderer.getWidth(text_format) / 2, textRenderer.fontHeight,
 			new Color(0, 0, 0, 160).getRGB()
 		);
 
 		textRenderer.draw(
-			text,
-			-textRenderer.getWidth(text) / 2, 0,
+			//text + " \u00a78[\u00a74test",
+			text_format,
+			-textRenderer.getWidth(text_format) / 2, 0,
 			new Color(255, 255, 255, 255).getRGB(), false, posmat, vertexConsumers, true, 0, 15
 		);
 
