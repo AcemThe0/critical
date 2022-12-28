@@ -70,13 +70,14 @@ public class ModMan {
         modules.add(new Clickgui());
         modules.add(new Killaura());
         modules.add(new Scaffold());
-        modules.add(new Wallhack());
         modules.add(new Anticheat());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
-	modules.add(new Timechanger());
-	modules.add(new Norender());
+        modules.add(new Timechanger());
+        modules.add(new ESP());
+        modules.add(new Nametags());
+        modules.add(new Norender());
         //monolith
 
         modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
