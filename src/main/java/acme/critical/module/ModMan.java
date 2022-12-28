@@ -70,7 +70,6 @@ public class ModMan {
         modules.add(new Clickgui());
         modules.add(new Killaura());
         modules.add(new Scaffold());
-        modules.add(new Wallhack());
         modules.add(new Anticheat());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());

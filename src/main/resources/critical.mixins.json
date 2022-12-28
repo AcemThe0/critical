@@ -20,6 +20,7 @@
     "PlayerMoveC2SPacketAccessor",
     "RenderEntityDispatcherMixin",
     "CustomPayloadC2SPacketAccessor",
+    "EntityMixin",
     "EntityRendererMixin"
   ],
   "injectors": {

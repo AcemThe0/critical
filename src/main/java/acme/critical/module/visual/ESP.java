@@ -1,6 +1,7 @@
 package acme.critical.module.visual;
 
 import acme.critical.module.Mod;
+import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.ModeSetting;
 import acme.critical.module.settings.KeybindSetting;
 
@@ -12,21 +13,33 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.awt.Color;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-
-import net.minecraft.util.math.Vec3d;
-
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vector4f;
 
 public class ESP extends Mod {
-	private ModeSetting mode = new ModeSetting("Mode", "Walls", "2D", "Hitbox");
+	private ModeSetting mode = new ModeSetting("Mode", "Glow", "Glow", "Walls");
+	private BooleanSetting justPlayers = new BooleanSetting("JustPlayers", true);
 
 	public ESP() {
 		super("ESP", "Extrasensory perception!", Category.VISUAL);
-		addSettings(mode, new KeybindSetting("Key", 0));
+		addSettings(mode, justPlayers, new KeybindSetting("Key", 0));
 	}
 
 	public void onRender2D(MatrixStack matrices, float tickDelta) {
+	}
+
+	public String getMode() {
+		return mode.getMode();
+	}
+
+	public boolean getJustPlayers() {
+		return justPlayers.isEnabled();
+	}
+
+	public boolean walls_shouldRenderEntity(Entity entity) {
+		if (!isEnabled() || mode.getMode() != "Walls") return false;
+		if (entity == null) return false;
+		return true;
 	}
 }
