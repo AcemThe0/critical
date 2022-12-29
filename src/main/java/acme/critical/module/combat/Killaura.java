@@ -28,7 +28,7 @@ public class Killaura extends Mod {
     private BooleanSetting players = new BooleanSetting("JustPlayers", true);
     private BooleanSetting MoreHuman = new BooleanSetting("MoreHuman", true);
 
-    private Entity currentTarget;
+    public Entity currentTarget;
 
     public Killaura() {
         super("Killaura", "Attack entities in a radius.", Category.COMBAT);
@@ -38,11 +38,11 @@ public class Killaura extends Mod {
     @Override
     public void onTick() {
         if (this.isEnabled() && mc.world != null && mc.world.getEntities() != null) {
+            currentTarget = null;
             List<Entity> targets = new ArrayList<>();
             Entity target;
 
             sortKA(targets);
-
             if (targets.size() >= 1) {
                 target = targets.get(0);
 
@@ -97,7 +97,6 @@ public class Killaura extends Mod {
     }
 
     public void attack(Entity target) {
-        //currentTarget = target; // used for ESP highlighting
         mc.interactionManager.attackEntity(mc.player, target); //Attack
         mc.player.swingHand(Hand.MAIN_HAND); //Visually swing hand
     }
