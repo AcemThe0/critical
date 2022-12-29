@@ -16,11 +16,16 @@ import acme.critical.module.visual.ESP;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements CommandOutput, Nameable, EntityLike {
+	ESP esp = ModMan.INSTANCE.getMod(ESP.class);
 	@Inject(method = "Lnet/minecraft/entity/Entity;isGlowing()Z", at = @At("HEAD"), cancellable = true)
 	public void isGlowing(CallbackInfoReturnable cir) {
-		ESP esp = ModMan.INSTANCE.getMod(ESP.class);
 		if (!esp.isEnabled() || esp.getMode() != "Glow") return;
 		if (!esp.getJustPlayers() || (Entity) (Object) this instanceof PlayerEntity)
 			cir.setReturnValue(true);
+	}
+
+	@Inject(method = "Lnet/minecraft/entity/Entity;getTeamColorValue()I", at = @At("HEAD"), cancellable = true)
+	public void getTeamColorValue(CallbackInfoReturnable cir) {
+		cir.setReturnValue(esp.getColor((Entity) (Object) this));
 	}
 }
