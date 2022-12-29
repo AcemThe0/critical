@@ -1,32 +1,30 @@
 package acme.critical.module.visual;
 
-import acme.critical.module.Mod;
-import acme.critical.module.settings.BooleanSetting;
-import acme.critical.module.settings.ModeSetting;
-import acme.critical.module.settings.KeybindSetting;
-
-import acme.critical.utils.ColorUtils;
+import java.awt.Color;
 
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
-
-import java.awt.Color;
-
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vector4f;
+import net.minecraft.entity.player.PlayerEntity;
+
+import acme.critical.module.Mod;
+import acme.critical.module.ModMan;
+import acme.critical.module.combat.Killaura;
+import acme.critical.module.settings.BooleanSetting;
+import acme.critical.module.settings.ModeSetting;
+import acme.critical.module.settings.KeybindSetting;
+import acme.critical.utils.ColorUtils;
+import acme.critical.utils.FriendsUtils;
 
 public class ESP extends Mod {
 	private ModeSetting mode = new ModeSetting("Mode", "Glow", "Glow", "Walls");
+        private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
+	private BooleanSetting kaHighlight = new BooleanSetting("Killaura", true);
 	private BooleanSetting justPlayers = new BooleanSetting("JustPlayers", true);
 
 	public ESP() {
 		super("ESP", "Extrasensory perception!", Category.VISUAL);
-		addSettings(mode, justPlayers, new KeybindSetting("Key", 0));
-	}
-
-	public void onRender2D(MatrixStack matrices, float tickDelta) {
+		addSettings(mode, rainbow, kaHighlight, justPlayers, new KeybindSetting("Key", 0));
 	}
 
 	public String getMode() {
@@ -35,6 +33,21 @@ public class ESP extends Mod {
 
 	public boolean getJustPlayers() {
 		return justPlayers.isEnabled();
+	}
+
+	public int getColor(Entity entity) {
+		Killaura killaura = ModMan.INSTANCE.getMod(Killaura.class);
+		if (
+			killaura.isEnabled()
+			&& kaHighlight.isEnabled()
+			&& !FriendsUtils.isFriend(entity)
+			&& entity == killaura.getCurrentTarget()
+		) return new Color(127, 0, 0).getRGB();
+
+		if (!(entity instanceof PlayerEntity)) return ColorUtils.GetEntColor(entity);
+		if (FriendsUtils.isFriend(entity)) return ColorUtils.friendColor;
+		if (rainbow.isEnabled()) return ColorUtils.Rainbow();
+		return new Color(255, 255, 255).getRGB();
 	}
 
 	public boolean walls_shouldRenderEntity(Entity entity) {

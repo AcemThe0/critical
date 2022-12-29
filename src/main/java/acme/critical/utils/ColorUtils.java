@@ -2,16 +2,48 @@ package acme.critical.utils;
 
 import java.awt.Color;
 import java.util.HashMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import acme.critical.module.client.Clickgui;
 
 public class ColorUtils {
+    public static int friendColor = new Color(127, 255, 127).getRGB();
 
     public static int contrast() {
-        return new Color(Clickgui.red.getValueInt(), Clickgui.green.getValueInt(), Clickgui.blue.getValueInt(), Clickgui.alpha.getValueInt()).getRGB();
+        return (
+            Clickgui.alpha.getValueInt() << (8*3))
+            | (Clickgui.red.getValueInt() << (8*2))
+            | (Clickgui.green.getValueInt() << (8*1))
+            | (Clickgui.blue.getValueInt())
+        ;
     }
 
     public static int Rainbow(int index, int speed, float saturation) {
         return Color.HSBtoRGB(((System.currentTimeMillis()+index*100) % (speed*1000)) / 4000f, saturation, 1);
+    }
+
+    public static int Rainbow() {
+        return Rainbow(0, 4, 0.7f);
+    }
+
+    public static int GetEntColor(EntityType type) {
+        // boss mobs
+        if (
+            type == EntityType.ENDER_DRAGON
+            || type == EntityType.WITHER
+            || type == EntityType.WARDEN
+        ) return new Color(255, 0, 255).getRGB();
+        return switch (type.getSpawnGroup()) {
+            case CREATURE -> new Color(0, 255, 0).getRGB();
+            case MONSTER -> new Color(255, 0, 0).getRGB();
+            case AMBIENT -> new Color(0, 255, 255).getRGB();
+            case WATER_AMBIENT, WATER_CREATURE, UNDERGROUND_WATER_CREATURE, AXOLOTLS -> new Color(0, 0, 255).getRGB();
+            default -> new Color(255, 255, 0).getRGB();
+        };
+    }
+
+    public static int GetEntColor(Entity entity) {
+        return GetEntColor(entity.getType());
     }
 
     public static int getColorByCategory(String category) {
@@ -23,7 +55,7 @@ public class ColorUtils {
         colors.put("Misc", new Color(0, 0, 200, alpha).getRGB());
         colors.put("Client", new Color(64, 64, 64, alpha).getRGB());
 
-        return colors.get(category) != null ? colors.get(category) : new Color(0, 0, 0, alpha).getRGB();
+        return colors.get(category) != null ? (colors.get(category)) : new Color(0, 0, 0, alpha).getRGB();
     }
 
     public static int arraylistColor(String mode, int rainbowIndex, String category) {
