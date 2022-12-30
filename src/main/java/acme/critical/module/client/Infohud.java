@@ -6,9 +6,12 @@ import acme.critical.module.Mod;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.GameMode;
 import acme.critical.utils.ChatUtils;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.text.MutableText;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.network.PlayerListEntry;
@@ -19,6 +22,7 @@ public class Infohud extends Mod {
 	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
 	private BooleanSetting doPing = new BooleanSetting("Ping", true);
 	private BooleanSetting doSpeed = new BooleanSetting("Speed", true);
+	private BooleanSetting doBanana = new BooleanSetting("Banana", true);
 	public static BooleanSetting doTablist = new BooleanSetting("Gamemodes", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
@@ -37,8 +41,9 @@ public class Infohud extends Mod {
 
 	public Infohud() {
 		super("InfoHud", "Show additional info in hud.", Category.CLIENT);
-		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing, doTablist);
+		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing, doTablist, doBanana);
 	}
+	private final Identifier banana = new Identifier("critical", "banana.png");
 
 	public void onTick() {
 		// format player position
@@ -115,6 +120,10 @@ public class Infohud extends Mod {
 			);
 			i++;
 		}
+		if (doBanana.isEnabled()) {
+			RenderSystem.setShaderTexture(0, banana);
+			DrawableHelper.drawTexture(matrices, 32, 7, 0, 0, 8, 8, 8, 8);
+		};
 	}
 
 	public Text displayGamemode(PlayerListEntry player) {
