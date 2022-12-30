@@ -43,7 +43,7 @@ public class Infohud extends Mod {
 		super("InfoHud", "Show additional info in hud.", Category.CLIENT);
 		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing, doTablist, doBanana);
 	}
-	private final Identifier banana = new Identifier("critical", "banana.png");
+	private final Identifier banana = new Identifier("critical", "src/main/resources/banana.png");
 
 	public void onTick() {
 		// format player position

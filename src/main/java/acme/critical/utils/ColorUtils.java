@@ -32,13 +32,13 @@ public class ColorUtils {
             type == EntityType.ENDER_DRAGON
             || type == EntityType.WITHER
             || type == EntityType.WARDEN
-        ) return new Color(255, 0, 255).getRGB();
+        ) return new Color(240, 150, 255).getRGB();
         return switch (type.getSpawnGroup()) {
-            case CREATURE -> new Color(0, 255, 0).getRGB();
-            case MONSTER -> new Color(255, 0, 0).getRGB();
-            case AMBIENT -> new Color(0, 255, 255).getRGB();
-            case WATER_AMBIENT, WATER_CREATURE, UNDERGROUND_WATER_CREATURE, AXOLOTLS -> new Color(0, 0, 255).getRGB();
-            default -> new Color(255, 255, 0).getRGB();
+            case CREATURE -> new Color(10, 200, 10).getRGB();
+            case MONSTER -> new Color(200, 20, 20).getRGB();
+            case AMBIENT -> new Color(0, 50, 60).getRGB();
+            case WATER_AMBIENT, WATER_CREATURE, UNDERGROUND_WATER_CREATURE, AXOLOTLS -> new Color(0, 30, 100).getRGB();
+            default -> new Color(200, 170, 0).getRGB();
         };
     }
 

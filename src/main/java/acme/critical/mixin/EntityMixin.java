@@ -13,12 +13,17 @@ import net.minecraft.world.entity.EntityLike;
 
 import acme.critical.module.ModMan;
 import acme.critical.module.visual.ESP;
+import acme.critical.module.combat.Killaura;
+
+import java.awt.Color;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements CommandOutput, Nameable, EntityLike {
 	ESP esp = ModMan.INSTANCE.getMod(ESP.class);
+	Killaura ka = ModMan.INSTANCE.getMod(Killaura.class);
 	@Inject(method = "Lnet/minecraft/entity/Entity;isGlowing()Z", at = @At("HEAD"), cancellable = true)
 	public void isGlowing(CallbackInfoReturnable cir) {
+		if (ka.isEnabled() && (Entity) (Object) this == ka.getCurrentTarget()) cir.setReturnValue(true);
 		if (!esp.isEnabled() || esp.getMode() != "Glow") return;
 		if (!esp.getJustPlayers() || (Entity) (Object) this instanceof PlayerEntity)
 			cir.setReturnValue(true);
@@ -26,6 +31,7 @@ public abstract class EntityMixin implements CommandOutput, Nameable, EntityLike
 
 	@Inject(method = "Lnet/minecraft/entity/Entity;getTeamColorValue()I", at = @At("HEAD"), cancellable = true)
 	public void getTeamColorValue(CallbackInfoReturnable cir) {
-		cir.setReturnValue(esp.getColor((Entity) (Object) this));
+		if (esp.isEnabled()) cir.setReturnValue(esp.getColor((Entity) (Object) this));
+		if ((Entity) (Object) this == ka.getCurrentTarget()) cir.setReturnValue(new Color(127, 0, 0).getRGB());
 	}
 }

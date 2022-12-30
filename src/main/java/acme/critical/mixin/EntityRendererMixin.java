@@ -69,8 +69,8 @@ public abstract class EntityRendererMixin <T extends Entity> {
 
 		DrawableHelper.fill(
 			matrices,
-			-textRenderer.getWidth(text_format) / 2, -1,
-			textRenderer.getWidth(text_format) / 2, textRenderer.fontHeight,
+			-(textRenderer.getWidth(text_format) / 2)-2, -1,
+			(textRenderer.getWidth(text_format) / 2)+1, textRenderer.fontHeight,
 			new Color(0, 0, 0, 160).getRGB()
 		);
 
