@@ -49,14 +49,15 @@ public class ModMan {
     }
 
     private void addModules() {
+        modules.add(new ESP());
         modules.add(new Auto());
         modules.add(new Mhop());
         modules.add(new Xray());
+        modules.add(new Slip());
+        modules.add(new Step());
         modules.add(new Blink());
-	modules.add(new Slip());
         modules.add(new Speed());
         modules.add(new Spoof());
-        modules.add(new Step());
         modules.add(new Totem());
         modules.add(new Vclip());
         modules.add(new Flight());
@@ -69,14 +70,17 @@ public class ModMan {
         modules.add(new Nodeath());
         modules.add(new Clickgui());
         modules.add(new Killaura());
+        modules.add(new Nametags());
+        modules.add(new Norender());
         modules.add(new Scaffold());
         modules.add(new Anticheat());
+        modules.add(new Criticals());
+        modules.add(new Knockback());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
-        modules.add(new Timechanger());
         modules.add(new Autoclicker());
-	modules.add(new Autofish());
+        modules.add(new Autofish());
         modules.add(new Timechanger());
         modules.add(new ESP());
         modules.add(new Nametags());

@@ -25,6 +25,7 @@
   "mixins": [
     "critical.mixins.json"
   ],
+  "accessWidener" : "critical.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.14.9",

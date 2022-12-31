@@ -18,13 +18,12 @@ import acme.critical.utils.FriendsUtils;
 
 public class ESP extends Mod {
 	private ModeSetting mode = new ModeSetting("Mode", "Glow", "Glow", "Walls");
-        private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
-	private BooleanSetting kaHighlight = new BooleanSetting("Killaura", true);
+    private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
 	private BooleanSetting justPlayers = new BooleanSetting("JustPlayers", true);
 
 	public ESP() {
 		super("ESP", "Extrasensory perception!", Category.VISUAL);
-		addSettings(mode, rainbow, kaHighlight, justPlayers, new KeybindSetting("Key", 0));
+		addSettings(mode, rainbow, justPlayers, new KeybindSetting("Key", 0));
 	}
 
 	public String getMode() {
@@ -36,14 +35,6 @@ public class ESP extends Mod {
 	}
 
 	public int getColor(Entity entity) {
-		Killaura killaura = ModMan.INSTANCE.getMod(Killaura.class);
-		if (
-			killaura.isEnabled()
-			&& kaHighlight.isEnabled()
-			&& !FriendsUtils.isFriend(entity)
-			&& entity == killaura.getCurrentTarget()
-		) return new Color(127, 0, 0).getRGB();
-
 		if (!(entity instanceof PlayerEntity)) return ColorUtils.GetEntColor(entity);
 		if (FriendsUtils.isFriend(entity)) return ColorUtils.friendColor;
 		if (rainbow.isEnabled()) return ColorUtils.Rainbow();
