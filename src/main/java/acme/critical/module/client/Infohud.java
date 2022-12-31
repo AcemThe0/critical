@@ -23,7 +23,6 @@ public class Infohud extends Mod {
 	private BooleanSetting doPing = new BooleanSetting("Ping", true);
 	private BooleanSetting doSpeed = new BooleanSetting("Speed", true);
 	private BooleanSetting doBanana = new BooleanSetting("Banana", true);
-	public static BooleanSetting doTablist = new BooleanSetting("Gamemodes", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -41,7 +40,7 @@ public class Infohud extends Mod {
 
 	public Infohud() {
 		super("InfoHud", "Show additional info in hud.", Category.CLIENT);
-		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing, doTablist, doBanana);
+		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing, doBanana);
 	}
 	private final Identifier banana = new Identifier("critical", "src/main/resources/banana.png");
 
@@ -124,28 +123,5 @@ public class Infohud extends Mod {
 			RenderSystem.setShaderTexture(0, banana);
 			DrawableHelper.drawTexture(matrices, 32, 7, 0, 0, 8, 8, 8, 8);
 		};
-	}
-
-	public Text displayGamemode(PlayerListEntry player) {
-		Text name = player.getDisplayName();
-		name = name==null ? Text.literal(player.getProfile().getName()) : player.getDisplayName();
-		GameMode gamemode = player.getGameMode();
-		String gamemodeText = "???";
-
-		if (gamemode != null) {
-			gamemodeText = switch (gamemode) {
-				case SPECTATOR -> "SP";
-				case SURVIVAL -> "SV";
-				case CREATIVE -> "CR";
-				case ADVENTURE -> "AD";
-			};
-		}
-		MutableText text = Text.literal("");
-		text.append(name);
-		text.append(" [" + gamemodeText + "]");
-		name = text;
-
-		return name;
-		
 	}
 }

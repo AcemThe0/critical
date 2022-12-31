@@ -49,6 +49,7 @@ public class ModMan {
     }
 
     private void addModules() {
+        modules.add(new ESP());
         modules.add(new Auto());
         modules.add(new Mhop());
         modules.add(new Xray());
@@ -67,6 +68,7 @@ public class ModMan {
         modules.add(new Freecam());
         modules.add(new Infohud());
         modules.add(new Nodeath());
+        modules.add(new Autofish());
         modules.add(new Clickgui());
         modules.add(new Killaura());
         modules.add(new Nametags());
@@ -79,9 +81,7 @@ public class ModMan {
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
         modules.add(new Autoclicker());
-        modules.add(new Autofish());
         modules.add(new Timechanger());
-        modules.add(new ESP());
         //monolith
 
         modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
