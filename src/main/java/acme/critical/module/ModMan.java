@@ -76,6 +76,7 @@ public class ModMan {
         modules.add(new Nightvision());
         modules.add(new Timechanger());
         modules.add(new Autoclicker());
+	modules.add(new Autofish());
         modules.add(new Timechanger());
         modules.add(new ESP());
         modules.add(new Nametags());
