@@ -49,7 +49,6 @@ public class ModMan {
     }
 
     private void addModules() {
-        modules.add(new ESP());
         modules.add(new Auto());
         modules.add(new Mhop());
         modules.add(new Xray());
