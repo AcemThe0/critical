@@ -1,24 +1,24 @@
 package acme.critical;
 
 import java.nio.file.Path;
-
-import java.util.List;
-import org.slf4j.Logger;
-import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
-import org.slf4j.LoggerFactory;
-import acme.critical.module.Mod;
-import acme.critical.module.ModMan;
-import net.fabricmc.api.ModInitializer;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
+import org.lwjgl.glfw.GLFW;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
-import acme.critical.module.client.Clickgui;
 import net.minecraft.client.util.math.MatrixStack;
-import acme.critical.ui.screens.clickgui.ClickGUI;
+
 import acme.critical.event.eventbus.CriticalEventBus;
 import acme.critical.event.eventbus.InexactEventHandler;
-
+import acme.critical.module.Mod;
+import acme.critical.module.ModMan;
+import acme.critical.module.client.Clickgui;
 import acme.critical.profile.Profile;
+import acme.critical.ui.screens.clickgui.ClickGUI;
 import acme.critical.utils.FileUtils;
 
 public class Critical implements ModInitializer {
@@ -33,8 +33,6 @@ public class Critical implements ModInitializer {
     public Path cjwDir;
     public Path cjwProfileDir;
 
-    public Profile profile;
-
     //No longer vcraft approved :(
     @Override
     public void onInitialize() {
@@ -48,7 +46,7 @@ public class Critical implements ModInitializer {
         FileUtils.mkdir(cjwDir);
         FileUtils.mkdir(cjwProfileDir);
 
-        profile = new Profile("main", cjwProfileDir.resolve("main"));
+	new Profile("main", cjwProfileDir.resolve("main"));
     }
     List<Mod> enabledModules = new ArrayList<>();
 

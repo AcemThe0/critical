@@ -32,11 +32,11 @@ public class Friend extends Mod {
             String entityName = mc.targetedEntity.getEntityName();
 
             if(!FriendsUtils.friends.contains(entityName)) {
-                FriendsUtils.friends.add(entityName);
+                FriendsUtils.addFriend(entityName);
                 added = true;
             }
             else if (FriendsUtils.friends.contains(entityName)) {
-                FriendsUtils.friends.remove(entityName);
+                FriendsUtils.delFriend(entityName);
             }
 
             addedstr = added ? " \u00a7aAdded" : " \u00a74Removed";
