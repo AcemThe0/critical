@@ -12,6 +12,7 @@
     "KeyBindingMixin",
     "InGameHudMixin",
     "SimpleOptionMixin",
+    "MinecraftClientAccessor",
     "MinecraftClientMixin",
     "ClientConnectionMixin",
     "RenderTickCounterMixin",
