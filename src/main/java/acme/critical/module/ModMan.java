@@ -83,6 +83,7 @@ public class ModMan {
         modules.add(new Autoclicker());
         modules.add(new Timechanger());
         modules.add(new Autolog());
+        modules.add(new Autoeat());
         //monolith
 
         modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
