@@ -15,7 +15,7 @@ public class Hud {
     static int fHeight = mc.textRenderer.fontHeight;
 
     public static void render(MatrixStack matrices, float tickDelta) {
-        mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.2.2)", 1, 1, -1);
+        mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.3.0)", 1, 1, -1);
         renderArrayList(matrices);
     }
 
