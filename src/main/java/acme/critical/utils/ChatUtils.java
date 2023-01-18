@@ -6,9 +6,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 
 public class ChatUtils {
-    public static String crprefix = "\u00a78[\u00a70critical\u00a78]\u00a7r ";
-    public static String warnprefix = "\u00a78[\u00a76WARN\u00a78]\u00a7r ";
-    public static String errprefix = "\u00a78[\u00a74ERR\u00a78]\u00a7r ";
+    public static String crprefix = "\u00a72[\u00a7ecritical\u00a78]\u00a7r ";
+    public static String warnprefix = "\u00a72[\u00a76WARN\u00a78]\u00a7r ";
+    public static String errprefix = "\u00a72[\u00a74ERR\u00a78]\u00a7r ";
 
     static MinecraftClient mc = MinecraftClient.getInstance();
 

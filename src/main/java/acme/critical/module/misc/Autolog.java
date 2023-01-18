@@ -26,7 +26,7 @@ public class Autolog extends Mod {
 		
 		toggle();
 		mc.getNetworkHandler().onDisconnect(new DisconnectS2CPacket(Text.literal(
-			ChatUtils.crprefix + "Autolog: " + logMessage
+			"Autolog: " + logMessage
 		)));
 	}
 

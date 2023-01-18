@@ -3,6 +3,8 @@ package acme.critical.module;
 import java.util.List;
 import java.util.ArrayList;
 import acme.critical.Critical;
+import acme.critical.utils.ChatUtils;
+import acme.critical.module.client.Clickgui;
 import net.minecraft.client.MinecraftClient;
 import acme.critical.module.settings.Setting;
 import net.minecraft.client.util.math.MatrixStack;
@@ -43,6 +45,11 @@ public class Mod {
 
         if (enabled) onEnable();
         else onDisable();
+
+        if (Clickgui.chatFeedback.isEnabled()) {
+            String suffix = enabled ? " \u00a7aOn" : " \u00a7cOff";
+            ChatUtils.message(name + suffix);
+        }
     }
 
     public void onTick() {

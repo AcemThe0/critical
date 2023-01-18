@@ -12,11 +12,12 @@ public class Clickgui extends Mod {
     public static NumberSetting alpha = new NumberSetting("Alpha", 0, 255, 160, 1);
     public static ModeSetting arraylist = new ModeSetting("List", "Rainbow", "Rainbow", "Static", "Category", "Hidden");
     public static BooleanSetting descriptions = new BooleanSetting("Descriptions", true);
+    public static BooleanSetting chatFeedback = new BooleanSetting("ChatToggle", true);
     public static BooleanSetting arrows = new BooleanSetting("Arrowkeys", true);
 
     public Clickgui() {
         super("ClickGUI", "Customization!", Category.CLIENT);
-        addSettings(red, green, blue, alpha, arraylist, descriptions, arrows);
+        addSettings(red, green, blue, alpha, arraylist, descriptions, chatFeedback, arrows);
     }
 
     @Override

@@ -9,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
-import acme.critical.module.combat.Killaura;
 import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.ModeSetting;
 import acme.critical.module.settings.KeybindSetting;
@@ -18,8 +17,8 @@ import acme.critical.utils.FriendsUtils;
 
 public class ESP extends Mod {
 	private ModeSetting mode = new ModeSetting("Mode", "Glow", "Glow", "Walls");
-    private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
-	private BooleanSetting justPlayers = new BooleanSetting("JustPlayers", true);
+	private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
+	private BooleanSetting justPlayers = new BooleanSetting("JustPlayers", false);
 
 	public ESP() {
 		super("ESP", "Extrasensory perception!", Category.VISUAL);

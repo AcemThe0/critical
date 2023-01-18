@@ -20,6 +20,7 @@ import acme.critical.module.client.Clickgui;
 import acme.critical.profile.Profile;
 import acme.critical.ui.screens.clickgui.ClickGUI;
 import acme.critical.utils.FileUtils;
+import acme.critical.utils.ChatUtils;
 
 public class Critical implements ModInitializer {
     public static final Critical INSTANCE = new Critical();
@@ -48,6 +49,7 @@ public class Critical implements ModInitializer {
 
 	new Profile("main", cjwProfileDir.resolve("main"));
     }
+
     List<Mod> enabledModules = new ArrayList<>();
 
     public void onKeyPress(int key, int action) {
@@ -71,4 +73,3 @@ public class Critical implements ModInitializer {
         }
     }
 }
-

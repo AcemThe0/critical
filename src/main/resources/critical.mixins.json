@@ -8,21 +8,22 @@
   "client": [
     "BlockMixin",
     "MouseMixin",
+    "EntityMixin",
     "KeyboardMixin",
-    "KeyBindingMixin",
     "InGameHudMixin",
+    "KeyBindingMixin",
     "SimpleOptionMixin",
-    "MinecraftClientAccessor",
+    "EntityRendererMixin",
     "MinecraftClientMixin",
     "ClientConnectionMixin",
     "RenderTickCounterMixin",
     "AbstractBlockStateMixin",
+    "MinecraftClientAccessor",
     "ClientPlayerEntityMixin",
     "PlayerMoveC2SPacketAccessor",
     "RenderEntityDispatcherMixin",
     "CustomPayloadC2SPacketAccessor",
-    "EntityMixin",
-    "EntityRendererMixin"
+    "PlayerPositionLookS2CPacketAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

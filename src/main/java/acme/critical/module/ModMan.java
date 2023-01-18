@@ -64,6 +64,8 @@ public class ModMan {
         modules.add(new Friend());
         modules.add(new Nofall());
         modules.add(new Antiaim());
+        modules.add(new Autoeat());
+        modules.add(new Autolog());
         modules.add(new Clicktp());
         modules.add(new Freecam());
         modules.add(new Infohud());
@@ -82,8 +84,6 @@ public class ModMan {
         modules.add(new Nightvision());
         modules.add(new Autoclicker());
         modules.add(new Timechanger());
-        modules.add(new Autolog());
-        modules.add(new Autoeat());
         //monolith
 
         modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
