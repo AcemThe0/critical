@@ -2,6 +2,7 @@ package acme.critical.module.combat;
 
 import java.lang.Math;
 import java.util.List;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Comparator;
 import net.minecraft.util.Hand;
@@ -25,14 +26,16 @@ public class Killaura extends Mod {
     private ModeSetting priority = new ModeSetting("Priority", "Angle", "Angle", "Health");
     private BooleanSetting attack = new BooleanSetting("Attack", true);
     private BooleanSetting lock = new BooleanSetting("Lock", false);
-    private BooleanSetting players = new BooleanSetting("JustPlayers", true);
-    private BooleanSetting MoreHuman = new BooleanSetting("MoreHuman", true);
+    private BooleanSetting players = new BooleanSetting("Players", true);
+    private BooleanSetting offensive = new BooleanSetting("Offensive", true);
+    private BooleanSetting passive = new BooleanSetting("Passive", false);
+    //private BooleanSetting MoreHuman = new BooleanSetting("MoreHuman", true); 
 
     public Entity currentTarget;
 
     public Killaura() {
         super("Killaura", "Attack entities in a radius.", Category.COMBAT);
-        addSettings(range, speed, rotate, priority, attack, lock, players, new KeybindSetting("Key", 0));
+        addSettings(range, speed, rotate, priority, attack, lock, players, offensive, passive, new KeybindSetting("Key", 0));
     }
 
     @Override
@@ -78,11 +81,30 @@ public class Killaura extends Mod {
     super.onTick();
     }
 
+    public static String getEntityType(EntityType type) { //Thanks a lot IHMS!
+        if (
+            type == EntityType.ENDER_DRAGON
+            || type == EntityType.WITHER
+            || type == EntityType.WARDEN
+        ) return "Offensive";
+        return switch (type.getSpawnGroup()) {
+            case CREATURE -> "Passive";
+            case AMBIENT -> "Passive";
+            case MONSTER -> "Offensive";
+            case WATER_AMBIENT, WATER_CREATURE, UNDERGROUND_WATER_CREATURE, AXOLOTLS -> "Passive";
+            default -> "Passive";
+        };
+    }
+
     private void sortKA(List<Entity> targets) {
         for (Entity entity : mc.world.getEntities()) {
             if (entity instanceof LivingEntity && entity != mc.player && !FriendsUtils.friends.contains(entity.getEntityName()) && mc.player.distanceTo(entity) <= range.getValueFloat()) {
-                if (players.isEnabled() && !entity.isPlayer()) {;}
-                else {targets.add(entity);}
+
+                if (players.isEnabled() && entity.isPlayer()) targets.add(entity);
+
+                //Will eventually split into finer categories (i.e. pigmen, endermen, villagers, etc.)
+                if (passive.isEnabled() && getEntityType(entity.getType()) == "Passive" && !entity.isPlayer()) targets.add(entity);
+                if (offensive.isEnabled() && getEntityType(entity.getType()) == "Offensive") targets.add(entity);
             }
         }
         targets.sort(Comparator.comparingDouble(ent -> mc.player.distanceTo(ent)));

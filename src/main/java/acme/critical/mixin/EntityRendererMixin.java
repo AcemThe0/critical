@@ -50,7 +50,7 @@ public abstract class EntityRendererMixin <T extends Entity> {
 		matrices.translate(0.0d, entity.getHeight() + 0.5f, 0.0d);
 		matrices.multiply(this.dispatcher.getRotation());
 
-		float scale = nametags.getSize() * 0.1f;
+		float scale = nametags.getSize() * 0.01f;
 		float scale_dist = MinecraftClient.getInstance().player.distanceTo(entity) / 10;
 		if (scale_dist > 1.0f)
 			scale *= scale_dist;
@@ -60,7 +60,6 @@ public abstract class EntityRendererMixin <T extends Entity> {
 		TextRenderer textRenderer = this.getTextRenderer();
 
 		String text_format = text.getString();
-
 		if (entity instanceof LivingEntity) {
 			short hp = (short)(((LivingEntity)entity).getHealth());
 			text_format = text_format + " \u00a7a" + hp;

@@ -60,13 +60,22 @@ import acme.critical.module.settings.KeybindSetting;
         ores.put("Quartz", Blocks.NETHER_QUARTZ_ORE);
         ores.put("Debris", Blocks.ANCIENT_DEBRIS);
 
+        HashMap<String, Block> nuOres = new HashMap<String, Block>();
+        nuOres.put("Coal", Blocks.DEEPSLATE_COAL_ORE);
+        nuOres.put("Iron", Blocks.DEEPSLATE_IRON_ORE);
+        nuOres.put("Gold", Blocks.DEEPSLATE_GOLD_ORE);
+        nuOres.put("Lapis", Blocks.DEEPSLATE_LAPIS_ORE);
+        nuOres.put("Emerald", Blocks.DEEPSLATE_EMERALD_ORE);
+        nuOres.put("Redstone", Blocks.DEEPSLATE_REDSTONE_ORE);
+        nuOres.put("Diamond", Blocks.DEEPSLATE_DIAMOND_ORE);
+
         if (mode.getMode() != "All") {
-            c1 = block == ores.get(mode.getMode());
+            c1 = block == ores.get(mode.getMode()) || block == nuOres.get(mode.getMode());
         } else {
             c1 = block instanceof OreBlock || block instanceof RedstoneOreBlock;
         }
         
-        if (containers.isEnabled()) c2 = block == Blocks.FURNACE || block == Blocks.DISPENSER || block == Blocks.DROPPER;
+        if (containers.isEnabled()) c2 = block == Blocks.FURNACE || block == Blocks.DISPENSER || block == Blocks.DROPPER || block == Blocks.BARREL;
         if (other.isEnabled()) c3 = block == Blocks.TNT || block == Blocks.OBSIDIAN || block == Blocks.BEDROCK || block == Blocks.COMMAND_BLOCK || block == Blocks.END_GATEWAY || block == Blocks.NETHER_PORTAL;
 
         return c1 || c2 || c3;

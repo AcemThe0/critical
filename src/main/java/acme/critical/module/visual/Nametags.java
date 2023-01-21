@@ -5,7 +5,7 @@ import acme.critical.module.settings.NumberSetting;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Nametags extends Mod {
-	private NumberSetting size = new NumberSetting("Size", 0.0f, 1.0f, 0.3f, 0.1f);
+	private NumberSetting size = new NumberSetting("Size", 0, 7, 2.4, 0.1);
 
 	public Nametags() {
 		super("Nametags", "View additional info about entities.", Category.VISUAL);
