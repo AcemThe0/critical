@@ -9,6 +9,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.module.settings.BooleanSetting;
 import acme.critical.ui.screens.clickgui.ModuleButton;
 
+import acme.critical.utils.Render2DUtils;
+
 public class CheckBox extends Component {
 
     private BooleanSetting boolSet = (BooleanSetting)setting;
@@ -20,12 +22,27 @@ public class CheckBox extends Component {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        Render2DUtils.rect(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.width, parent.parent.height +  offset + parent.offset, (char) 0);
         int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
         mc.textRenderer.drawWithShadow(matrices, boolSet.getName(), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset, -1);
-        DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());
+        /*DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());*/
 
-        DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-16, parent.parent.y+parent.offset+offset+1, parent.parent.x + parent.parent.width-2, parent.parent.y + parent.offset + offset + parent.parent.height-1, Color.black.getRGB());
-        DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-14, parent.parent.y+parent.offset+offset+3, parent.parent.x + parent.parent.width-4, parent.parent.y + parent.offset + offset + parent.parent.height-3, boolSet.isEnabled() ? ColorUtils.contrast() : Color.black.getRGB());
+
+        /*DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-16, parent.parent.y+parent.offset+offset+1, parent.parent.x + parent.parent.width-2, parent.parent.y + parent.offset + offset + parent.parent.height-1, Color.black.getRGB());
+        DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-14, parent.parent.y+parent.offset+offset+3, parent.parent.x + parent.parent.width-4, parent.parent.y + parent.offset + offset + parent.parent.height-3, boolSet.isEnabled() ? ColorUtils.contrast() : Color.black.getRGB());*/
+        if (boolSet.isEnabled()) {
+            Render2DUtils.inset(
+		matrices,
+		parent.parent.x + parent.parent.width - 16, parent.parent.y + parent.offset + offset + 1,
+		14, 14, 0
+            );
+        } else {
+            Render2DUtils.rect(
+		matrices,
+		parent.parent.x + parent.parent.width - 16, parent.parent.y + parent.offset + offset + 1,
+		14, 14, 0
+            );
+        }
         super.render(matrices, mouseX, mouseY, delta);
     }
 

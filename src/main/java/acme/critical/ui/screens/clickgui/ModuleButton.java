@@ -13,6 +13,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.setting.*;
 import acme.critical.ui.screens.clickgui.setting.Component;
 
+import acme.critical.utils.Render2DUtils;
+
 public class ModuleButton {
     public int widthOffset = MinecraftClient.getInstance().textRenderer.getWidth("Critical (JW-13.37.69)");
     public Mod module;
@@ -45,7 +47,8 @@ public class ModuleButton {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 
-        DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 190).getRGB());
+        //DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 190).getRGB());
+	Render2DUtils.rect(matrices, parent.x, parent.y + offset, parent.width, parent.height, (char) 0);
         if(isHovered(mouseX, mouseY)) {
             DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 140).getRGB());
 
@@ -57,7 +60,7 @@ public class ModuleButton {
             }
         }
         int textOffset = (parent.height/2)-parent.mc.textRenderer.fontHeight/2;
-        parent.mc.textRenderer.drawWithShadow(matrices, module.getName(), parent.x + 2, parent.y + offset + textOffset, module.isEnabled() ? -1 : new Color(255, 255, 255, 128).getRGB());
+        parent.mc.textRenderer.drawWithShadow(matrices, module.getName(), parent.x + 2, parent.y + offset + textOffset, module.isEnabled() ? -1 : new Color(255, 255, 255, 255).getRGB());
 
         if (extended) {
             for (Component component : components) {

@@ -9,6 +9,7 @@ import acme.critical.module.client.Clickgui;
 public class ColorUtils {
     public static int friendColor = new Color(127, 255, 127).getRGB();
 
+    // Should be removed before merge
     public static int contrast() {
         return (
             Clickgui.alpha.getValueInt() << (8*3))

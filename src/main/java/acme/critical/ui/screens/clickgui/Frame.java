@@ -12,6 +12,8 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.setting.Component;
 
+import acme.critical.utils.Render2DUtils;
+
 public class Frame {
     
     public int x, y, width, height, dragX, dragY;
@@ -42,7 +44,7 @@ public class Frame {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         int offset = (height/2)-mc.textRenderer.fontHeight/2;
-        DrawableHelper.fill(matrices, x, y, x+width, y+height, new Color(0, 0, 0, 240).getRGB());
+	Render2DUtils.rect(matrices, x, y, width, height, (char) 1);
         mc.textRenderer.drawWithShadow(matrices, category.name, x+2, y+offset, -1);
 
         if (extended) {

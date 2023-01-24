@@ -53,7 +53,7 @@ public class Critical implements ModInitializer {
     List<Mod> enabledModules = new ArrayList<>();
 
     public void onKeyPress(int key, int action) {
-        if (action == GLFW.GLFW_PRESS && mc.player != null && mc.currentScreen == null) {
+        if (action == GLFW.GLFW_PRESS/* && mc.player != null && mc.currentScreen == null*/) {
             for (Mod module : ModMan.INSTANCE.getModules()) {
                 if (key == GLFW.GLFW_KEY_RIGHT_SHIFT) mc.setScreen(ClickGUI.INSTANCE);
                 if (key == module.getKey()) module.toggle();
