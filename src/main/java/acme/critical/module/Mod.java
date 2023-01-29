@@ -41,14 +41,15 @@ public class Mod {
     }
 
     public void toggle() {
-        this.enabled = !this.enabled;
+        if (mc.player != null && mc.world != null) {
+            this.enabled = !this.enabled;
+            if (enabled) onEnable();
+            else onDisable();
 
-        if (enabled) onEnable();
-        else onDisable();
-
-        if (Clickgui.chatFeedback.isEnabled()) {
-            String suffix = enabled ? " \u00a7aOn" : " \u00a7cOff";
-            ChatUtils.message(name + suffix);
+            if (Clickgui.chatFeedback.isEnabled()) {
+                String suffix = enabled ? " \u00a7aOn" : " \u00a7cOff";
+                ChatUtils.message(name + suffix);
+            }
         }
     }
 
