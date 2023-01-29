@@ -31,20 +31,20 @@ public class Render2DUtils {
 	}
 
 	public static void rect(MatrixStack matrices, int x, int y, int w, int h, int color) {
-		int x2 = x + w;
-		int y2 = y + h;
+		//int x2 = x + w;
+		//int y2 = y + h;
 		int[] colors = getcolors(color);
-		DrawableHelper.fill(matrices, x, y, x2, y2, colors[2]);
-		DrawableHelper.fill(matrices, x + 1, y + 1, x2, y2, colors[0]);
-		DrawableHelper.fill(matrices, x + 1, y + 1, x2 - 1, y2 - 1, colors[1]);
+		DrawableHelper.fill(matrices, x, y, w, h, colors[2]);
+		DrawableHelper.fill(matrices, x + 1, y + 1, w, h, colors[0]);
+		DrawableHelper.fill(matrices, x + 1, y + 1, w - 1, h - 1, colors[1]);
 	}
 
 	public static void inset(MatrixStack matrices, int x, int y, int w, int h, int color) {
-		int x2 = x + w;
-		int y2 = y + h;
+		//int x2 = x + w;
+		//int y2 = y + h;
 		int[] colors = getcolors(color);
-		DrawableHelper.fill(matrices, x, y, x2, y2, 0xff000000 /*colors[1]*/);
-		DrawableHelper.fill(matrices, x + 1, y + 1, x2, y2, colors[2]);
-		DrawableHelper.fill(matrices, x + 1, y + 1, x2 - 1, y2 - 1, colors[0]);
+		DrawableHelper.fill(matrices, x, y, w, h, 0xff000000 /*colors[1]*/);
+		DrawableHelper.fill(matrices, x + 1, y + 1, w, h, colors[2]);
+		DrawableHelper.fill(matrices, x + 1, y + 1, w - 1, h - 1, colors[0]);
 	}
 }

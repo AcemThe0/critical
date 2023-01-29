@@ -44,7 +44,7 @@ public class Frame {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         int offset = (height/2)-mc.textRenderer.fontHeight/2;
-	Render2DUtils.rect(matrices, x, y, width, height, (char) 1);
+	Render2DUtils.rect(matrices, x, y, x + width, y + height, (char) 1);
         mc.textRenderer.drawWithShadow(matrices, category.name, x+2, y+offset, -1);
 
         if (extended) {

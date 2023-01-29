@@ -22,7 +22,7 @@ public class CheckBox extends Component {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        Render2DUtils.rect(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.width, parent.parent.height +  offset + parent.offset, (char) 0);
+        Render2DUtils.rect(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, (char) 0);
         int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
         mc.textRenderer.drawWithShadow(matrices, boolSet.getName(), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset, -1);
         /*DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());*/
@@ -33,14 +33,16 @@ public class CheckBox extends Component {
         if (boolSet.isEnabled()) {
             Render2DUtils.inset(
 		matrices,
-		parent.parent.x + parent.parent.width - 16, parent.parent.y + parent.offset + offset + 1,
-		14, 14, 0
+		parent.parent.x + parent.parent.width - 15, parent.parent.y + parent.offset + offset + 3,
+        parent.parent.x + parent.parent.width - 5, parent.parent.y + parent.offset + offset + parent.parent.height - 3,
+        0
             );
         } else {
             Render2DUtils.rect(
 		matrices,
-		parent.parent.x + parent.parent.width - 16, parent.parent.y + parent.offset + offset + 1,
-		14, 14, 0
+		parent.parent.x + parent.parent.width - 15, parent.parent.y + parent.offset + offset + 3,
+        parent.parent.x + parent.parent.width - 5, parent.parent.y + parent.offset + offset + parent.parent.height - 3,
+        0
             );
         }
         super.render(matrices, mouseX, mouseY, delta);

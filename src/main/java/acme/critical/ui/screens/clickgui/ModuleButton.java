@@ -47,8 +47,8 @@ public class ModuleButton {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 
-        //DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 190).getRGB());
-	Render2DUtils.rect(matrices, parent.x, parent.y + offset, parent.width, parent.height, (char) 0);
+        //DrawableHelper.fill(  , new Color(0, 0, 0, 190).getRGB());
+	Render2DUtils.rect(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, (char) 0);
         if(isHovered(mouseX, mouseY)) {
             DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 140).getRGB());
 
