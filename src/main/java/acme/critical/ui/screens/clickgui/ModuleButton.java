@@ -40,6 +40,8 @@ public class ModuleButton {
                 components.add(new Slider(setting, this, setOffset));
             } else if (setting instanceof KeybindSetting) {
                 components.add(new Keybind(setting, this, setOffset));
+            } else if (setting instanceof StringSetting) {
+                components.add(new TextBox(setting, this, setOffset)); 
             }
             setOffset += parent.height;
         }
