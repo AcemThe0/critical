@@ -14,7 +14,7 @@ import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 
 public class Spoof extends Mod {
     //private static ModeSetting name = new ModeSetting("Name", "Vanilla", "Vanilla", "Jungle", "fourchan");
-    private static StringSetting name = new StringSetting("Name", "Vanilla");
+    private static StringSetting name = new StringSetting("Name", "vanilla");
 
     public Spoof() {
         super("Spoof", "Spoofs client brand.", Category.CLIENT);
