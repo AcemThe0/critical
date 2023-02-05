@@ -83,6 +83,7 @@ public class ModMan {
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
         modules.add(new Autoclicker());
+        modules.add(new Crystalaura());
         modules.add(new Timechanger());
         //monolith
 
