@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.event.eventbus.CriticalEventBus;
@@ -21,6 +22,7 @@ import acme.critical.profile.Profile;
 import acme.critical.ui.screens.clickgui.ClickGUI;
 import acme.critical.utils.FileUtils;
 import acme.critical.utils.ChatUtils;
+
 
 public class Critical implements ModInitializer {
     public static final Critical INSTANCE = new Critical();
@@ -53,7 +55,7 @@ public class Critical implements ModInitializer {
     List<Mod> enabledModules = new ArrayList<>();
 
     public void onKeyPress(int key, int action) {
-        if (action == GLFW.GLFW_PRESS/* && mc.player != null && mc.currentScreen == null*/) {
+        if (action == GLFW.GLFW_PRESS && (mc.currentScreen == null || mc.currentScreen instanceof TitleScreen)) {
             for (Mod module : ModMan.INSTANCE.getModules()) {
                 if (key == GLFW.GLFW_KEY_RIGHT_SHIFT) mc.setScreen(ClickGUI.INSTANCE);
                 if (key == module.getKey()) module.toggle();
