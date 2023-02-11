@@ -23,7 +23,8 @@
     "PlayerMoveC2SPacketAccessor",
     "RenderEntityDispatcherMixin",
     "CustomPayloadC2SPacketAccessor",
-    "PlayerPositionLookS2CPacketAccessor"
+    "PlayerPositionLookS2CPacketAccessor",
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

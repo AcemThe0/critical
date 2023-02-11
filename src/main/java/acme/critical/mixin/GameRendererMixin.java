@@ -24,7 +24,7 @@ import net.minecraft.client.render.VertexFormats;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
 	@Inject(method = "renderWorld", at = @At("HEAD"))
-	private void onRenderWorldPre(float tickDelta, long limitTime, MatrixStack matrices) {
+	private void onRenderWorldPre(float tickDelta, long limitTime, MatrixStack matrices, CallbackInfo ci) {
 	}
 
 	@Inject(method = "renderWorld", at = @At(
@@ -35,7 +35,7 @@ public class GameRendererMixin {
 			ordinal = 0
 		)
 	)
-	private void onRenderWorldPost(float tickDelta, long limitTime, MatrixStack matrices) {
+	private void onRenderWorldPost(float tickDelta, long limitTime, MatrixStack matrices, CallbackInfo ci) {
 		/*Tessellator tes = Tessellator.getInstance();
 		tes.getBuffer().begin(DrawMode.LINES, VertexFormats.POSITION_COLOR);
 		tes.getBuffer().vertex(0, 0, 0).color(255, 255, 255, 255).next();
