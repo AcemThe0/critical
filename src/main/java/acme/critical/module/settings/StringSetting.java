@@ -18,6 +18,10 @@ public class StringSetting extends Setting {
 		val += c;
 	}
 
+	public void add(char c) {
+		val += c;
+	}
+
 	public void rem() {
 		val = val.substring(0, val.length() - 1);
 	}

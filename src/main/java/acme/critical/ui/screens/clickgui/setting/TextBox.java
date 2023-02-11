@@ -5,10 +5,13 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
-import acme.critical.utils.Render2DUtils;
+import acme.critical.Critical;
+import acme.critical.event.eventbus.CriticalSubscribe;
+import acme.critical.event.events.EventKeyboard;
 import acme.critical.module.settings.Setting;
 import acme.critical.module.settings.StringSetting;
 import acme.critical.ui.screens.clickgui.ModuleButton;
+import acme.critical.utils.Render2DUtils;
 
 public class TextBox extends Component {
 	private StringSetting strset = (StringSetting)setting;
@@ -16,22 +19,28 @@ public class TextBox extends Component {
 
 	public TextBox(Setting setting, ModuleButton parent, int offset) {
 		super(setting, parent, offset);
+		Critical.INSTANCE.eventBus.subscribe(this);
 	}
 
 	@Override
 	public void mouseClicked(double mouseX, double mouseY, int button) {
 		if (isHovered(mouseX, mouseY) && button == 0) {
 			writing = !writing;
-		} else { writing = false;};
+		} else { writing = false; };
 	}
 
+	// NNNNN IM NUTS
 	@Override
-	public void keyPressed(int key) {
-		if (writing) {
-			if (key == 256 || key == 257) { writing = false; } //ESC ; ENTER
-			else if (strset.getVal().length() >= 1 && (key == 261 || key == 259)) { strset.rem(); } //DEL ; BACKSPACE
-			else if ( strset.getVal().length() <= 14) { strset.add(strset.getKeyChar(key)); }
+	public void keyPressed(int key) {}
+
+	@CriticalSubscribe
+	public void onKey(EventKeyboard event) {
+		if (!writing || !event.isPressing()) return;
+		if (event.isDel() && strset.getVal().length() >= 1) {
+			strset.rem();
+			return;
 		}
+		if (strset.getVal().length() <= 14) strset.add(event.getKeyReadable());
 	}
 
 	int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
