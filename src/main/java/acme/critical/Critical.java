@@ -23,7 +23,6 @@ import acme.critical.ui.screens.clickgui.ClickGUI;
 import acme.critical.utils.FileUtils;
 import acme.critical.utils.ChatUtils;
 
-
 public class Critical implements ModInitializer {
     public static final Critical INSTANCE = new Critical();
 

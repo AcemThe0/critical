@@ -14,8 +14,8 @@ import acme.critical.ui.screens.clickgui.ModuleButton;
 import acme.critical.utils.Render2DUtils;
 
 public class TextBox extends Component {
-	private StringSetting strset = (StringSetting)setting;
-	boolean writing = false;
+	private StringSetting strset = (StringSetting) setting;
+	private boolean writing = false;
 
 	public TextBox(Setting setting, ModuleButton parent, int offset) {
 		super(setting, parent, offset);
@@ -24,9 +24,8 @@ public class TextBox extends Component {
 
 	@Override
 	public void mouseClicked(double mouseX, double mouseY, int button) {
-		if (isHovered(mouseX, mouseY) && button == 0) {
-			writing = !writing;
-		} else { writing = false; };
+		if (isHovered(mouseX, mouseY) && button == 0) writing = !writing;
+		else writing = false;
 	}
 
 	// NNNNN IM NUTS
@@ -37,7 +36,7 @@ public class TextBox extends Component {
 	public void onKey(EventKeyboard event) {
 		if (!writing || !event.isPressing()) return;
 		if (event.isDel() && strset.getVal().length() >= 1) {
-			strset.rem();
+			strset.del();
 			return;
 		}
 		if (strset.getVal().length() <= 14) strset.add(event.getKeyReadable());
