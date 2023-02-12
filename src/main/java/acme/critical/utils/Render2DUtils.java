@@ -7,12 +7,6 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class Render2DUtils {
-	public static enum C {
-		BASE,
-		DECOR,
-		HIGHLIGHT,
-	}
-
 	private static int[] getcolors(int color) {
 		// dark, base, light
 		int ret[] = {0, 0, 0};
