@@ -36,6 +36,18 @@ public class ModMan {
         return namedmodules.get(str);
     }
 
+    public String[] modSearch(String str, int count) {
+        ArrayList<String> ret = new ArrayList();
+        for (Mod mod : modules) {
+            if (ret.size() >= count) break;
+            if (mod.getName().contains(str)) ret.add(mod.getName());
+        }
+
+        return ret.toArray(new String[ret.size()]);
+    }
+
+    public String[] modSearch(String str) { return modSearch(str, 10); }
+
     public List<Mod> getEnabledModules() {
         List<Mod> enabledModules = new ArrayList<>();
         for (Mod module : modules) {
