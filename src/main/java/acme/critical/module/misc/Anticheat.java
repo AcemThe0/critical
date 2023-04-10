@@ -18,7 +18,7 @@ public class Anticheat extends Mod {
 
     public Anticheat() {
         super("Anticheat", "Anti-AntiCheat utils.", Category.MISC);
-        addSettings(antibot, new KeybindSetting("Key", 0));
+        addSettings(antibot, abUUID, abProfile, abLatency, new KeybindSetting("Key", 0));
     }
 
     @Override
