@@ -10,6 +10,9 @@ import acme.critical.module.settings.KeybindSetting;
 
 public class Anticheat extends Mod {
     private BooleanSetting antibot = new BooleanSetting("AntiBot", true);
+    private BooleanSetting abUUID = new BooleanSetting("ABUUID", true);
+    private BooleanSetting abProfile = new BooleanSetting("ABProfile", false);
+    private BooleanSetting abLatency = new BooleanSetting("ABLatency", false);
     int removedBots;
     int oldRemovedBots = 1337;
 
@@ -41,9 +44,10 @@ public class Anticheat extends Mod {
     }
 
     private boolean isBot(PlayerEntity entity) {
-        if (mc.getNetworkHandler().getPlayerListEntry(entity.getUuid()) == null ||
-            mc.getNetworkHandler().getPlayerListEntry(entity.getUuid()).getProfile() == null ||
-            mc.getNetworkHandler().getPlayerListEntry(entity.getUuid()).getLatency() > 1) return true;
+        if ((mc.getNetworkHandler().getPlayerListEntry(entity.getUuid()) == null && abUUID.isEnabled()) ||
+            (mc.getNetworkHandler().getPlayerListEntry(entity.getUuid()).getProfile() == null && abProfile.isEnabled()) ||
+            (mc.getNetworkHandler().getPlayerListEntry(entity.getUuid()).getLatency() > 1 && abLatency.isEnabled())
+            ) return true;
         return false;
     }
 }
