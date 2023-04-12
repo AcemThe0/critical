@@ -18,12 +18,12 @@ import acme.critical.utils.Render2DUtils;
 public class ModuleButton {
     public int widthOffset = MinecraftClient.getInstance().textRenderer.getWidth("Critical (JW-13.37.69)");
     public Mod module;
-    public Frame parent;
+    public Window parent;
     public int offset;
     public boolean extended;
     public List<Component> components;
     
-    public ModuleButton(Mod module, Frame parent, int offset) {
+    public ModuleButton(Mod module, Window parent, int offset) {
         this.module = module;
         this.parent = parent;
         this.offset = offset;

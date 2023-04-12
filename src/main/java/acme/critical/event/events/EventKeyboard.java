@@ -43,4 +43,10 @@ public class EventKeyboard extends Event {
 		if (action == GLFW.GLFW_RELEASE) return false;
 		return true;
 	}
+
+	public static class Cgui extends EventKeyboard {
+		public Cgui(int key, int action, int modifiers) {
+			super(key, action, modifiers);
+		}
+	}
 }
