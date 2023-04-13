@@ -16,7 +16,7 @@ import acme.critical.utils.Render2DUtils;
 public class Window {
 	public List<ModuleButton> buttons;
 
-	private boolean extended, dragging;
+	public boolean extended, dragging;
 	public static int draggedElements;
 	public int x, y, width, height, dragX, dragY;
 	private String title;
