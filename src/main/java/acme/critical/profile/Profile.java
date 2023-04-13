@@ -40,4 +40,9 @@ public class Profile {
 		for (ProfileFile pf : pFiles) pf.load();
 	}
 
+	public <T extends ProfileFile> void load(Class<T> clasS) {
+		ProfileFile file = pFiles.stream().filter(pf -> pf.getClass() == clasS).findFirst().orElse(null);
+		file.load();
+	}
+
 }

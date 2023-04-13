@@ -16,8 +16,11 @@ public class ThemeFile extends ProfileFile {
 	@Override
 	public String onSave() {
 		return "//130\n"
+			+ "// base\n"
 			+ "#7d7d7d, #b4b4b4, #e0e0e0\n"
+			+ "// titles\n"
 			+ "#1c2e7c, #2e4ac5, #5c77ec\n"
+			+ "// selected\n"
 			+ "#586198, #7e88bf, #bec7ff\n";
 	}
 

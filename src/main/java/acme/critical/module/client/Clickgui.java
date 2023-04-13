@@ -9,10 +9,11 @@ public class Clickgui extends Mod {
     public static BooleanSetting descriptions = new BooleanSetting("Descriptions", true);
     public static BooleanSetting chatFeedback = new BooleanSetting("ChatToggle", true);
     public static BooleanSetting arrows = new BooleanSetting("Arrowkeys", true);
+    public static BooleanSetting reloadTheme = new BooleanSetting("ReloadTheme", false);
 
     public Clickgui() {
         super("ClickGUI", "Customization!", Category.CLIENT);
-        addSettings(arraylist, descriptions, chatFeedback, arrows);
+        addSettings(arraylist, descriptions, chatFeedback, arrows, reloadTheme);
     }
 
     @Override

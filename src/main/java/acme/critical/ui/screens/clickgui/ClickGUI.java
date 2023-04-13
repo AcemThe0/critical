@@ -6,6 +6,9 @@ import net.minecraft.text.Text;
 import acme.critical.module.Mod.Category;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
+import acme.critical.module.client.Clickgui;
+import acme.critical.profile.Profile;
+import acme.critical.profile.files.ThemeFile;
 
 public class ClickGUI extends Screen {
     public static final ClickGUI INSTANCE = new ClickGUI();
@@ -30,6 +33,11 @@ public class ClickGUI extends Screen {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        if (Clickgui.reloadTheme.isEnabled()) {
+            Clickgui.reloadTheme.setEnabled(false);
+            Profile.INSTANCE.load(ThemeFile.class);
+        }
+
         renderBackground(matrices);
         for (Window frame : frames) {
             frame.render(matrices, mouseX, mouseY, delta);
