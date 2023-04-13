@@ -22,8 +22,9 @@ import acme.critical.module.ModMan;
 import acme.critical.module.client.Clickgui;
 import acme.critical.profile.Profile;
 import acme.critical.ui.screens.clickgui.ClickGUI;
-import acme.critical.utils.FileUtils;
 import acme.critical.utils.ChatUtils;
+import acme.critical.utils.FileUtils;
+import acme.critical.utils.Render2DUtils;
 
 public class Critical implements ModInitializer {
     public static final Critical INSTANCE = new Critical();

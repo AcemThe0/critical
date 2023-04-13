@@ -1,37 +1,33 @@
 package acme.critical.utils;
 
 import java.awt.Color;
+import java.lang.IndexOutOfBoundsException;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
+import acme.critical.utils.ColorUtils;
+
 public class Render2DUtils {
+	private static List<int[]> theme = new ArrayList<>();
+
 	private static int[] getcolors(int color) {
-		// dark, base, light
-		int ret[] = {0, 0, 0};
-		switch (color) {
-			case 0:
-				ret[0] = 0xff7d7d7d;
-				ret[1] = 0xffb4b4b4;
-				ret[2] = 0xffe0e0e0;
-				break;
-			case 1:
-				ret[0] = 0xff1c2e7c;
-				ret[1] = 0xff2e4ac5;
-				ret[2] = 0xff5c77ec;
-				break;
-			case 2:
-				ret[0] = 0xff586198;
-				ret[1] = 0xff7e88bf;
-				ret[2] = 0xffbec7ff;
-				break;
-			default:
-				ret[0] = 0xffff00ff;
-				ret[1] = ret[0];
-				ret[2] = ret[1];
+		try {
+			int[] ret = theme.get(color).clone();
+			for (int i = 0; i < ret.length; i++)
+				if (ret[i] == 0xffff00ff) ret[i] = ColorUtils.Rainbow();
+			return ret;
+		} catch (IndexOutOfBoundsException e) {
+			int[] ret = {0xffff00ff, 0xffff00ff, 0xffff00ff};
+			return ret;
 		}
-		return ret;
+	}
+
+	public static void updateTheme(List<int[]> newtheme) {
+		theme = newtheme;
 	}
 
 	public static void rect(MatrixStack matrices, int x, int y, int x2, int y2, int color) {

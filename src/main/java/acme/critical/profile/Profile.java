@@ -24,6 +24,7 @@ public class Profile {
 		FileUtils.mkdir(pDir);
 
 		pFiles.add(new FriendsFile());
+		pFiles.add(new ThemeFile());
 	}
 
 	public void save() {
