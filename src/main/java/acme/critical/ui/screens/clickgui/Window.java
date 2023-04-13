@@ -10,12 +10,11 @@ import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.module.Mod.Category;
 import acme.critical.module.client.Clickgui;
+import acme.critical.ui.screens.clickgui.setting.Component;
 import acme.critical.utils.Render2DUtils;
 
-import acme.critical.ui.screens.clickgui.setting.Component;
-
 public class Window {
-	private List<ModuleButton> buttons;
+	public List<ModuleButton> buttons;
 
 	private boolean extended, dragging;
 	public static int draggedElements;

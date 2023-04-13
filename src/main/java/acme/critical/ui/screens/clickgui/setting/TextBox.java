@@ -15,7 +15,7 @@ import acme.critical.utils.Render2DUtils;
 
 public class TextBox extends Component {
 	private StringSetting strset = (StringSetting) setting;
-	private boolean writing = false;
+	public boolean writing = false;
 
 	public TextBox(Setting setting, ModuleButton parent, int offset) {
 		super(setting, parent, offset);
@@ -33,7 +33,7 @@ public class TextBox extends Component {
 	public void keyPressed(int key) {}
 
 	@CriticalSubscribe
-	public void onKey(EventKeyboard event) {
+	public void onKey(EventKeyboard.Cgui event) {
 		if (!writing || !event.isPressing()) return;
 		if (event.isDel() && strset.getVal().length() >= 1) {
 			strset.del();

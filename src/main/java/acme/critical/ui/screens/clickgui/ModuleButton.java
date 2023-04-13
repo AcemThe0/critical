@@ -30,6 +30,9 @@ public class ModuleButton {
         this.extended = false;
         this.components = new ArrayList<>();
 
+	// hack
+        if (module == null) return;
+
         int setOffset = parent.height;
         for (Setting setting : module.getSettings()) {
             if (setting instanceof BooleanSetting) {
