@@ -13,20 +13,25 @@ import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.setting.*;
 import acme.critical.ui.screens.clickgui.setting.Component;
 
+import acme.critical.utils.Render2DUtils;
+
 public class ModuleButton {
     public int widthOffset = MinecraftClient.getInstance().textRenderer.getWidth("Critical (JW-13.37.69)");
     public Mod module;
-    public Frame parent;
+    public Window parent;
     public int offset;
     public boolean extended;
     public List<Component> components;
     
-    public ModuleButton(Mod module, Frame parent, int offset) {
+    public ModuleButton(Mod module, Window parent, int offset) {
         this.module = module;
         this.parent = parent;
         this.offset = offset;
         this.extended = false;
         this.components = new ArrayList<>();
+
+	// hack
+        if (module == null) return;
 
         int setOffset = parent.height;
         for (Setting setting : module.getSettings()) {
@@ -38,26 +43,32 @@ public class ModuleButton {
                 components.add(new Slider(setting, this, setOffset));
             } else if (setting instanceof KeybindSetting) {
                 components.add(new Keybind(setting, this, setOffset));
+            } else if (setting instanceof StringSetting) {
+                components.add(new TextBox(setting, this, setOffset)); 
             }
             setOffset += parent.height;
         }
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        int c;
+        if (!isHovered(mouseX, mouseY)) c = 0; else c = 2;
 
-        DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 190).getRGB());
-        if(isHovered(mouseX, mouseY)) {
-            DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, new Color(0, 0, 0, 140).getRGB());
-
-            if (Clickgui.descriptions.isEnabled()) {
-                int startOffset = MinecraftClient.getInstance().textRenderer.getWidth(module.getDesc())+3+widthOffset;
-                DrawableHelper.fill(matrices, widthOffset, 1, startOffset, MinecraftClient.getInstance().textRenderer.fontHeight+3, new Color(0, 0, 0, 160).getRGB());
-                DrawableHelper.fill(matrices, startOffset, 1, startOffset+2, MinecraftClient.getInstance().textRenderer.fontHeight+3, ColorUtils.contrast());
-                parent.mc.textRenderer.drawWithShadow(matrices, module.getDesc(), widthOffset+2, 3, -1);
-            }
-        }
+	if (!module.isEnabled()) {
+		Render2DUtils.rect(
+			matrices, parent.x, parent.y + offset,
+			parent.x + parent.width, parent.y + offset + parent.height,
+			c
+		);
+	} else {
+		Render2DUtils.inset(
+			matrices, parent.x, parent.y + offset,
+			parent.x + parent.width, parent.y + offset + parent.height,
+			c
+		);
+	}
         int textOffset = (parent.height/2)-parent.mc.textRenderer.fontHeight/2;
-        parent.mc.textRenderer.drawWithShadow(matrices, module.getName(), parent.x + 2, parent.y + offset + textOffset, module.isEnabled() ? -1 : new Color(255, 255, 255, 128).getRGB());
+        parent.mc.textRenderer.drawWithShadow(matrices, module.getName(), parent.x + 2, parent.y + offset + textOffset, module.isEnabled() ? -1 : new Color(255, 255, 255, 255).getRGB());
 
         if (extended) {
             for (Component component : components) {

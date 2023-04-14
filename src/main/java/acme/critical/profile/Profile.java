@@ -24,6 +24,7 @@ public class Profile {
 		FileUtils.mkdir(pDir);
 
 		pFiles.add(new FriendsFile());
+		pFiles.add(new ThemeFile());
 	}
 
 	public void save() {
@@ -37,6 +38,11 @@ public class Profile {
 
 	public void load() {
 		for (ProfileFile pf : pFiles) pf.load();
+	}
+
+	public <T extends ProfileFile> void load(Class<T> clasS) {
+		ProfileFile file = pFiles.stream().filter(pf -> pf.getClass() == clasS).findFirst().orElse(null);
+		file.load();
 	}
 
 }
