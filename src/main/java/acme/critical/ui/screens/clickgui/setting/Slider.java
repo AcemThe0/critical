@@ -3,7 +3,6 @@ package acme.critical.ui.screens.clickgui.setting;
 import java.awt.Color;
 import acme.critical.utils.MathUtils;
 import acme.critical.utils.ColorUtils;
-import acme.critical.utils.Render2DUtils;
 import acme.critical.module.settings.Setting;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
@@ -21,21 +20,11 @@ public class Slider extends Component{
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        //DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());
-        Render2DUtils.rect(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
+        DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());
         
         double diff = Math.min(parent.parent.width, Math.max(0, mouseX - parent.parent.x));
         int renderWidth = (int)(parent.parent.width * (numSet.getValue() - numSet.getMin()) / (numSet.getMax() - numSet.getMin()));
-        //DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset+2, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height-2, ColorUtils.contrast());
-        Render2DUtils.inset(matrices,
-        parent.parent.x, parent.parent.y + parent.offset + offset+6,
-        parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height-6,
-        0);
-        Render2DUtils.rect(matrices,
-        parent.parent.x+renderWidth-2, parent.parent.y + parent.offset + offset+2,
-        parent.parent.x+renderWidth+2, parent.parent.y + parent.offset + offset + parent.parent.height-2,
-        0);
-
+        DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset+2, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height-2, ColorUtils.contrast());
         if (sliding) {
             if(diff == 0) {
                 numSet.setValue(numSet.getMin());

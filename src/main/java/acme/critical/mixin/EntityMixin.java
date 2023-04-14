@@ -23,15 +23,19 @@ public abstract class EntityMixin implements CommandOutput, Nameable, EntityLike
 	Killaura ka = ModMan.INSTANCE.getMod(Killaura.class);
 	@Inject(method = "Lnet/minecraft/entity/Entity;isGlowing()Z", at = @At("HEAD"), cancellable = true)
 	public void isGlowing(CallbackInfoReturnable cir) {
-		if (ka.isEnabled() && (Entity) (Object) this == ka.getCurrentTarget()) cir.setReturnValue(true);
+		Entity entity = (Entity) (Object) this;
+		if (ka.isEnabled() && entity == ka.getCurrentTarget()) cir.setReturnValue(true);
 		if (!esp.isEnabled() || esp.getMode() != "Glow") return;
-		if (!esp.getJustPlayers() || (Entity) (Object) this instanceof PlayerEntity)
-			cir.setReturnValue(true);
+		if (esp.players.isEnabled() && entity.isPlayer()) cir.setReturnValue(true);
+		if (esp.passive.isEnabled() && ka.getEntityType(entity.getType()) == "Passive" && !entity.isPlayer()) cir.setReturnValue(true);
+		if (esp.offensive.isEnabled() && ka.getEntityType(entity.getType()) == "Offensive") cir.setReturnValue(true);
+		
 	}
 
 	@Inject(method = "Lnet/minecraft/entity/Entity;getTeamColorValue()I", at = @At("HEAD"), cancellable = true)
 	public void getTeamColorValue(CallbackInfoReturnable cir) {
-		if (esp.isEnabled()) cir.setReturnValue(esp.getColor((Entity) (Object) this));
-		if ((Entity) (Object) this == ka.getCurrentTarget()) cir.setReturnValue(new Color(127, 0, 0).getRGB());
+		Entity entity = (Entity) (Object) this;
+		if (esp.isEnabled()) cir.setReturnValue(esp.getColor(entity));
+		if (entity == ka.getCurrentTarget()) cir.setReturnValue(new Color(127, 0, 0).getRGB());
 	}
 }

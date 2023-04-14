@@ -10,9 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 public class ClickGUI extends Screen {
     public static final ClickGUI INSTANCE = new ClickGUI();
 
-    //private List<Frame> frames;
-    private List<Window> frames;
-    //private SearchWindow searchwindow;
+    private List<Frame> frames;
 
     private ClickGUI() {
         super(Text.literal("ClickGUI"));
@@ -24,15 +22,11 @@ public class ClickGUI extends Screen {
             frames.add(new Frame(category, offset, 15, 80, 15));
             offset += 80;
         }
-
-	frames.add(new SearchWindow(offset, 15, 80, 15));
-    frames.add(new OptionsWindow(offset+80, 15, 80, 15));
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        renderBackground(matrices);
-        for (Window frame : frames) {
+        for (Frame frame : frames) {
             frame.render(matrices, mouseX, mouseY, delta);
             frame.updatePosition(mouseX, mouseY);
         }
@@ -41,7 +35,7 @@ public class ClickGUI extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        for (Window frame : frames) {
+        for (Frame frame : frames) {
             frame.mouseClicked(mouseX, mouseY, button);
         }
     return super.mouseClicked(mouseX, mouseY, button);
@@ -49,7 +43,7 @@ public class ClickGUI extends Screen {
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        for (Window frame : frames) {
+        for (Frame frame : frames) {
             frame.mouseReleased(mouseX, mouseY, button);
         }
     return super.mouseReleased(mouseX, mouseY, button);
@@ -57,7 +51,7 @@ public class ClickGUI extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        for (Window frame : frames) {
+        for (Frame frame : frames) {
             frame.keyPressed(keyCode);
         }
     return super.keyPressed(keyCode, scanCode, modifiers);

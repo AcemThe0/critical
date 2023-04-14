@@ -9,10 +9,11 @@ import net.minecraft.util.math.Vec3d;
 import acme.critical.Critical;
 import acme.critical.event.eventbus.CriticalSubscribe;
 import acme.critical.event.events.EventPacket;
+import acme.critical.mixinterface.KeyBindingInterface;
 import acme.critical.module.Mod;
 import acme.critical.module.settings.NumberSetting;
 import acme.critical.module.settings.KeybindSetting;
-import acme.critical.utils.MiscUtils;
+import acme.critical.utils.ChatUtils;
 
 public class Autofish extends Mod {
 	private static enum FishStates {
@@ -35,9 +36,10 @@ public class Autofish extends Mod {
 		if (curState == FishStates.CAST) {
 			timer++;
 			if (timer == 15) {
-				MiscUtils.use(true);
+				mc.options.useKey.setPressed(true);
 			} else if (timer > 15) {
-				MiscUtils.use(false);
+				((KeyBindingInterface) (Object) mc.options.useKey).release();
+				timer = 0;
 				curState = FishStates.FISH;
 			}
 		}
@@ -51,9 +53,10 @@ public class Autofish extends Mod {
 		if (curState == FishStates.REEL) {
 			timer++;
 			if (timer == 5) {
-				MiscUtils.use(true);
+				mc.options.useKey.setPressed(true);
 			} else if (timer > 5) {
-				MiscUtils.use(false);
+				((KeyBindingInterface) (Object) mc.options.useKey).release();
+				timer = 0;
 				curState = FishStates.CAST;
 			}
 		}

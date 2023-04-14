@@ -3,7 +3,6 @@ package acme.critical.module;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import acme.critical.module.misc.*;
 import acme.critical.module.client.*;
 import acme.critical.module.combat.*;
@@ -13,16 +12,12 @@ import acme.critical.module.Mod.Category;
 import net.minecraft.client.MinecraftClient;
 
 public class ModMan {
-    public Mod selectedModule;
+
     public static final ModMan INSTANCE = new ModMan();
     private List<Mod> modules = new ArrayList<>();
-    private HashMap<String, Mod> namedmodules = new HashMap();
 
     public ModMan() {
         addModules();
-        for (Mod mod : modules) {
-            namedmodules.put(mod.getName(), mod);
-        }
     }
 
     public <T extends Mod> T getMod(Class<T> clasS) {
@@ -31,20 +26,6 @@ public class ModMan {
 
     public List<Mod> getModules() {
         return modules;
-    }
-
-    public Mod getModByName(String str) {
-        return namedmodules.get(str);
-    }
-
-    public Mod[] modSearch(String str, int count) {
-        ArrayList<Mod> ret = new ArrayList();
-        for (Mod mod : modules) {
-            if (ret.size() >= count) break;
-            if (mod.getName().toUpperCase().contains(str.toUpperCase())) ret.add(mod);
-        }
-
-        return ret.toArray(new Mod[ret.size()]);
     }
 
     public List<Mod> getEnabledModules() {
@@ -102,6 +83,7 @@ public class ModMan {
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
         modules.add(new Autoclicker());
+        modules.add(new Crystalaura());
         modules.add(new Timechanger());
         //monolith
 

@@ -10,13 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.event.eventbus.CriticalEventBus;
-import acme.critical.event.eventbus.CriticalSubscribe;
 import acme.critical.event.eventbus.InexactEventHandler;
-import acme.critical.event.events.EventKeyboard;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.module.client.Clickgui;
@@ -51,24 +48,17 @@ public class Critical implements ModInitializer {
         FileUtils.mkdir(cjwProfileDir);
 
 	new Profile("main", cjwProfileDir.resolve("main"));
-
-	eventBus.subscribe(this);
     }
 
     List<Mod> enabledModules = new ArrayList<>();
 
-    @CriticalSubscribe
-    public void keyPress(EventKeyboard event) {
-	int key = event.getKey();
-	int action = event.getAction();
-        if (action == GLFW.GLFW_PRESS
-	    && (mc.currentScreen == null || mc.currentScreen instanceof TitleScreen)
-	) {
-		for (Mod module : ModMan.INSTANCE.getModules()) {
-                    if (key == GLFW.GLFW_KEY_RIGHT_SHIFT) mc.setScreen(ClickGUI.INSTANCE);
-                    if (key == module.getKey()) module.toggle();
-		}
-	}
+    public void onKeyPress(int key, int action) {
+        if (action == GLFW.GLFW_PRESS && mc.player != null && mc.currentScreen == null) {
+            for (Mod module : ModMan.INSTANCE.getModules()) {
+                if (key == GLFW.GLFW_KEY_RIGHT_SHIFT) mc.setScreen(ClickGUI.INSTANCE);
+                if (key == module.getKey()) module.toggle();
+            }
+        }
     }
 
     public void onTick() {

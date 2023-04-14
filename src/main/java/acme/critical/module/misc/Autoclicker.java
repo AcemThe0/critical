@@ -3,11 +3,11 @@ package acme.critical.module.misc;
 import net.minecraft.client.MinecraftClient;
 
 import acme.critical.mixin.MinecraftClientAccessor;
+import acme.critical.mixinterface.KeyBindingInterface;
 import acme.critical.module.Mod;
 import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.NumberSetting;
 import acme.critical.module.settings.KeybindSetting;
-import acme.critical.utils.MiscUtils;
 
 public class Autoclicker extends Mod {
 	private BooleanSetting lClick = new BooleanSetting("LClick", false);
@@ -30,20 +30,21 @@ public class Autoclicker extends Mod {
 		if (lClick.isEnabled()) {
 			lClickTimer += 1;
 			if (lClickTimer == lDelay.getValueInt()) {
-				MiscUtils.attack(true);
+				mc.options.attackKey.setPressed(true);
+				((MinecraftClientAccessor) (Object) mc).doAttack();
 			}
 			if (lClickTimer > lDelay.getValueInt()) {
-				MiscUtils.attack(false);
+				((KeyBindingInterface) (Object) mc.options.attackKey).release();
 				lClickTimer = 0;
 			}
 		}
 		if (rClick.isEnabled()) {
 			rClickTimer += 1;
 			if (rClickTimer == rDelay.getValueInt()) {
-				MiscUtils.use(true);
+				mc.options.useKey.setPressed(true);
 			}
 			if (rClickTimer > rDelay.getValueInt()) {
-				MiscUtils.use(false);
+				((KeyBindingInterface) (Object) mc.options.useKey).release();
 				rClickTimer = 0;
 			}
 		}
@@ -51,17 +52,13 @@ public class Autoclicker extends Mod {
 
 	@Override
 	public void onEnable() {
-		lClickTimer = 0;
-		MiscUtils.attack(false);
 		rClickTimer = 0;
-		MiscUtils.use(false);
+		((KeyBindingInterface) (Object) mc.options.useKey).release();
 	}
 
 	@Override
 	public void onDisable() {
-		lClickTimer = 0;
-		MiscUtils.attack(false);
 		rClickTimer = 0;
-		MiscUtils.use(false);
+		((KeyBindingInterface) (Object) mc.options.useKey).release();
 	}
 }

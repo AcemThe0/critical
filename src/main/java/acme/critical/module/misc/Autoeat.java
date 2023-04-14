@@ -1,10 +1,10 @@
 package acme.critical.module.misc;
 
+import acme.critical.mixinterface.KeyBindingInterface;
 import acme.critical.module.Mod;
 import acme.critical.module.settings.NumberSetting;
 import acme.critical.module.settings.KeybindSetting;
 import acme.critical.utils.ChatUtils;
-import acme.critical.utils.MiscUtils;
 
 public class Autoeat extends Mod {
 	private NumberSetting hunger = new NumberSetting("Hunger", 0, 20, 12, 1);
@@ -30,14 +30,14 @@ public class Autoeat extends Mod {
 			}
 			lastSlot = mc.player.getInventory().selectedSlot;
 			mc.player.getInventory().selectedSlot = slot;
-			MiscUtils.use(true);
+			mc.options.useKey.setPressed(true);
 			isEating = true;
 			return;
 		}
 		if (isEating) {
 			if (!shouldEat()) {
 				// stop eating
-				MiscUtils.use(false);
+				((KeyBindingInterface) (Object) mc.options.useKey).release();
 				mc.player.getInventory().selectedSlot = lastSlot;
 				isEating = false;
 				return;
