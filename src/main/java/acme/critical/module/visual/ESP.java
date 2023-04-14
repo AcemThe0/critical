@@ -18,17 +18,19 @@ import acme.critical.utils.FriendsUtils;
 public class ESP extends Mod {
 	private ModeSetting mode = new ModeSetting("Mode", "Glow", "Glow", "Walls");
 	private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
-	public BooleanSetting players = new BooleanSetting("Players", true);
-	public BooleanSetting offensive = new BooleanSetting("Offensive", true);
-	public BooleanSetting passive = new BooleanSetting("Passive", false);
+	private BooleanSetting justPlayers = new BooleanSetting("JustPlayers", false);
 
 	public ESP() {
 		super("ESP", "Extrasensory perception!", Category.VISUAL);
-		addSettings(mode, rainbow, players, offensive, passive, new KeybindSetting("Key", 0));
+		addSettings(mode, rainbow, justPlayers, new KeybindSetting("Key", 0));
 	}
 
 	public String getMode() {
 		return mode.getMode();
+	}
+
+	public boolean getJustPlayers() {
+		return justPlayers.isEnabled();
 	}
 
 	public int getColor(Entity entity) {
