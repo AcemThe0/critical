@@ -23,7 +23,7 @@
     "RenderEntityDispatcherMixin",
     "CustomPayloadC2SPacketAccessor",
     "PlayerPositionLookS2CPacketAccessor",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
     "GameRendererMixin"
   ],
   "injectors": {
