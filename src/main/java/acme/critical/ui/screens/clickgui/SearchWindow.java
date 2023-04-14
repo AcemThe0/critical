@@ -7,7 +7,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.module.settings.StringSetting;
-import acme.critical.ui.screens.clickgui.setting.Component;
 import acme.critical.ui.screens.clickgui.setting.TextBox;
 
 public class SearchWindow extends Window {
@@ -26,7 +25,7 @@ public class SearchWindow extends Window {
 		dummy = new ModuleButton(null, this, height);
 		textbox = new TextBox(stringsetting, dummy, 0);
 		// make it selected by default
-		textbox.writing = true;
+		//textbox.writing = true;
 	}
 
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -61,11 +60,6 @@ public class SearchWindow extends Window {
 		for (ModuleButton button : buttons) {
 			button.offset = offset;
 			offset += height;
-
-			if (button.extended) {
-				for (Component component : button.components)
-					if (component.setting.isVisible()) offset += height;
-			}
 		}
 	}
 }

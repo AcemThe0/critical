@@ -10,7 +10,6 @@ import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.module.Mod.Category;
 import acme.critical.module.client.Clickgui;
-import acme.critical.ui.screens.clickgui.setting.Component;
 import acme.critical.utils.Render2DUtils;
 
 public class Window {
@@ -84,12 +83,6 @@ public class Window {
         for (ModuleButton button : buttons) {
             button.offset = offset;
             offset += height;
-
-            if (button.extended) {
-                for (Component component : button.components) {
-                    if (component.setting.isVisible()) offset += height;
-                }
-            }
         }
     }
 

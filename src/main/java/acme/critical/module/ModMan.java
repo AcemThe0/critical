@@ -13,6 +13,7 @@ import acme.critical.module.Mod.Category;
 import net.minecraft.client.MinecraftClient;
 
 public class ModMan {
+    public Mod selectedModule;
     public static final ModMan INSTANCE = new ModMan();
     private List<Mod> modules = new ArrayList<>();
     private HashMap<String, Mod> namedmodules = new HashMap();

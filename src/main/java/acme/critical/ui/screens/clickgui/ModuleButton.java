@@ -4,16 +4,15 @@ import java.awt.Color;
 import java.util.List;
 import java.util.ArrayList;
 import acme.critical.module.Mod;
+import acme.critical.module.ModMan;
 import acme.critical.utils.ColorUtils;
 import acme.critical.module.settings.*;
+import acme.critical.utils.Render2DUtils;
 import acme.critical.module.client.Clickgui;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.setting.*;
-import acme.critical.ui.screens.clickgui.setting.Component;
-
-import acme.critical.utils.Render2DUtils;
 
 public class ModuleButton {
     public int widthOffset = MinecraftClient.getInstance().textRenderer.getWidth("Critical (JW-13.37.69)");
@@ -21,33 +20,12 @@ public class ModuleButton {
     public Window parent;
     public int offset;
     public boolean extended;
-    public List<Component> components;
     
     public ModuleButton(Mod module, Window parent, int offset) {
         this.module = module;
         this.parent = parent;
         this.offset = offset;
         this.extended = false;
-        this.components = new ArrayList<>();
-
-	// hack
-        if (module == null) return;
-
-        int setOffset = parent.height;
-        for (Setting setting : module.getSettings()) {
-            if (setting instanceof BooleanSetting) {
-                components.add(new CheckBox(setting, this, setOffset));
-            } else if (setting instanceof ModeSetting) {
-                components.add(new ModeBox(setting, this, setOffset));
-            } else if (setting instanceof NumberSetting) {
-                components.add(new Slider(setting, this, setOffset));
-            } else if (setting instanceof KeybindSetting) {
-                components.add(new Keybind(setting, this, setOffset));
-            } else if (setting instanceof StringSetting) {
-                components.add(new TextBox(setting, this, setOffset)); 
-            }
-            setOffset += parent.height;
-        }
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -69,12 +47,6 @@ public class ModuleButton {
 	}
         int textOffset = (parent.height/2)-parent.mc.textRenderer.fontHeight/2;
         parent.mc.textRenderer.drawWithShadow(matrices, module.getName(), parent.x + 2, parent.y + offset + textOffset, module.isEnabled() ? -1 : new Color(255, 255, 255, 255).getRGB());
-
-        if (extended) {
-            for (Component component : components) {
-                component.render(matrices, mouseX, mouseY, delta);
-            }
-        }
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
@@ -82,20 +54,13 @@ public class ModuleButton {
             if (button == 0) {
                 module.toggle();
             } else if (button == 1) {
-                extended = !extended;
-                parent.updateButtons();
+                ModMan.INSTANCE.selectedModule = module;
             }
-        }
-
-        for (Component component : components) {
-            if (extended) component.mouseClicked(mouseX, mouseY, button);
         }
     }
 
     public void mouseReleased(double mouseX, double mouseY, int button) {
-        for (Component component : components) {
-            component.mouseReleased(mouseX, mouseY, button);
-        }
+
     }
 
     public boolean isHovered(double mouseX, double mouseY) {
@@ -103,8 +68,10 @@ public class ModuleButton {
     }
 
     public void keyPressed(int key) {
-        for (Component component : components) {
-            component.keyPressed(key);
-        }
+
+    }
+
+    public void changeModule(Mod mod) {
+        module = mod;
     }
 }

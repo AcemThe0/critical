@@ -26,6 +26,7 @@ public class ClickGUI extends Screen {
         }
 
 	frames.add(new SearchWindow(offset, 15, 80, 15));
+    frames.add(new OptionsWindow(offset+80, 15, 80, 15));
     }
 
     @Override
