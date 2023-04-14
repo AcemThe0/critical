@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import acme.critical.module.Mod;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import acme.critical.module.ModMan;
 import net.minecraft.block.OreBlock;
 import net.minecraft.block.RedstoneOreBlock;
 import net.minecraft.util.registry.Registry;
@@ -15,11 +16,11 @@ import acme.critical.module.settings.KeybindSetting;
 
     public class Xray extends Mod {
     public static ArrayList<Block> blocks = new ArrayList<>();
-    public static boolean xrayEnabled = false;
-    
     public ModeSetting mode = new ModeSetting("Mode", "Coal", "Coal", "Iron", "Gold", "Lapis", "Emerald", "Redstone", "Diamond", "Quartz", "Debris", "All");
     public BooleanSetting containers = new BooleanSetting("Containers", true);
     public BooleanSetting other = new BooleanSetting("Other", true);
+    //Nightvision nightvision = ModMan.INSTANCE.getMod(Nightvision.class);
+    //For some reason, the above line leads to errors
 
     public Xray() {
         super("Xray", "See blocks!", Category.VISUAL);
@@ -41,8 +42,8 @@ import acme.critical.module.settings.KeybindSetting;
     @Override
     public void onDisable() {
         mc.chunkCullingEnabled = true;
-
-        if(Nightvision.nightvisionEnabled){Nightvision.setGamma(255.0f);}else{Nightvision.setGamma(1.0f);}
+        
+        Nightvision.setGamma(Nightvision.nvEnabled ? 255.0f : Nightvision.origGamma);
         mc.worldRenderer.reload();
     }
 

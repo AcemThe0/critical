@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import acme.critical.module.visual.Xray;
 import acme.critical.module.movement.Slip;
+import acme.critical.module.visual.Nightvision;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

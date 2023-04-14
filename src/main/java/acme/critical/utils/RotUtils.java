@@ -28,4 +28,8 @@ public class RotUtils {
         float ePitch = Math.abs(getPitchToEnt(entity) - mc.player.getPitch());
         return eYaw+ePitch;
     }
+
+    public static float getNextPos(float speed, float start, float end) {
+        return start < end ? speed*1 : speed*(-1);
+    }
 }

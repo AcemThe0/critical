@@ -5,7 +5,8 @@ import acme.critical.mixin.SimpleOptionMixin;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Nightvision extends Mod {
-    public static boolean nightvisionEnabled = false;
+    public static double origGamma;
+    public static boolean nvEnabled;
 
     public Nightvision() {
         super("Nightvision", "Dark b gone!", Category.VISUAL);
@@ -18,15 +19,14 @@ public class Nightvision extends Mod {
 
     @Override
     public void onEnable() {
-        nightvisionEnabled = true;
+        nvEnabled = true;
+        origGamma = mc.options.getGamma().getValue();
         setGamma(255.0f);
-        super.onTick();
     }
 
     @Override
     public void onDisable() {
-        nightvisionEnabled = false;
-        setGamma(1.0f);
-        super.onDisable();
+        nvEnabled = false;
+        setGamma(origGamma);
     }
 }

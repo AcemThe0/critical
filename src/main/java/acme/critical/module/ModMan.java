@@ -55,6 +55,7 @@ public class ModMan {
         modules.add(new Xray());
         modules.add(new Slip());
         modules.add(new Step());
+        modules.add(new Zoom());
         modules.add(new Blink());
         modules.add(new Speed());
         modules.add(new Spoof());
@@ -79,6 +80,7 @@ public class ModMan {
         modules.add(new Anticheat());
         modules.add(new Criticals());
         modules.add(new Knockback());
+        modules.add(new Antihunger());
         modules.add(new Fakeplayer());
         modules.add(new CoordsSaver());
         modules.add(new Nightvision());
