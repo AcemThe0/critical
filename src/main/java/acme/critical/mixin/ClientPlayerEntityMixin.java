@@ -22,6 +22,7 @@ import net.minecraft.client.gui.screen.Screen;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import acme.critical.module.ModMan;
+import acme.critical.module.visual.Freecam;
 import acme.critical.module.visual.Norender;
 
 @Mixin(ClientPlayerEntity.class)
@@ -43,6 +44,14 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
             double double_2 = this.getZ();
             super.move(event.getType(), event.getVec());
             this.autoJump((float) (this.getX() - double_1), (float) (this.getZ() - double_2));
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "pushOutOfBlocks", at = @At("HEAD"), cancellable = true)
+    private void pushOutOfBlocks(double x, double d, CallbackInfo ci) {
+        Freecam freecam = ModMan.INSTANCE.getMod(Freecam.class);
+        if (freecam.isEnabled()) {
             ci.cancel();
         }
     }

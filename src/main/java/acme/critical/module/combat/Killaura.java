@@ -22,7 +22,7 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 public class Killaura extends Mod {
     private NumberSetting range = new NumberSetting("Range", 1, 10, 4, 0.1);
     private ModeSetting speed = new ModeSetting("Speed", "Cooldwn", "Cooldwn", "Spam");
-    private ModeSetting rotate = new ModeSetting("Rotate", "Snap", "Snap", "None");
+    private ModeSetting rotate = new ModeSetting("Rotate", "Snap", "Snap", "Human", "none");
     private ModeSetting priority = new ModeSetting("Priority", "Angle", "Angle", "Health");
     private BooleanSetting attack = new BooleanSetting("Attack", true);
     private BooleanSetting lock = new BooleanSetting("Lock", false);
@@ -61,8 +61,22 @@ public class Killaura extends Mod {
                         mc.player.setYaw(yaw);
                     }
                     if (rotate.getMode() == "Snap") {
+                        mc.player.setPitch(pitch);
                         mc.player.setHeadYaw(yaw);
                         mc.player.setBodyYaw(yaw);
+                    } else if (rotate.getMode() == "Human") {
+                        mc.player.setPitch(
+                            mc.player.getPitch() +
+                            RotUtils.getNextPos(4.2f, mc.player.getPitch(), pitch)
+                        );
+                        mc.player.setHeadYaw(
+                            mc.player.getYaw() +
+                            RotUtils.getNextPos(5.3f, mc.player.getYaw(), yaw)
+                        );
+                        mc.player.setBodyYaw(
+                            mc.player.getYaw() +
+                            RotUtils.getNextPos(5.3f, mc.player.getYaw(), yaw)
+                        );
                     }
                 }
 

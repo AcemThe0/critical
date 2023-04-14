@@ -11,6 +11,8 @@
   Place aformentioned jar in: /.minecraft/mods/
 
 ### Compile Source
+  Extract the "critical-master.zip" archive and:
+  
   On Windows:
   > gradlew build
 

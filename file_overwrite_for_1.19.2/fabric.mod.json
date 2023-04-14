@@ -1,0 +1,38 @@
+{
+    "schemaVersion": 1,
+    "id": "critical",
+    "version": "${version}",
+  
+    "name": "Critical Client",
+    "description": "Ebin minecraft client",
+    "authors": [
+      "AcmeThe0"
+    ],
+    "contact": {
+      "homepage": "",
+      "sources": "https://github.com/AcemThe0/"
+    },
+  
+    "license": "MIT",
+    "icon": "assets/critical/icon.png",
+  
+    "environment": "*",
+    "entrypoints": {
+      "main": [
+        "acme.critical.Critical"
+      ]
+    },
+    "mixins": [
+      "critical.mixins.json"
+    ],
+    "accessWidener" : "critical.accesswidener",
+  
+    "depends": {
+      "fabricloader": ">=0.14.19",
+      "minecraft": "~1.19.2",
+      "java": ">=17"
+    },
+    "suggests": {
+      "another-mod": "jungleware"
+    }
+  }

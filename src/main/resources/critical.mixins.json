@@ -24,6 +24,7 @@
     "CustomPayloadC2SPacketAccessor",
     "PlayerPositionLookS2CPacketAccessor",
     "TitleScreenMixin"
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
