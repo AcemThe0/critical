@@ -23,7 +23,6 @@ public class Infohud extends Mod {
 	private BooleanSetting doDrawPosAlt = new BooleanSetting("Nether Pos", true);
 	private BooleanSetting doPing = new BooleanSetting("Ping", true);
 	private BooleanSetting doSpeed = new BooleanSetting("Speed", true);
-	private BooleanSetting doBanana = new BooleanSetting("Banana", true);
 
 	private MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -36,23 +35,14 @@ public class Infohud extends Mod {
 	private String printedSpeed = "";
 	private String printedPing = "";
 
-	private float bananaX = 32;
-	private float bananaY = 8;
-	private float bSpeedX = .8f;
-	private float bSpeedY = .8f;
-	private int bWidth = mc.textRenderer.getWidth("JW");
-	private int bHeight = mc.textRenderer.fontHeight;
-	int r=255, g=255, b=255;
-
 	private Vec3d playerPos = new Vec3d(0, 0, 0);
 	private Vec3d playerPosAlt = new Vec3d(0, 0, 0);
 	private Vec3d playerVec = new Vec3d(0, 0, 0);
 
 	public Infohud() {
 		super("InfoHud", "Show additional info in hud.", Category.CLIENT);
-		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing, doBanana);
+		addSettings(doDrawPos, doDrawPosAlt, doSpeed, doPing);
 	}
-	//private final Identifier banana = new Identifier("critical", "src/main/resources/banana.png");
 
 	public void onTick() {
 		// format player position
@@ -129,22 +119,5 @@ public class Infohud extends Mod {
 			);
 			i++;
 		}
-		if (doBanana.isEnabled()) {
-			mc.textRenderer.drawWithShadow(matrices, "JW", bananaX, bananaY, new Color(r, g, b).getRGB() );
-			
-			if (bananaX+bWidth >= scaledWidth || bananaX <= 0) { bSpeedX = -bSpeedX; bColor(); }
-			if (bananaY+bHeight >= scaledHeight || bananaY <= 0) { bSpeedY = -bSpeedY; bColor(); }
-			bananaX += bSpeedX;
-			bananaY += bSpeedY;
-		};
-	}
-
-	private void bColor() {
-		int oldr, oldg, oldb;
-		oldr = r; oldg = g; oldb = b;
-		r = ((int)Math.round(Math.random()))*255;
-		g = ((int)Math.round(Math.random()))*255;
-		b = ((int)Math.round(Math.random()))*255;
-		if ((r==0&&g==0&&b==0) || (oldr==r && oldg==g && oldb==b)) { bColor(); } //removing this line *may* improve speed
 	}
 }

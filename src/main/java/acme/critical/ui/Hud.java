@@ -5,6 +5,7 @@ import java.lang.System;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.utils.ColorUtils;
+import acme.critical.utils.Render2DUtils;
 import acme.critical.module.client.Clickgui;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -16,6 +17,7 @@ public class Hud {
 
     public static void render(MatrixStack matrices, float tickDelta) {
         mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.3.0)", 1, 1, -1);
+        Render2DUtils.drawBanana(matrices, 32, 12, 1);
         renderArrayList(matrices);
     }
 
