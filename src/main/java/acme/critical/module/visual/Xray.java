@@ -6,9 +6,7 @@ import acme.critical.module.Mod;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import acme.critical.module.ModMan;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.RedstoneOreBlock;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import acme.critical.module.visual.Nightvision;
 import acme.critical.module.settings.ModeSetting;
 import acme.critical.module.settings.BooleanSetting;
@@ -33,7 +31,7 @@ import acme.critical.module.settings.KeybindSetting;
 
         mc.worldRenderer.reload();
 
-        Registry.BLOCK.forEach(block -> {
+        Registries.BLOCK.forEach(block -> {
             if (targetBlock(block)) {blocks.add(block);}else{blocks.remove(block);}
         });
         Nightvision.setGamma(255.0);
@@ -73,7 +71,9 @@ import acme.critical.module.settings.KeybindSetting;
         if (mode.getMode() != "All") {
             c1 = block == ores.get(mode.getMode()) || block == nuOres.get(mode.getMode());
         } else {
-            c1 = block instanceof OreBlock || block instanceof RedstoneOreBlock;
+	    c1 = false;
+	    // net.minecraft.block.OreBlock was removed, breaking this
+            /*c1 = block instanceof OreBlock || block instanceof RedstoneOreBlock;*/
         }
         
         if (containers.isEnabled()) c2 = block == Blocks.FURNACE || block == Blocks.DISPENSER || block == Blocks.DROPPER || block == Blocks.BARREL;

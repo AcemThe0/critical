@@ -23,12 +23,15 @@ public class Mhop extends Mod {
     public void onTick() {
         switch (mode.getMode()) {
             case "Mhop":
+	        // broken by removal of airStrafingSpeed
+	        /*
                 mc.player.airStrafingSpeed = speed.getValueFloat();
                     if (jump.isEnabled() && (mc.player.forwardSpeed != 0 && mc.player.isOnGround() || mc.player.sidewaysSpeed != 0 && mc.player.isOnGround())) {
                         if (jumpMd.getMode() == "Vanilla") mc.player.jump();
                         if (jumpMd.getMode() == "Velocity") mc.player.addVelocity(0, jumpStr.getValueFloat(), 0);
                         }
                 super.onTick();
+		*/
             break;
             case "Strafe":
                 if (mc.player.forwardSpeed != 0 || mc.player.sidewaysSpeed != 0) {

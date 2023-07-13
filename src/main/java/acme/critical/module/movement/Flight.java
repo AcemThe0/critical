@@ -25,7 +25,8 @@ public class Flight extends Mod {
         switch(mode.getMode()) {
             case "Velocity":
                 mc.player.setVelocity(0, 0, 0);
-                mc.player.airStrafingSpeed = speed.getValueFloat();
+                // broken by removal of airStrafingSpeed
+                //mc.player.airStrafingSpeed = speed.getValueFloat();
                 if (mc.options.jumpKey.isPressed()) mc.player.setVelocity(0, speed.getValueFloat(), 0);
                 if (mc.options.sneakKey.isPressed()) mc.player.setVelocity(0, speed.getValueFloat()*-1, 0);
             break;

@@ -1,7 +1,7 @@
 package acme.critical.event.events;
 
 import acme.critical.event.Event;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 
 
 public class EventPacket extends Event {

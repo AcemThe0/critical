@@ -7,7 +7,7 @@ import java.awt.Color;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -15,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Matrix4f;
+import org.joml.Matrix4f;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,7 +34,7 @@ public abstract class EntityRendererMixin <T extends Entity> {
 
 	@Inject(
 		at = {@At("HEAD")},
-		method = {"renderLabelIfPresent(Lnet/minecraft/entity/Entity;Lnet/minecraft/text/Text;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"},
+		method = {"Lnet/minecraft/client/render/entity/EntityRenderer;renderLabelIfPresent(Lnet/minecraft/entity/Entity;Lnet/minecraft/text/Text;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"},
 		cancellable = true
 	)
 	private void onRenderLabelIfPresent(
@@ -74,7 +74,6 @@ public abstract class EntityRendererMixin <T extends Entity> {
 		);
 
 		textRenderer.draw(
-			//text + " \u00a78[\u00a74test",
 			text_format,
 			-textRenderer.getWidth(text_format) / 2, 0,
 			new Color(255, 255, 255, 255).getRGB(), false, posmat, vertexConsumers, true, 0, 15
