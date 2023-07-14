@@ -16,7 +16,7 @@ import acme.critical.module.visual.Norender;
 
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
-    @ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderOverlay(Lnet/minecraft/util/Identifier;F)V", ordinal = 0))
+    @ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderOverlay(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/util/Identifier;F)V", ordinal = 0))
     private void onRenderPumpkinOverlay(Args args) {
 	Norender norender = ModMan.INSTANCE.getMod(Norender.class);
 	if (norender.isEnabled() & norender.pumpkinEnabled()) {
