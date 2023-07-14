@@ -5,7 +5,7 @@ import acme.critical.ui.Hud;
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.injection.At;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,8 +25,8 @@ public class InGameHudMixin {
     }
 
     @Inject(method = "render", at = @At("RETURN"), cancellable = true)
-    public void renderHUD(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-	Critical.INSTANCE.onRender2D(matrices, tickDelta);
-        Hud.render(matrices, tickDelta);
+    public void renderHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
+	Critical.INSTANCE.onRender2D(context, tickDelta);
+        Hud.render(context, tickDelta);
     }
 }

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 
 import acme.critical.event.eventbus.CriticalEventBus;
 import acme.critical.event.eventbus.CriticalSubscribe;
@@ -38,7 +38,7 @@ public class Critical implements ModInitializer {
     public Path cjwDir;
     public Path cjwProfileDir;
 
-    //No longer vcraft approved :(
+    //sneedcraft approved :)
     @Override
     public void onInitialize() {
         eventBus = new CriticalEventBus(new InexactEventHandler("critical"), Critical.EventLogger);
@@ -74,13 +74,17 @@ public class Critical implements ModInitializer {
 
     public void onTick() {
         if (mc.player != null && mc.world != null) {
-            for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onTick(); }
+            for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
+		    module.onTick();
+	    }
         }
     }
 
-    public void onRender2D(MatrixStack matrices, float tickDelta) {
+    public void onRender2D(DrawContext context, float tickDelta) {
         if (mc.player != null && mc.world != null) {
-            for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onRender2D(matrices, tickDelta); }
+            for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
+		    module.onRender2D(context, tickDelta);
+	    }
         }
     }
 }

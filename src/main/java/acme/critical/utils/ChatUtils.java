@@ -2,6 +2,7 @@ package acme.critical.utils;
 
 import net.minecraft.text.Text;
 import net.minecraft.text.MutableText;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.gui.hud.ChatHud;
 
@@ -37,9 +38,9 @@ public class ChatUtils {
     }
 
     public static void sendMsg(String message) {
-        mc.inGameHud.getChatHud().addToMessageHistory(message);
+        MinecraftClient.getInstance().inGameHud.getChatHud().addToMessageHistory(message);
 
-        if (message.startsWith("/")) nh.sendChatCommand(message.substring(1), null);
-        else nh.sendChatMessage(message, null);
+        if (message.startsWith("/")) nh.sendChatCommand(message.substring(1));
+        else nh.sendChatMessage(message);
     }
 }

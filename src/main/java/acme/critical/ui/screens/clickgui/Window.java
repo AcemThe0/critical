@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 
-import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.module.Mod.Category;
 import acme.critical.module.client.Clickgui;
 import acme.critical.ui.screens.clickgui.setting.Component;
 import acme.critical.utils.Render2DUtils;
+import net.minecraft.client.gui.DrawContext;
 
 public class Window {
 	public List<ModuleButton> buttons;
@@ -39,14 +39,14 @@ public class Window {
 		buttons.add(button);
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		int offset = (height / 2) - mc.textRenderer.fontHeight / 2;
-		Render2DUtils.rect(matrices, x, y, x + width, y + height, 1);
-		mc.textRenderer.drawWithShadow(matrices, title, x + 2, y + offset, -1);
+		Render2DUtils.rect(context, x, y, x + width, y + height, 1);
+		Render2DUtils.text(context, title, x + 2, y + offset);
 
 		if (extended) {
 			for (ModuleButton button : buttons)
-				button.render(matrices, mouseX, mouseY, delta);
+				button.render(context, mouseX, mouseY, delta);
 		}
 	}
 

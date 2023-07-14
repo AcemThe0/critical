@@ -2,7 +2,6 @@ package acme.critical.ui.screens.clickgui.setting;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TextFieldWidget; 
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import acme.critical.Critical;
@@ -12,6 +11,7 @@ import acme.critical.module.settings.Setting;
 import acme.critical.module.settings.StringSetting;
 import acme.critical.ui.screens.clickgui.ModuleButton;
 import acme.critical.utils.Render2DUtils;
+import net.minecraft.client.gui.DrawContext;
 
 public class TextBox extends Component {
 	private StringSetting strset = (StringSetting) setting;
@@ -45,9 +45,9 @@ public class TextBox extends Component {
 	int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		Render2DUtils.inset(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
-		mc.textRenderer.drawWithShadow(matrices, strset.getVal() + (writing ? "_":""), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset, -1);
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		Render2DUtils.inset(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
+		Render2DUtils.text(context, strset.getVal() + (writing ? "_":""), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset);
 	}
 
 }

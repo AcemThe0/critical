@@ -9,7 +9,6 @@ import acme.critical.module.Mod.Category;
 import net.minecraft.client.MinecraftClient;
 import acme.critical.module.client.Clickgui;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import acme.critical.ui.screens.clickgui.setting.Component;
 
 import acme.critical.utils.Render2DUtils;

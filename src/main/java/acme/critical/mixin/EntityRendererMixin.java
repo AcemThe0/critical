@@ -32,6 +32,8 @@ public abstract class EntityRendererMixin <T extends Entity> {
 	@Final
 	protected EntityRenderDispatcher dispatcher;
 
+	// FIXME later
+	/*
 	@Inject(
 		at = {@At("HEAD")},
 		method = {"Lnet/minecraft/client/render/entity/EntityRenderer;renderLabelIfPresent(Lnet/minecraft/entity/Entity;Lnet/minecraft/text/Text;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"},
@@ -83,6 +85,7 @@ public abstract class EntityRendererMixin <T extends Entity> {
 
 		ci.cancel();
 	}
+	*/
 
 	// this will appease the compiler
 	@Shadow
