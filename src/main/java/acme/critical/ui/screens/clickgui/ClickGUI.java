@@ -37,10 +37,22 @@ public class ClickGUI extends Screen {
         }
 
         renderBackground(context);
+
+        context.getMatrices().push();
+
         for (Window frame : frames) {
+            context.getMatrices().translate(0.0f, 0.0f, 1.0f);
+            if (frame.selected) {
+                context.getMatrices().push();
+                context.getMatrices().translate(0.0f, 0.0f, 10.0f);
+            }
             frame.render(context, mouseX, mouseY, delta);
             frame.updatePosition(mouseX, mouseY);
+            if (frame.selected)
+                context.getMatrices().pop();
         }
+
+        context.getMatrices().pop();
         super.render(context, mouseX, mouseY, delta);
     }
 

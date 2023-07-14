@@ -17,6 +17,7 @@ public class Window {
 	public List<ModuleButton> buttons;
 
 	public boolean extended, dragging;
+	public boolean selected = false;
 	public static int draggedElements;
 	public int x, y, width, height, dragX, dragY;
 	private String title;
@@ -104,6 +105,11 @@ public class Window {
                 extended = !extended;
             }
         }
+
+	if (isHovered(mouseX, mouseY) && button == 0)
+		selected = true;
+	else
+		selected = false;
 
         if (extended) {
             for (ModuleButton mb : buttons) {

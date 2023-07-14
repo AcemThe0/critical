@@ -12,7 +12,7 @@ import acme.critical.mixin.CustomPayloadC2SPacketAccessor;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 
 public class Spoof extends Mod {
-    private static StringSetting name = new StringSetting("Name", "Vanilla");
+    private static StringSetting name = new StringSetting("Client brand", "Vanilla");
 
     public Spoof() {
         super("Spoof", "Spoofs client brand.", Category.CLIENT);
