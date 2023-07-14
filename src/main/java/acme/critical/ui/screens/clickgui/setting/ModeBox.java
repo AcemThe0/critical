@@ -21,18 +21,18 @@ public class ModeBox extends Component{
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        Render2DUtils.rect(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        Render2DUtils.rect(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
         //DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());
         int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
-        mc.textRenderer.drawWithShadow(matrices, modeSet.getName() + ": " + modeSet.getMode(), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset, -1);
+        Render2DUtils.text(context, modeSet.getName() + ": " + modeSet.getMode(), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset);
         if (extended) {
             for (int indexM = 0; indexM < modesSize; indexM++) {
-                Render2DUtils.rect(matrices, parent.parent.x + parent.parent.width, (indexM*parent.parent.height) + parent.parent.y + parent.offset + offset, parent.parent.x + (parent.parent.width*2), (indexM*parent.parent.height) + parent.parent.y + parent.offset + offset + parent.parent.height, 0);
-                mc.textRenderer.drawWithShadow(matrices, modes.get(indexM), 2 + parent.parent.x + parent.parent.width, (indexM*parent.parent.height) + parent.parent.y + parent.offset + offset + textOffset, -1);
+                Render2DUtils.rect(context, parent.parent.x + parent.parent.width, (indexM*parent.parent.height) + parent.parent.y + parent.offset + offset, parent.parent.x + (parent.parent.width*2), (indexM*parent.parent.height) + parent.parent.y + parent.offset + offset + parent.parent.height, 0);
+                Render2DUtils.text(context, modes.get(indexM), 2 + parent.parent.x + parent.parent.width, (indexM*parent.parent.height) + parent.parent.y + parent.offset + offset + textOffset);
             }
         }
-        super.render(matrices, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class BlockMixin {
         }
 
         @Inject(method = "isTransparent", at = @At("HEAD"), cancellable = true)
-        public void isTranslucent(BlockState state, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+        public void isTransparent(BlockState state, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
             Xray xray = ModMan.INSTANCE.getMod(Xray.class);
             if (xray.isEnabled()) {
                 cir.setReturnValue(!Xray.blocks.contains(state.getBlock()));

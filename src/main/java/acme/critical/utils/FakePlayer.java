@@ -10,7 +10,7 @@ public class FakePlayer extends OtherClientPlayerEntity {
     private final MinecraftClient mc = MinecraftClient.getInstance();
 
     public FakePlayer() {
-        super(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getGameProfile(), MinecraftClient.getInstance().player.getPublicKey());
+        super(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getGameProfile());
 
         copyPositionAndRotation(mc.player);
         getInventory().clone(mc.player.getInventory());

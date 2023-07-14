@@ -46,7 +46,7 @@ public class Slider extends Component{
 
         int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
         Render2DUtils.text(context, numSet.getName() + ": " + MathUtils.roundToPlace(numSet.getValue(), 2), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset);
-        super.render(matrices, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
     }
 
     @Override

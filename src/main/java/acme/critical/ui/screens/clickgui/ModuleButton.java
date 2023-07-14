@@ -67,7 +67,7 @@ public class ModuleButton {
 		);
 	}
         int textOffset = (parent.height/2)-parent.mc.textRenderer.fontHeight/2;
-        Render2DUtils.text(text, module.getName(), parent.x + 2, parent.y + offset + textOffset);
+        Render2DUtils.text(context, module.getName(), parent.x + 2, parent.y + offset + textOffset);
 
         if (extended) {
             for (Component component : components) {

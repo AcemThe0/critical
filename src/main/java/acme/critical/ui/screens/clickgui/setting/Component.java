@@ -2,7 +2,7 @@ package acme.critical.ui.screens.clickgui.setting;
 
 import net.minecraft.client.MinecraftClient;
 import acme.critical.module.settings.Setting;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import acme.critical.ui.screens.clickgui.ModuleButton;
 
 public class Component {
@@ -18,7 +18,7 @@ public class Component {
         this.offset = offset;
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 
     }
 
