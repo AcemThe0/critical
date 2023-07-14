@@ -57,12 +57,19 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
     }
 
     @Redirect(method = "updateNausea", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
-    private Screen updateNauseaGetCurrentScreenProxy(MinecraftClient client) {
+    private Screen onUpdateNauseaScreen(MinecraftClient client) {
 	Norender norender = ModMan.INSTANCE.getMod(Norender.class);
-	if (norender.isEnabled() & norender.portalsEnabled()) {
+	if (norender.isEnabled() && norender.portals.isEnabled()) {
 		return null;
 	} else {
 		return client.currentScreen;
 	}
+    }
+
+    @Inject(method = "updateNausea", at = @At("HEAD"), cancellable = true)
+    public void onUpdateNausea(CallbackInfo ci) {
+        Norender norender = ModMan.INSTANCE.getMod(Norender.class);
+        if (norender.isEnabled() && norender.nausea.isEnabled())
+            ci.cancel();
     }
 }

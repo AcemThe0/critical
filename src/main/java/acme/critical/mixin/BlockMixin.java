@@ -25,14 +25,16 @@ public class BlockMixin {
             }
         }
 
+        // why does this crash on startup?
+        /*    
         @Inject(method = "isTransparent", at = @At("HEAD"), cancellable = true)
         public void isTransparent(BlockState state, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-            // why does this crash on startup?
-            /*Xray xray = ModMan.INSTANCE.getMod(Xray.class);
+            Xray xray = ModMan.INSTANCE.getMod(Xray.class);
             if (xray.isEnabled()) {
                 cir.setReturnValue(!Xray.blocks.contains(state.getBlock()));
-            }*/
+            }
         }
+        */
 
         @Inject(method = "getSlipperiness", at = @At("RETURN"), cancellable = true)
         public void getSlipperiness(CallbackInfoReturnable<Float> info) {
