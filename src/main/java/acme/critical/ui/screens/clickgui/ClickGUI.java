@@ -7,8 +7,7 @@ import acme.critical.module.Mod.Category;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.DrawContext;
 import acme.critical.module.client.Clickgui;
-import acme.critical.profile.Profile;
-import acme.critical.profile.files.ThemeFile;
+import acme.critical.utils.Render2DUtils;
 
 public class ClickGUI extends Screen {
     public static final ClickGUI INSTANCE = new ClickGUI();
@@ -31,12 +30,10 @@ public class ClickGUI extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        /*if (Clickgui.reloadTheme.isEnabled()) {
-            Clickgui.reloadTheme.setEnabled(false);
-            Profile.INSTANCE.load(ThemeFile.class);
-        }*/
-
         renderBackground(context);
+
+	Render2DUtils.text(context, "Critical (JW-1.3.0)", 1, 1);
+        Render2DUtils.drawBanana(context, 32, 12, 1);
 
         context.getMatrices().push();
 
