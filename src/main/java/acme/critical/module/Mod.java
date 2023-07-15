@@ -25,7 +25,6 @@ public class Mod {
         this.name = name;
         this.desc = desc;
         this.category = category;
-
     }
 
     public List<Setting> getSettings() {
@@ -104,6 +103,7 @@ public class Mod {
         if (enabled) onEnable();
         else onDisable();
     }
+
 
     public Category getCategory() {
         return category;

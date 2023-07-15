@@ -34,6 +34,11 @@ public class ModuleButton {
 
         int setOffset = parent.height;
         for (Setting setting : module.getSettings()) {
+            if (setting.isLabeled()) {
+	        components.add(new LabelBox(setting, this, setOffset));
+		setOffset += parent.height;
+	    }
+
             if (setting instanceof BooleanSetting) {
                 components.add(new CheckBox(setting, this, setOffset));
             } else if (setting instanceof ColorSetting) {
@@ -47,8 +52,6 @@ public class ModuleButton {
             } else if (setting instanceof KeybindSetting) {
                 components.add(new Keybind(setting, this, setOffset));
             } else if (setting instanceof StringSetting) {
-                components.add(new LabelBox(setting, this, setOffset));
-                setOffset += parent.height;
                 components.add(new TextBox(setting, this, setOffset)); 
             }
             setOffset += parent.height;

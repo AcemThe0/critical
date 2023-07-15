@@ -31,10 +31,10 @@ public class ClickGUI extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        if (Clickgui.reloadTheme.isEnabled()) {
+        /*if (Clickgui.reloadTheme.isEnabled()) {
             Clickgui.reloadTheme.setEnabled(false);
             Profile.INSTANCE.load(ThemeFile.class);
-        }
+        }*/
 
         renderBackground(context);
 

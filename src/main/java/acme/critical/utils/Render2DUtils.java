@@ -13,7 +13,7 @@ import acme.critical.utils.ColorUtils;
 public class Render2DUtils {
 	private static List<int[]> theme = new ArrayList<>();
 
-	private static int[] getcolors(int color) {
+	public static int[] getColors(int color) {
 		try {
 			int[] ret = theme.get(color).clone();
 			for (int i = 0; i < ret.length; i++)
@@ -25,19 +25,29 @@ public class Render2DUtils {
 		}
 	}
 
+	public static int[] getComplements(int color) {
+		int[] ret = new int[3];
+
+		ret[0] = new Color(color).darker().getRGB();
+		ret[1] = color;
+		ret[2] = new Color(color).brighter().getRGB();
+
+		return ret;
+	}
+
 	public static void updateTheme(List<int[]> newtheme) {
 		theme = newtheme;
 	}
 
 	public static void rect(DrawContext context, int x, int y, int x2, int y2, int color) {
-		int[] colors = getcolors(color);
+		int[] colors = getColors(color);
 		context.fill(x, y, x2, y2, colors[2]);
 		context.fill(x + 1, y + 1, x2, y2, colors[0]);
 		context.fill(x + 1, y + 1, x2 - 1, y2 - 1, colors[1]);
 	}
 
 	public static void inset(DrawContext context, int x, int y, int x2, int y2, int color) {
-		int[] colors = getcolors(color);
+		int[] colors = getColors(color);
 		context.fill(x, y, x2, y2, 0xff000000);
 		context.fill(x + 1, y + 1, x2, y2, colors[2]);
 		context.fill(x + 1, y + 1, x2 - 1, y2 - 1, colors[0]);
