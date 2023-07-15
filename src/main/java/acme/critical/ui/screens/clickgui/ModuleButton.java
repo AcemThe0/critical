@@ -8,8 +8,7 @@ import acme.critical.utils.ColorUtils;
 import acme.critical.module.settings.*;
 import acme.critical.module.client.Clickgui;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import acme.critical.ui.screens.clickgui.setting.*;
 import acme.critical.ui.screens.clickgui.setting.Component;
 
@@ -35,9 +34,18 @@ public class ModuleButton {
 
         int setOffset = parent.height;
         for (Setting setting : module.getSettings()) {
+            if (setting.isLabeled()) {
+	        components.add(new LabelBox(setting, this, setOffset));
+		setOffset += parent.height;
+	    }
+
             if (setting instanceof BooleanSetting) {
                 components.add(new CheckBox(setting, this, setOffset));
-            } else if (setting instanceof ModeSetting) {
+            } else if (setting instanceof ColorSetting) {
+                components.add(new ColorPicker(setting, this, setOffset));
+            } else if (setting instanceof LabelSetting) {
+                components.add(new LabelBox(setting, this, setOffset));
+	    } else if (setting instanceof ModeSetting) {
                 components.add(new ModeBox(setting, this, setOffset));
             } else if (setting instanceof NumberSetting) {
                 components.add(new Slider(setting, this, setOffset));
@@ -50,29 +58,29 @@ public class ModuleButton {
         }
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         int c;
         if (!isHovered(mouseX, mouseY)) c = 0; else c = 2;
 
 	if (!module.isEnabled()) {
 		Render2DUtils.rect(
-			matrices, parent.x, parent.y + offset,
+			context, parent.x, parent.y + offset,
 			parent.x + parent.width, parent.y + offset + parent.height,
 			c
 		);
 	} else {
 		Render2DUtils.inset(
-			matrices, parent.x, parent.y + offset,
+			context, parent.x, parent.y + offset,
 			parent.x + parent.width, parent.y + offset + parent.height,
 			c
 		);
 	}
         int textOffset = (parent.height/2)-parent.mc.textRenderer.fontHeight/2;
-        parent.mc.textRenderer.drawWithShadow(matrices, module.getName(), parent.x + 2, parent.y + offset + textOffset, module.isEnabled() ? -1 : new Color(255, 255, 255, 255).getRGB());
+        Render2DUtils.text(context, module.getName(), parent.x + 2, parent.y + offset + textOffset);
 
         if (extended) {
             for (Component component : components) {
-                component.render(matrices, mouseX, mouseY, delta);
+                component.render(context, mouseX, mouseY, delta);
             }
         }
     }

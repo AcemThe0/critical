@@ -3,6 +3,7 @@ package acme.critical.utils;
 import net.minecraft.text.Text;
 import net.minecraft.text.MutableText;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.gui.hud.ChatHud;
 
 public class ChatUtils {
@@ -10,7 +11,7 @@ public class ChatUtils {
     public static String warnprefix = "\u00a72[\u00a76WARN\u00a78]\u00a7r ";
     public static String errprefix = "\u00a72[\u00a74ERR\u00a78]\u00a7r ";
 
-    static MinecraftClient mc = MinecraftClient.getInstance();
+    static ClientPlayNetworkHandler nh = MinecraftClient.getInstance().getNetworkHandler();
 
     public static void component(Text component)
     {
@@ -37,9 +38,9 @@ public class ChatUtils {
     }
 
     public static void sendMsg(String message) {
-        mc.inGameHud.getChatHud().addToMessageHistory(message);
+        MinecraftClient.getInstance().inGameHud.getChatHud().addToMessageHistory(message);
 
-        if (message.startsWith("/")) mc.player.sendCommand(message.substring(1), null);
-        else mc.player.sendChatMessage(message, null);
+        if (message.startsWith("/")) nh.sendChatCommand(message.substring(1));
+        else nh.sendChatMessage(message);
     }
 }

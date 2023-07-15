@@ -22,14 +22,14 @@ public class Step extends Mod {
 	@Override
 	public void onTick() {
 		if (!safemode.isEnabled() | !mc.player.isSneaking()) {
-			mc.player.stepHeight = height.getValueFloat();
+			mc.player.setStepHeight(height.getValueFloat());
 		} else {
-			mc.player.stepHeight = 0.5f;
+			mc.player.setStepHeight(0.5f);
 		}
 	}
 
 	@Override
 	public void onDisable() {
-		mc.player.stepHeight = 0.5f;
+		mc.player.setStepHeight(0.5f);
 	}
 }

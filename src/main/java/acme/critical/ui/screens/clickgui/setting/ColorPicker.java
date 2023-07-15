@@ -1,26 +1,26 @@
 package acme.critical.ui.screens.clickgui.setting;
 
+import java.lang.Integer;
 import java.time.Instant;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.widget.TextFieldWidget; 
-import net.minecraft.text.Text;
 
 import acme.critical.Critical;
 import acme.critical.event.eventbus.CriticalSubscribe;
 import acme.critical.event.events.EventKeyboard;
+import acme.critical.module.settings.ColorSetting;
 import acme.critical.module.settings.Setting;
-import acme.critical.module.settings.StringSetting;
 import acme.critical.ui.screens.clickgui.ModuleButton;
 import acme.critical.utils.Render2DUtils;
 
-public class TextBox extends Component {
-	private StringSetting strset = (StringSetting) setting;
-	public boolean writing = false;
+public class ColorPicker extends Component {
+	private ColorSetting colset;
+	private String buffer = "#";
+	private boolean writing = false;
 
-	public TextBox(Setting setting, ModuleButton parent, int offset) {
+	public ColorPicker(Setting setting, ModuleButton parent, int offset) {
 		super(setting, parent, offset);
+		colset = (ColorSetting) setting;
 		Critical.INSTANCE.eventBus.subscribe(this);
 	}
 
@@ -30,30 +30,44 @@ public class TextBox extends Component {
 		else writing = false;
 	}
 
-	// NNNNN IM NUTS
 	@Override
 	public void keyPressed(int key) {}
 
 	@CriticalSubscribe
 	public void onKey(EventKeyboard.Cgui event) {
 		if (!writing || !event.isPressing()) return;
-		if (event.isDel() && strset.getVal().length() >= 1) {
-			strset.del();
+		if (event.isDel() && buffer.length() > 1) {
+			buffer = buffer.substring(0, buffer.length() - 1);
 			return;
 		}
-		if (strset.getVal().length() <= 14) strset.add(event.getKeyReadable());
+		char c = event.getKeyReadable();
+		if (c >= 'A' && c <= 'F') c += 32;
+		if (buffer.length() < 7 && ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')))
+			buffer += c;
+		colset.setColorCGUI(toColor(buffer));
+	}
+
+	int toColor(String string) {
+		return Integer.decode(string) | 0xff000000;
+	}
+
+	String toString(int color) {
+		return String.format("#%06X", color & 0xffffff).toLowerCase();
 	}
 
 	int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
 
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		if (colset.updated) {
+			buffer = toString(colset.getColor());
+			colset.updated = false;
+		}
 		Render2DUtils.inset(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
 		Render2DUtils.text(
 			context,
-			strset.getVal() + ((writing && (Instant.now().getEpochSecond() % 2 == 1)) ? "_":""),
+			buffer + ((writing && (Instant.now().getEpochSecond() % 2 == 1)) ? "_":""),
 			parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset
 		);
 	}
-
 }

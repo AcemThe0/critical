@@ -45,7 +45,7 @@ public class Scaffold extends Mod {
             }
         }
 
-        if (mc.world.getBlockState(blockPos).getMaterial().isReplaceable()) {
+        if (mc.world.getBlockState(blockPos).isReplaceable()) {
             if (!blocks.isEmpty()) {
                 if (blockSlot >= blocks.size()) blockSlot = 0;
                 

@@ -11,12 +11,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.text.MutableText;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
 import acme.critical.module.settings.BooleanSetting;
+import acme.critical.utils.Render2DUtils;
 
 public class Infohud extends Mod {
 	private BooleanSetting doDrawPos = new BooleanSetting("Pos", true);
@@ -105,17 +106,17 @@ public class Infohud extends Mod {
 			TextLines.add(printedPing);
 	}
 
-	public void onRender2D(MatrixStack matrices, float tickDelta) {
+	public void onRender2D(DrawContext context, float tickDelta) {
 		int scaledWidth = mc.getWindow().getScaledWidth();
 		int scaledHeight = mc.getWindow().getScaledHeight();
 
 		int i = 1;
 		for (String string : TextLines) {
-			mc.textRenderer.drawWithShadow(
-				matrices, string,
+			Render2DUtils.text(
+				context,
+				string,
 				scaledWidth - mc.textRenderer.getWidth(string),
-				scaledHeight - mc.textRenderer.fontHeight*i,
-				-1
+				scaledHeight - mc.textRenderer.fontHeight*i
 			);
 			i++;
 		}

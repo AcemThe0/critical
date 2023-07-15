@@ -6,8 +6,7 @@ import net.minecraft.util.Identifier;
 import acme.critical.utils.Render2DUtils;
 import acme.critical.module.settings.Setting;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import acme.critical.module.settings.KeybindSetting;
 import acme.critical.ui.screens.clickgui.ModuleButton;
 
@@ -45,11 +44,11 @@ public class Keybind extends Component {
 
     int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        Render2DUtils.rect(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        Render2DUtils.rect(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
         //DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 175).getRGB());
-        mc.textRenderer.drawWithShadow(matrices, isBinding ? "Binding..." : "Keybind: " + binding.getKeyChar(binding.getKey()), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset, -1);
+        Render2DUtils.text(context, isBinding ? "Binding..." : "Keybind: " + binding.getKeyChar(binding.getKey()), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset);
 
-        super.render(matrices, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
     }
 }
