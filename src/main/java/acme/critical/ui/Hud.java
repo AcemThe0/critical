@@ -17,7 +17,7 @@ public class Hud {
     public static void render(DrawContext context, float tickDelta) {
         //mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.3.0)", 1, 1, -1);
 	//context.drawTextWithShadow(mc.textRenderer, "Critical (JW-1.3.0)", 1, 1, -1);
-	Render2DUtils.text(context, "Critical (JW-1.3.0)", 1, 1);
+	Render2DUtils.text(context, "Critical (JW-1.4.0)", 1, 1);
         Render2DUtils.drawBanana(context, 32, 12, 1);
         renderArrayList(context);
     }
