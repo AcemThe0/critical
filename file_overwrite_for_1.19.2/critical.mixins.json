@@ -1,0 +1,33 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "acme.critical.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "BlockMixin",
+    "MouseMixin",
+    "EntityMixin",
+    "KeyboardMixin",
+    "InGameHudMixin",
+    "SimpleOptionMixin",
+    "EntityRendererMixin",
+    "MinecraftClientMixin",
+    "ClientConnectionMixin",
+    "RenderTickCounterMixin",
+    "AbstractBlockStateMixin",
+    "MinecraftClientAccessor",
+    "ClientPlayerEntityMixin",
+    "PlayerMoveC2SPacketAccessor",
+    "RenderEntityDispatcherMixin",
+    "CustomPayloadC2SPacketAccessor",
+    "MixinClientPlayerNetworkHandler",
+    "PlayerPositionLookS2CPacketAccessor",
+    "TitleScreenMixin",
+    "GameRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
