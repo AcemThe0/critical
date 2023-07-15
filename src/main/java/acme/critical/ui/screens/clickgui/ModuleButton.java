@@ -36,7 +36,11 @@ public class ModuleButton {
         for (Setting setting : module.getSettings()) {
             if (setting instanceof BooleanSetting) {
                 components.add(new CheckBox(setting, this, setOffset));
-            } else if (setting instanceof ModeSetting) {
+            } else if (setting instanceof ColorSetting) {
+                components.add(new ColorPicker(setting, this, setOffset));
+            } else if (setting instanceof LabelSetting) {
+                components.add(new LabelBox(setting, this, setOffset));
+	    } else if (setting instanceof ModeSetting) {
                 components.add(new ModeBox(setting, this, setOffset));
             } else if (setting instanceof NumberSetting) {
                 components.add(new Slider(setting, this, setOffset));
