@@ -1,6 +1,7 @@
 package acme.critical.module.movement;
 
 import acme.critical.module.Mod;
+import acme.critical.utils.MiscUtils;
 import net.minecraft.util.math.Vec3d;
 import acme.critical.module.settings.ModeSetting;
 import acme.critical.module.settings.NumberSetting;
@@ -11,7 +12,7 @@ public class Mhop extends Mod {
     private ModeSetting mode = new ModeSetting("Mode", "Mhop", "Mhop", "Strafe");
     private NumberSetting speed = new NumberSetting("Speed", 0, 5, 0.1, 0.1);
     private ModeSetting jumpMd = new ModeSetting("Jump", "Vanilla", "Vanilla","Velocity");
-    private BooleanSetting jump = new BooleanSetting("AutoJump", true);
+    private BooleanSetting jump = new BooleanSetting("AutoJump", false);
     private NumberSetting jumpStr = new NumberSetting("Height", 0, 5, 0.5, 0.1);
 
     public Mhop() {
@@ -24,14 +25,14 @@ public class Mhop extends Mod {
         switch (mode.getMode()) {
             case "Mhop":
 	        // broken by removal of airStrafingSpeed
-	        /*
-                mc.player.airStrafingSpeed = speed.getValueFloat();
+            //possibly fixed by addition of custom airStrafingSpeed
+                MiscUtils.setAirStrafeSpeed(speed.getValueFloat());
                     if (jump.isEnabled() && (mc.player.forwardSpeed != 0 && mc.player.isOnGround() || mc.player.sidewaysSpeed != 0 && mc.player.isOnGround())) {
                         if (jumpMd.getMode() == "Vanilla") mc.player.jump();
                         if (jumpMd.getMode() == "Velocity") mc.player.addVelocity(0, jumpStr.getValueFloat(), 0);
                         }
                 super.onTick();
-		*/
+
             break;
             case "Strafe":
                 if (mc.player.forwardSpeed != 0 || mc.player.sidewaysSpeed != 0) {

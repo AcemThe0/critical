@@ -4,6 +4,7 @@ import acme.critical.Critical;
 import acme.critical.module.Mod;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
+import acme.critical.utils.MiscUtils;
 import acme.critical.module.settings.ModeSetting;
 import acme.critical.event.events.EventClientMove;
 import acme.critical.module.settings.NumberSetting;
@@ -25,7 +26,8 @@ public class Flight extends Mod {
         switch(mode.getMode()) {
             case "Velocity":
                 mc.player.setVelocity(0, 0, 0);
-                // broken by removal of airStrafingSpeed
+                //NOT broken by removal of airStrafingSpeed
+                MiscUtils.setAirStrafeSpeed(speed.getValueFloat());
                 //mc.player.airStrafingSpeed = speed.getValueFloat();
                 if (mc.options.jumpKey.isPressed()) mc.player.setVelocity(0, speed.getValueFloat(), 0);
                 if (mc.options.sneakKey.isPressed()) mc.player.setVelocity(0, speed.getValueFloat()*-1, 0);

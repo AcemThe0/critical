@@ -20,7 +20,6 @@ public class Freecam extends Mod {
     FakePlayer fakeplayer;
     private double[] playerPos;
     private float[] playerRot;
-    private float prevSpeed;
     
     public Freecam() {
         super("Freecam", "Classic out of body experience!", Category.VISUAL);
@@ -34,8 +33,6 @@ public class Freecam extends Mod {
         fakeplayer.spawn();
 
         mc.chunkCullingEnabled = false;
-        // broken by removal of airStrafingSpeed
-        //prevSpeed = mc.player.airStrafingSpeed;
 
         playerPos = new double[] { mc.player.getX(), mc.player.getY(), mc.player.getZ() };
         playerRot = new float[] { mc.player.getYaw(), mc.player.getPitch() };
@@ -62,8 +59,6 @@ public class Freecam extends Mod {
 
         mc.chunkCullingEnabled = true;
         mc.player.noClip = false;
-        // broken by removal of airStrafingSpeed
-        //mc.player.airStrafingSpeed = prevSpeed;
 
         mc.player.refreshPositionAndAngles(playerPos[0], playerPos[1], playerPos[2], playerRot[0], playerRot[1]);
         mc.player.setVelocity(Vec3d.ZERO);
