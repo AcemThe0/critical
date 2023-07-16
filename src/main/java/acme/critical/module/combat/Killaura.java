@@ -21,21 +21,21 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class Killaura extends Mod {
     private NumberSetting range = new NumberSetting("Range", 1, 10, 4, 0.1);
+    private NumberSetting fov = new NumberSetting("FOV/2", 5, 180, 45, 0.1);
     private ModeSetting speed = new ModeSetting("Speed", "Cooldwn", "Cooldwn", "Spam");
-    private ModeSetting rotate = new ModeSetting("Rotate", "Snap", "Snap", "Human", "none");
+    private ModeSetting rotate = new ModeSetting("Rotate", "Smooth", "Snap", "Smooth", "None");
     private ModeSetting priority = new ModeSetting("Priority", "Angle", "Angle", "Health");
     private BooleanSetting attack = new BooleanSetting("Attack", true);
     private BooleanSetting lock = new BooleanSetting("Lock", false);
     private BooleanSetting players = new BooleanSetting("Players", true);
     private BooleanSetting offensive = new BooleanSetting("Offensive", true);
     private BooleanSetting passive = new BooleanSetting("Passive", false);
-    //private BooleanSetting MoreHuman = new BooleanSetting("MoreHuman", true); 
 
     public Entity currentTarget;
 
     public Killaura() {
         super("Killaura", "Attack entities in a radius.", Category.COMBAT);
-        addSettings(range, speed, rotate, priority, attack, lock, players, offensive, passive, new KeybindSetting("Key", 0));
+        addSettings(range, fov, speed, rotate, priority, attack, lock, players, offensive, passive, new KeybindSetting("Key", 0));
     }
 
     @Override
@@ -64,19 +64,11 @@ public class Killaura extends Mod {
                         mc.player.setPitch(pitch);
                         mc.player.setHeadYaw(yaw);
                         mc.player.setBodyYaw(yaw);
-                    } else if (rotate.getMode() == "Human") {
-                        mc.player.setPitch(
-                            mc.player.getPitch() +
-                            RotUtils.getNextPos(4.2f, mc.player.getPitch(), pitch)
-                        );
-                        mc.player.setHeadYaw(
-                            mc.player.getYaw() +
-                            RotUtils.getNextPos(5.3f, mc.player.getYaw(), yaw)
-                        );
-                        mc.player.setBodyYaw(
-                            mc.player.getYaw() +
-                            RotUtils.getNextPos(5.3f, mc.player.getYaw(), yaw)
-                        );
+                    } else if (rotate.getMode() == "Smooth") {
+                        float deltaYaw = yaw - mc.player.getYaw();
+                        float deltaPitch = pitch - mc.player.getPitch();
+                        mc.player.setYaw((deltaYaw / 2.f) + mc.player.getYaw());
+                        mc.player.setPitch((deltaPitch / 2.f) + mc.player.getPitch());
                     }
                 }
 
@@ -112,7 +104,10 @@ public class Killaura extends Mod {
 
     private void sortKA(List<Entity> targets) {
         for (Entity entity : mc.world.getEntities()) {
-            if (entity instanceof LivingEntity && entity != mc.player && !FriendsUtils.friends.contains(entity.getEntityName()) && mc.player.distanceTo(entity) <= range.getValueFloat()) {
+            float tfov = fov.getValueFloat()*2.f;
+            float tYaw = Math.abs(RotUtils.getYawToEnt(entity)-mc.player.getYaw());
+            float tPitch = Math.abs(RotUtils.getPitchToEnt(entity)- mc.player.getPitch());
+            if (entity instanceof LivingEntity && entity != mc.player && !FriendsUtils.friends.contains(entity.getEntityName()) && mc.player.distanceTo(entity) <= range.getValueFloat() && tPitch<=tfov && tYaw<=tfov) {
 
                 if (players.isEnabled() && entity.isPlayer()) targets.add(entity);
 
