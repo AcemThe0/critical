@@ -79,6 +79,7 @@ public class ModMan {
         modules.add(new Spoof());
         modules.add(new Totem());
         modules.add(new Vclip());
+        modules.add(new Reach());
         modules.add(new Flight());
         modules.add(new Friend());
         modules.add(new Nofall());

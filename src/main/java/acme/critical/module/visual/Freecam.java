@@ -2,6 +2,7 @@ package acme.critical.module.visual;
 
 import acme.critical.Critical;
 import acme.critical.module.Mod;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import acme.critical.utils.FakePlayer;
 import net.minecraft.entity.EntityPose;
@@ -77,4 +78,5 @@ public class Freecam extends Mod {
     public void onClientMove(EventClientMove event) {
         mc.player.noClip = true;
     }
+
 }
