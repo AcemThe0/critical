@@ -53,6 +53,16 @@ public class Render2DUtils {
 		context.fill(x + 1, y + 1, x2 - 1, y2 - 1, colors[0]);
 	}
 
+	public static void slider(
+		DrawContext context, double val, double min, double max,
+		int x, int y, int w, int h
+	) {
+		rect(context, x, y, x + w, y + h, 0);
+		inset(context, x, y + h/2 - 2, x + w, y + h/2 + 2, 0);
+		int scrollx = (int) (x + 2 + (((w - 4) * (val - min)) / (max - min)));
+		rect(context, scrollx - 2, y, scrollx + 2, y + h, 0);
+	}
+
 	public static void text(DrawContext context, String text, int x, int y, int color) {
 		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, text, x, y, color);
 	}

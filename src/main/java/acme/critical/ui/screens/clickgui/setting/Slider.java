@@ -21,20 +21,13 @@ public class Slider extends Component{
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        //DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());
-        Render2DUtils.rect(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
-        
         double diff = Math.min(parent.parent.width, Math.max(0, mouseX - parent.parent.x));
-        int renderWidth = (int)(parent.parent.width * (numSet.getValue() - numSet.getMin()) / (numSet.getMax() - numSet.getMin()));
-        //DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset+2, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height-2, ColorUtils.contrast());
-        Render2DUtils.inset(context,
-        parent.parent.x, parent.parent.y + parent.offset + offset+6,
-        parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height-6,
-        0);
-        Render2DUtils.rect(context,
-        parent.parent.x+renderWidth-2, parent.parent.y + parent.offset + offset+2,
-        parent.parent.x+renderWidth+2, parent.parent.y + parent.offset + offset + parent.parent.height-2,
-        0);
+	
+        Render2DUtils.slider(
+	    context, numSet.getValue(), numSet.getMin(), numSet.getMax(),
+            parent.parent.x, parent.parent.y + parent.offset + offset,
+	    parent.parent.width, parent.parent.height
+        );
 
         if (sliding) {
             if(diff == 0) {
