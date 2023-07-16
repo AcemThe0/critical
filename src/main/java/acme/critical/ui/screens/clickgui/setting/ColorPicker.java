@@ -63,7 +63,19 @@ public class ColorPicker extends Component {
 			buffer = toString(colset.getColor());
 			colset.updated = false;
 		}
-		Render2DUtils.inset(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
+		Render2DUtils.inset(
+			context, parent.parent.x, parent.parent.y + parent.offset + offset,
+			parent.parent.x + parent.parent.width,
+			parent.parent.y + parent.offset + offset + parent.parent.height,
+		0);
+		Render2DUtils.coloredRect(
+			context,
+			parent.parent.x + parent.parent.width - parent.parent.height + 2,
+			parent.parent.y + parent.offset + offset + 2,
+			parent.parent.x + parent.parent.width - 2,
+			parent.parent.y + parent.offset + offset + parent.parent.height - 2,
+			colset.getColor()
+		);
 		Render2DUtils.text(
 			context,
 			buffer + ((writing && (Instant.now().getEpochSecond() % 2 == 1)) ? "_":""),

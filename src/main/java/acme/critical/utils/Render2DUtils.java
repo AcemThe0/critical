@@ -16,8 +16,6 @@ public class Render2DUtils {
 	public static int[] getColors(int color) {
 		try {
 			int[] ret = theme.get(color).clone();
-			for (int i = 0; i < ret.length; i++)
-				if (ret[i] == 0xffff00ff) ret[i] = ColorUtils.Rainbow();
 			return ret;
 		} catch (IndexOutOfBoundsException e) {
 			int[] ret = {0xffff00ff, 0xffff00ff, 0xffff00ff};
@@ -37,6 +35,12 @@ public class Render2DUtils {
 
 	public static void updateTheme(List<int[]> newtheme) {
 		theme = newtheme;
+	}
+
+	public static void coloredRect(DrawContext context, int x, int y, int x2, int y2, int color) {
+		context.fill(x, y, x2, y2, new Color(color).brighter().getRGB());
+		context.fill(x + 1, y + 1, x2, y2, new Color(color).darker().getRGB());
+		context.fill(x + 1, y + 1, x2 - 1, y2 - 1, color);
 	}
 
 	public static void rect(DrawContext context, int x, int y, int x2, int y2, int color) {
