@@ -24,6 +24,7 @@ public class Clickgui extends Mod {
     public static ColorSetting colorBase = new ColorSetting("Base", 0xffffffff);
     public static ColorSetting colorTitle = new ColorSetting("Title", 0xffffffff);
     public static ColorSetting colorSelected = new ColorSetting("Selected", 0xffffffff);
+    public static BooleanSetting flatMode = new BooleanSetting("Flat mode", false);
     public static BooleanSetting reloadTheme = new BooleanSetting("Save Theme", false);
 
     public Clickgui() {
@@ -34,7 +35,7 @@ public class Clickgui extends Mod {
         colorTitle.setColor(Render2DUtils.getColors(1)[1]);
         colorSelected.setLabeled(true);
         colorSelected.setColor(Render2DUtils.getColors(2)[1]);
-        addSettings(arraylist, descriptions, chatFeedback, arrows, colorBase, colorTitle, colorSelected, reloadTheme);
+        addSettings(arraylist, descriptions, chatFeedback, arrows, colorBase, colorTitle, colorSelected, flatMode, reloadTheme);
         Critical.INSTANCE.eventBus.subscribe(this);
     }
 
@@ -48,10 +49,10 @@ public class Clickgui extends Mod {
 	theme.add(Render2DUtils.getComplements(colorTitle.getColor()));
 	theme.add(Render2DUtils.getComplements(colorSelected.getColor()));
 
-	Render2DUtils.updateTheme(theme);
+	Render2DUtils.updateTheme(theme, flatMode.isEnabled());
 
         Profile.INSTANCE.save(ThemeFile.class);
-        Profile.INSTANCE.load(ThemeFile.class);
+        //Profile.INSTANCE.load(ThemeFile.class);
     }
 
     @Override

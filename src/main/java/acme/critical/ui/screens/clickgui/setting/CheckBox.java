@@ -24,26 +24,16 @@ public class CheckBox extends Component {
         Render2DUtils.rect(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, (char) 0);
         int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
         Render2DUtils.text(context, boolSet.getName(), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset);
-        /*DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 160).getRGB());*/
 
+	Render2DUtils.checkBox(
+		context,
+		boolSet.isEnabled(),
+		parent.parent.x + parent.parent.width - parent.parent.height + 2,
+		parent.parent.y + parent.offset + offset + 2,
+		parent.parent.height - 4,
+		parent.parent.height - 4
+	);
 
-        /*DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-16, parent.parent.y+parent.offset+offset+1, parent.parent.x + parent.parent.width-2, parent.parent.y + parent.offset + offset + parent.parent.height-1, Color.black.getRGB());
-        DrawableHelper.fill(matrices, parent.parent.x + parent.parent.width-14, parent.parent.y+parent.offset+offset+3, parent.parent.x + parent.parent.width-4, parent.parent.y + parent.offset + offset + parent.parent.height-3, boolSet.isEnabled() ? ColorUtils.contrast() : Color.black.getRGB());*/
-        if (boolSet.isEnabled()) {
-            Render2DUtils.inset(
-		context,
-		parent.parent.x + parent.parent.width - 15, parent.parent.y + parent.offset + offset + 3,
-        parent.parent.x + parent.parent.width - 5, parent.parent.y + parent.offset + offset + parent.parent.height - 3,
-        0
-            );
-        } else {
-            Render2DUtils.rect(
-		context,
-		parent.parent.x + parent.parent.width - 15, parent.parent.y + parent.offset + offset + 3,
-        parent.parent.x + parent.parent.width - 5, parent.parent.y + parent.offset + offset + parent.parent.height - 3,
-        0
-            );
-        }
         super.render(context, mouseX, mouseY, delta);
     }
 

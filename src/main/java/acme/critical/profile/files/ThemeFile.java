@@ -59,6 +59,6 @@ public class ThemeFile extends ProfileFile {
 			out.add(schema);
 		}
 		
-		Render2DUtils.updateTheme(out);
+		Render2DUtils.updateTheme(out, false);
 	}
 }
