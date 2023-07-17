@@ -1,10 +1,10 @@
 package acme.critical.module.movement;
 
 import acme.critical.module.Mod;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.hit.BlockHitResult;
 import acme.critical.module.settings.NumberSetting;
