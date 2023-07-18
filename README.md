@@ -23,3 +23,5 @@
 ## License
 
 >Uses a [license](https://github.com/AcemThe0/critical/blob/master/LICENSE)
+
+![shill](https://github.com/AcemThe0/critical/blob/master/shill.png?raw=true)
