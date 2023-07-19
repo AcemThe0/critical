@@ -1,6 +1,7 @@
 package acme.critical.module.visual;
 
 import java.awt.Color;
+import java.util.Map;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -13,11 +14,12 @@ import acme.critical.module.ModMan;
 import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.ModeSetting;
 import acme.critical.module.settings.KeybindSetting;
+import acme.critical.module.visual.esp.EntMatrixCollector;
 import acme.critical.utils.ColorUtils;
 import acme.critical.utils.FriendsUtils;
 
 public class ESP extends Mod {
-	private ModeSetting mode = new ModeSetting("Mode", "Glow", "Glow", "Walls");
+	private ModeSetting mode = new ModeSetting("Mode", "2D", "2D", "Glow", "Walls");
 	private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
 	public BooleanSetting players = new BooleanSetting("Players", true);
 	public BooleanSetting offensive = new BooleanSetting("Offensive", true);
@@ -29,10 +31,19 @@ public class ESP extends Mod {
 	}
 
 	@Override
-	public void onDisable() {
-		for (Entity ent : MinecraftClient.getInstance().world.getEntities()) {
-			if (!ent.isGlowing())
-				ent.setGlowing(false);
+	public void onRender2D(DrawContext context, float tickDelta) {
+		if (mode.getMode() != "2D") return;
+
+		DrawContext context2 = new DrawContext(
+			MinecraftClient.getInstance(),
+			context.getVertexConsumers()
+		);
+
+		for (Map.Entry<Entity, MatrixStack> entry : EntMatrixCollector.list.entrySet()) {
+			Entity ent = entry.getKey();
+			context2.matrices = entry.getValue();
+
+			context2.fill(0, 0, 100, 100, getColor(ent) & 0xa0ffffff);
 		}
 	}
 

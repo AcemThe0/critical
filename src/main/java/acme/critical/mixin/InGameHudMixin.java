@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import acme.critical.module.ModMan;
 import acme.critical.module.visual.Norender;
+import acme.critical.module.visual.esp.EntMatrixCollector;
 
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
@@ -21,6 +22,7 @@ public class InGameHudMixin {
     public void onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
 	Critical.INSTANCE.onRender2D(context, tickDelta);
         Hud.render(context, tickDelta);
+	EntMatrixCollector.list.clear();
     }
 
     @Inject(method = "renderOverlay", at = @At("HEAD"), cancellable = true)
