@@ -42,7 +42,7 @@ public class Crystalaura extends Mod {
         for (Entity ent : mc.world.getEntities()) {
             float tfov = fov.getValueFloat()*2.f;
             float tYaw = Math.abs(RotUtils.getYawToEnt(ent)-mc.player.getYaw());
-            float tPitch = Math.abs(RotUtils.getPitchToEnt(ent)- mc.player.getPitch());
+            float tPitch = Math.abs(RotUtils.getPitchToEnt(ent, false)- mc.player.getPitch());
             if (mc.player.distanceTo(ent) < range.getValueFloat() && ent instanceof EndCrystalEntity && tPitch<=tfov && tYaw<=tfov) {
             mc.interactionManager.attackEntity(mc.player, ent);
             }

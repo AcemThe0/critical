@@ -12,8 +12,13 @@ public class RotUtils {
         return mc.player.getYaw() + MathHelper.wrapDegrees((float) Math.toDegrees(Math.atan2(entity.getZ() - mc.player.getZ(), entity.getX() - mc.player.getX())) - 90f - mc.player.getYaw());
     }
 
-    public static float getPitchToEnt(Entity entity) {
-        double y = entity.getEyeY();
+    public static float getPitchToEnt(Entity entity, boolean Feet) {
+        double y;
+        if (Feet) {
+            y = entity.getY(); //So no head?
+        } else {
+            y = entity.getEyeY();
+        }
 
         double diffX = entity.getX() - mc.player.getX();
         double diffY = y - (mc.player.getY() + mc.player.getEyeHeight(mc.player.getPose()));
@@ -23,9 +28,9 @@ public class RotUtils {
         return mc.player.getPitch() + MathHelper.wrapDegrees((float) - Math.toDegrees(Math.atan2(diffY, diffXZ)) - mc.player.getPitch());
     }
 
-    public static float angleDistance(Entity entity) {
+    public static float angleDistance(Entity entity, boolean feet) {
         float eYaw = Math.abs(getYawToEnt(entity) - mc.player.getYaw());
-        float ePitch = Math.abs(getPitchToEnt(entity) - mc.player.getPitch());
+        float ePitch = Math.abs(getPitchToEnt(entity, feet) - mc.player.getPitch());
         return eYaw+ePitch;
     }
 }

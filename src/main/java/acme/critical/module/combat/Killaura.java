@@ -53,7 +53,7 @@ public class Killaura extends Mod {
 
                 if (!(rotate.getMode() == "None")) {
                     float yaw = RotUtils.getYawToEnt(target);
-                    float pitch = RotUtils.getPitchToEnt(target);
+                    float pitch = RotUtils.getPitchToEnt(target, false);
                     mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, mc.player.isOnGround()));
 
                     if (lock.isEnabled()) {
@@ -106,7 +106,7 @@ public class Killaura extends Mod {
         for (Entity entity : mc.world.getEntities()) {
             float tfov = fov.getValueFloat()*2.f;
             float tYaw = Math.abs(RotUtils.getYawToEnt(entity)-mc.player.getYaw());
-            float tPitch = Math.abs(RotUtils.getPitchToEnt(entity)- mc.player.getPitch());
+            float tPitch = Math.abs(RotUtils.getPitchToEnt(entity, false)- mc.player.getPitch());
             if (entity instanceof LivingEntity && entity != mc.player && !FriendsUtils.friends.contains(entity.getEntityName()) && mc.player.distanceTo(entity) <= range.getValueFloat() && tPitch<=tfov && tYaw<=tfov) {
 
                 if (players.isEnabled() && entity.isPlayer()) targets.add(entity);
@@ -122,7 +122,7 @@ public class Killaura extends Mod {
                 targets.sort(Comparator.comparingDouble(ent -> ((LivingEntity)ent).getHealth()));
             break;
             case "Angle":
-                targets.sort(Comparator.comparingDouble(ent -> RotUtils.angleDistance(ent)));
+                targets.sort(Comparator.comparingDouble(ent -> RotUtils.angleDistance(ent, false)));
             break;
         }
     }
