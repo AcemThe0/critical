@@ -34,6 +34,10 @@ public class Render2DUtils {
 		return ret;
 	}
 
+	public static boolean isFlat() {
+		return flatmode;
+	}
+
 	public static void updateTheme(List<int[]> newtheme, boolean flat) {
 		theme = newtheme;
 		flatmode = flat;

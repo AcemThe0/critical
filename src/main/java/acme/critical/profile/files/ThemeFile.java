@@ -1,5 +1,6 @@
 package acme.critical.profile.files;
 
+import java.lang.IndexOutOfBoundsException;
 import java.lang.Integer;
 import java.util.ArrayList;
 
@@ -19,12 +20,11 @@ public class ThemeFile extends ProfileFile {
 		int[] c2 = Render2DUtils.getColors(1);
 		int[] c3 = Render2DUtils.getColors(2);
 		for (int i = 0; i < 3; i++) {
-			// i hate you
 			c1[i] &= 0xffffff;
 			c2[i] &= 0xffffff;
 			c3[i] &= 0xffffff;
 		}
-		return "//130\n"
+		return "//140" + (Render2DUtils.isFlat() ? "b" : "a") + "\n"
 			+ "// base\n"
 			+ String.format("#%06X, #%06X, #%06X\n", c1[0], c1[1], c1[2])
 			+ "// titles\n"
@@ -35,7 +35,7 @@ public class ThemeFile extends ProfileFile {
 
 	@Override
 	public String onDefault() {
-		return "//130\n"
+		return "//140a\n"
 			+ "// base\n"
 			+ "#7B7B7B, #B0B0B0, #FBFBFB\n"
 			+ "// titles\n"
@@ -58,7 +58,14 @@ public class ThemeFile extends ProfileFile {
 			}
 			out.add(schema);
 		}
+
+		boolean flat = false;
+		try {
+			flat = (stringlines[0].charAt(5)) == 'b';
+		} catch(IndexOutOfBoundsException ex) {
+			// there is nothing we can do. its over
+		}
 		
-		Render2DUtils.updateTheme(out, false);
+		Render2DUtils.updateTheme(out, flat);
 	}
 }
