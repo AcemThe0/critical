@@ -1,34 +1,33 @@
 package acme.critical.mixin;
 
-import acme.critical.Critical;
-import net.minecraft.util.math.Vec3d;
-import com.mojang.authlib.GameProfile;
 import org.spongepowered.asm.mixin.Mixin;
-import net.minecraft.entity.MovementType;
 import org.spongepowered.asm.mixin.Shadow;
-import net.minecraft.client.world.ClientWorld;
-import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.gen.Accessor;
-import acme.critical.event.events.EventClientMove;
 import org.spongepowered.asm.mixin.injection.Inject;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.mojang.authlib.GameProfile;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import org.spongepowered.asm.mixin.injection.Redirect;
-
+import acme.critical.Critical;
+import acme.critical.event.events.EventClientMove;
 import acme.critical.module.ModMan;
 import acme.critical.module.visual.Freecam;
 import acme.critical.module.visual.Norender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.MovementType;
+import net.minecraft.util.math.Vec3d;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
-    @Shadow private void autoJump(float dx, float dz) {}
-    
+    @Shadow
+    private void autoJump(float dx, float dz) {
+    }
+
     private ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) {
         super(world, profile);
     }
@@ -58,12 +57,12 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
 
     @Redirect(method = "updateNausea", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
     private Screen onUpdateNauseaScreen(MinecraftClient client) {
-	Norender norender = ModMan.INSTANCE.getMod(Norender.class);
-	if (norender.isEnabled() && norender.portals.isEnabled()) {
-		return null;
-	} else {
-		return client.currentScreen;
-	}
+        Norender norender = ModMan.INSTANCE.getMod(Norender.class);
+        if (norender.isEnabled() && norender.portals.isEnabled()) {
+            return null;
+        } else {
+            return client.currentScreen;
+        }
     }
 
     @Inject(method = "updateNausea", at = @At("HEAD"), cancellable = true)

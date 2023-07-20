@@ -1,4 +1,4 @@
-package acme.critical.event;
+package acme.critical.event.eventbus;
 
 public class Event {
     private boolean cancelled = false;

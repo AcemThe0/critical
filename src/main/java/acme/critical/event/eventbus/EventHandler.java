@@ -1,6 +1,5 @@
 package acme.critical.event.eventbus;
 
-import acme.critical.event.Event;
 import org.apache.logging.log4j.Logger;
 
 public abstract class EventHandler {
@@ -11,6 +10,7 @@ public abstract class EventHandler {
     }
 
     public abstract boolean subscribe(Object object);
+
     public abstract boolean unsubscribe(Object object);
 
     public abstract void post(Event event, Logger logger);

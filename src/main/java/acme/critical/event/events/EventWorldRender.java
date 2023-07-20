@@ -1,6 +1,6 @@
 package acme.critical.event.events;
 
-import acme.critical.event.Event;
+import acme.critical.event.eventbus.Event;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class EventWorldRender extends Event {

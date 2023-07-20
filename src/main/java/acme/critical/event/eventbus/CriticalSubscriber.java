@@ -1,13 +1,13 @@
 package acme.critical.event.eventbus;
 
-import java.lang.reflect.Method;
-import acme.critical.event.Event;
 import java.lang.invoke.CallSite;
+import java.lang.invoke.LambdaMetafactory;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.function.Consumer;
-import java.lang.invoke.MethodType;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.LambdaMetafactory;
+
 import org.apache.commons.lang3.reflect.MethodUtils;
 
 @SuppressWarnings("unchecked")
@@ -30,10 +30,10 @@ public class CriticalSubscriber {
         try {
             MethodHandles.Lookup lookup = MethodHandles.lookup();
             CallSite callsite = LambdaMetafactory.metafactory(lookup, "accept",
-                MethodType.methodType(Consumer.class, target.getClass()),
-                MethodType.methodType(void.class, Object.class),
-                lookup.unreflect(method),
-                MethodType.methodType(void.class, eventClass));
+                    MethodType.methodType(Consumer.class, target.getClass()),
+                    MethodType.methodType(void.class, Object.class),
+                    lookup.unreflect(method),
+                    MethodType.methodType(void.class, eventClass));
 
             subscriberCaller = (Consumer<Object>) callsite.getTarget().invokeWithArguments(target);
             this.eventClass = eventClass;

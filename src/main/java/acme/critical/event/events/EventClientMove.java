@@ -1,8 +1,8 @@
 package acme.critical.event.events;
 
-import acme.critical.event.Event;
-import net.minecraft.util.math.Vec3d;
+import acme.critical.event.eventbus.Event;
 import net.minecraft.entity.MovementType;
+import net.minecraft.util.math.Vec3d;
 
 public class EventClientMove extends Event {
     private MovementType type;
