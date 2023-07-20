@@ -29,7 +29,5 @@ public class CriticalEventBus {
         eventsPosted.getAndIncrement();
     }
 
-    public long getEventsPosted() {
-        return eventsPosted.get();
-    }
+    public long getEventsPosted() { return eventsPosted.get(); }
 }

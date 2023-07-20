@@ -2,13 +2,15 @@ package acme.critical.ui.screens.clickgui.setting;
 
 import java.awt.Color;
 import java.util.HashMap;
-import net.minecraft.util.Identifier;
-import acme.critical.utils.Render2DUtils;
-import acme.critical.module.settings.Setting;
+
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.Identifier;
+
 import acme.critical.module.settings.KeybindSetting;
+import acme.critical.module.settings.Setting;
 import acme.critical.ui.screens.clickgui.ModuleButton;
+import acme.critical.utils.Render2DUtils;
 
 public class Keybind extends Component {
     private KeybindSetting binding = (KeybindSetting)setting;
@@ -42,12 +44,27 @@ public class Keybind extends Component {
         super.keyPressed(key);
     }
 
-    int textOffset = ((parent.parent.height/2)-mc.textRenderer.fontHeight/2);
+    int textOffset =
+        ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        Render2DUtils.rect(context, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0);
-        //DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(0, 0, 0, 175).getRGB());
-        Render2DUtils.text(context, isBinding ? "Binding..." : "Keybind: " + binding.getKeyChar(binding.getKey()), parent.parent.x + 2, parent.parent.y + parent.offset + offset + textOffset);
+    public void
+    render(DrawContext context, int mouseX, int mouseY, float delta) {
+        Render2DUtils.rect(
+            context, parent.parent.x, parent.parent.y + parent.offset + offset,
+            parent.parent.x + parent.parent.width,
+            parent.parent.y + parent.offset + offset + parent.parent.height, 0
+        );
+        // DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y +
+        // parent.offset + offset, parent.parent.x + parent.parent.width,
+        // parent.parent.y + parent.offset + offset + parent.parent.height, new
+        // Color(0, 0, 0, 175).getRGB());
+        Render2DUtils.text(
+            context,
+            isBinding ? "Binding..."
+                      : "Keybind: " + binding.getKeyChar(binding.getKey()),
+            parent.parent.x + 2,
+            parent.parent.y + parent.offset + offset + textOffset
+        );
 
         super.render(context, mouseX, mouseY, delta);
     }

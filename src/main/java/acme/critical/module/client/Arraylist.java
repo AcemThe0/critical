@@ -4,12 +4,13 @@ import acme.critical.module.Mod;
 import acme.critical.module.settings.ModeSetting;
 
 public class Arraylist extends Mod {
-    public ModeSetting mode = new ModeSetting("Mode", "Rainbow", "Rainbow", "Static", "Hidden");
+    public ModeSetting mode =
+        new ModeSetting("Mode", "Rainbow", "Rainbow", "Static", "Hidden");
 
     public Arraylist() {
         super("ModuleList", "Customization!", Category.CLIENT);
         addSetting(mode);
-        //removeSetting(key);
+        // removeSetting(key);
     }
 
     @Override
@@ -17,4 +18,4 @@ public class Arraylist extends Mod {
         setEnabled(false);
     }
 }
-//Do NOT forget to delete
+// Do NOT forget to delete

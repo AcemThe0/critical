@@ -18,27 +18,43 @@ public class CriticalSubscriber {
     private final Class<?> targetClass;
     private final String signature;
 
-    public CriticalSubscriber(Object target, String methodName, Class<? extends Event> eventClass) {
-        this(target, MethodUtils.getAccessibleMethod(target.getClass(), methodName, eventClass), eventClass);
+    public CriticalSubscriber(
+        Object target, String methodName, Class<? extends Event> eventClass
+    ) {
+        this(
+            target,
+            MethodUtils.getAccessibleMethod(
+                target.getClass(), methodName, eventClass
+            ),
+            eventClass
+        );
     }
 
     public CriticalSubscriber(Object target, Method method) {
         this(target, method, getEvent(method));
     }
 
-    public CriticalSubscriber(Object target, Method method, Class<? extends Event> eventClass) {
+    public CriticalSubscriber(
+        Object target, Method method, Class<? extends Event> eventClass
+    ) {
         try {
             MethodHandles.Lookup lookup = MethodHandles.lookup();
-            CallSite callsite = LambdaMetafactory.metafactory(lookup, "accept",
-                    MethodType.methodType(Consumer.class, target.getClass()),
-                    MethodType.methodType(void.class, Object.class),
-                    lookup.unreflect(method),
-                    MethodType.methodType(void.class, eventClass));
+            CallSite callsite = LambdaMetafactory.metafactory(
+                lookup, "accept",
+                MethodType.methodType(Consumer.class, target.getClass()),
+                MethodType.methodType(void.class, Object.class),
+                lookup.unreflect(method),
+                MethodType.methodType(void.class, eventClass)
+            );
 
-            subscriberCaller = (Consumer<Object>) callsite.getTarget().invokeWithArguments(target);
+            subscriberCaller =
+                (Consumer<Object>)callsite.getTarget().invokeWithArguments(
+                    target
+                );
             this.eventClass = eventClass;
             this.targetClass = target.getClass();
-            this.signature = targetClass.getName() + "." + method.getName() + "(" + eventClass.getName() + ")";
+            this.signature = targetClass.getName() + "." + method.getName() +
+                             "(" + eventClass.getName() + ")";
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }
@@ -46,28 +62,23 @@ public class CriticalSubscriber {
 
     private static Class<? extends Event> getEvent(Method method) {
         Parameter[] parameters = method.getParameters();
-        if (parameters.length == 0 || !Event.class.isAssignableFrom(parameters[0].getType())) {
-            throw new RuntimeException("Tried to create Subscriber. Invalid parameters");
+        if (parameters.length == 0 ||
+            !Event.class.isAssignableFrom(parameters[0].getType())) {
+            throw new RuntimeException(
+                "Tried to create Subscriber. Invalid parameters"
+            );
         }
 
-        return (Class<? extends Event>) parameters[0].getType();
+        return (Class<? extends Event>)parameters[0].getType();
     }
 
-    public void callSubscriber(Event event) {
-        subscriberCaller.accept(event);
-    }
+    public void callSubscriber(Event event) { subscriberCaller.accept(event); }
 
-    public Class<? extends Event> getEventClass() {
-        return eventClass;
-    }
+    public Class<? extends Event> getEventClass() { return eventClass; }
 
-    public Class<?> getTargetClass() {
-        return targetClass;
-    }
+    public Class<?> getTargetClass() { return targetClass; }
 
-    public String getSignature() {
-        return signature;
-    }
+    public String getSignature() { return signature; }
 
     @Override
     public final int hashCode() {
@@ -77,7 +88,7 @@ public class CriticalSubscriber {
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof CriticalSubscriber) {
-            CriticalSubscriber that = (CriticalSubscriber) obj;
+            CriticalSubscriber that = (CriticalSubscriber)obj;
             return signature.equals(that.signature);
         }
 

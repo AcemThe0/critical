@@ -1,7 +1,7 @@
 package acme.critical.module.visual;
 
-import acme.critical.module.Mod;
 import acme.critical.mixin.SimpleOptionMixin;
+import acme.critical.module.Mod;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Nightvision extends Mod {
@@ -14,7 +14,7 @@ public class Nightvision extends Mod {
     }
 
     public static void setGamma(double gamma) {
-    ((SimpleOptionMixin) (Object) mc.options.getGamma()).forceSetValue(gamma);
+        ((SimpleOptionMixin)(Object)mc.options.getGamma()).forceSetValue(gamma);
     }
 
     @Override

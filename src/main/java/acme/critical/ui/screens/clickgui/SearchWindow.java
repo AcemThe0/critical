@@ -11,60 +11,63 @@ import acme.critical.ui.screens.clickgui.setting.Component;
 import acme.critical.ui.screens.clickgui.setting.TextBox;
 
 public class SearchWindow extends Window {
-	private StringSetting stringsetting;
-	private TextBox textbox;
+    private StringSetting stringsetting;
+    private TextBox textbox;
 
-	private ModuleButton dummy;
+    private ModuleButton dummy;
 
-	private String psearch;
+    private String psearch;
 
-	public SearchWindow(int x, int y, int width, int height) {
-		super("Search", x, y, width, height);
+    public SearchWindow(int x, int y, int width, int height) {
+        super("Search", x, y, width, height);
 
-		stringsetting = new StringSetting("Search", "");
-		dummy = new ModuleButton(null, this, height);
-		textbox = new TextBox(stringsetting, dummy, 0);
-		// make it selected by default
-		textbox.writing = true;
-	}
+        stringsetting = new StringSetting("Search", "");
+        dummy = new ModuleButton(null, this, height);
+        textbox = new TextBox(stringsetting, dummy, 0);
+        // make it selected by default
+        textbox.writing = true;
+    }
 
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		super.render(context, mouseX, mouseY, delta);
+    public void
+    render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
 
-		if (!extended) return;
+        if (!extended)
+            return;
 
-		textbox.render(context, mouseX, mouseY, delta);
+        textbox.render(context, mouseX, mouseY, delta);
 
-		if (stringsetting.getVal() != psearch) {
-			psearch = stringsetting.getVal();
+        if (stringsetting.getVal() != psearch) {
+            psearch = stringsetting.getVal();
 
-			Mod[] results = ModMan.INSTANCE.modSearch(psearch, 10);
+            Mod[] results = ModMan.INSTANCE.modSearch(psearch, 10);
 
-			super.buttons.clear();
-			int offset = height + 15;
-			for (Mod mod : results) {
-				super.buttons.add(new ModuleButton(mod, this, offset));
-				offset += height;
-			}
-		}
-	}
+            super.buttons.clear();
+            int offset = height + 15;
+            for (Mod mod : results) {
+                super.buttons.add(new ModuleButton(mod, this, offset));
+                offset += height;
+            }
+        }
+    }
 
-	public void mouseClicked(double mouseX, double mouseY, int button) {
-		super.mouseClicked(mouseX, mouseY, button);
-		textbox.mouseClicked(mouseX, mouseY, button);
-	}
+    public void mouseClicked(double mouseX, double mouseY, int button) {
+        super.mouseClicked(mouseX, mouseY, button);
+        textbox.mouseClicked(mouseX, mouseY, button);
+    }
 
-	public void updateButtons() {
-		int offset = height + 15;
+    public void updateButtons() {
+        int offset = height + 15;
 
-		for (ModuleButton button : buttons) {
-			button.offset = offset;
-			offset += height;
+        for (ModuleButton button : buttons) {
+            button.offset = offset;
+            offset += height;
 
-			if (button.extended) {
-				for (Component component : button.components)
-					if (component.setting.isVisible()) offset += height;
-			}
-		}
-	}
+            if (button.extended) {
+                for (Component component : button.components)
+                    if (component.setting.isVisible())
+                        offset += height;
+            }
+        }
+    }
 }

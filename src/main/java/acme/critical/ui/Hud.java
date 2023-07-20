@@ -2,22 +2,25 @@ package acme.critical.ui;
 
 import java.awt.Color;
 import java.lang.System;
-import acme.critical.module.Mod;
-import acme.critical.module.ModMan;
-import acme.critical.utils.ColorUtils;
-import acme.critical.utils.Render2DUtils;
-import acme.critical.module.client.Clickgui;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+
+import acme.critical.module.Mod;
+import acme.critical.module.ModMan;
+import acme.critical.module.client.Clickgui;
+import acme.critical.utils.ColorUtils;
+import acme.critical.utils.Render2DUtils;
 
 public class Hud {
     private static MinecraftClient mc = MinecraftClient.getInstance();
     static int fHeight = mc.textRenderer.fontHeight;
 
     public static void render(DrawContext context, float tickDelta) {
-        //mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.3.0)", 1, 1, -1);
-	//context.drawTextWithShadow(mc.textRenderer, "Critical (JW-1.3.0)", 1, 1, -1);
-	Render2DUtils.text(context, "Critical (JW-1.4.0)", 1, 1);
+        // mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.3.0)", 1, 1,
+        // -1); context.drawTextWithShadow(mc.textRenderer, "Critical
+        // (JW-1.3.0)", 1, 1, -1);
+        Render2DUtils.text(context, "Critical (JW-1.4.0)", 1, 1);
         Render2DUtils.drawBanana(context, 32, 12, 1);
         renderArrayList(context);
     }
@@ -28,12 +31,26 @@ public class Hud {
 
         if (Clickgui.arraylist.getMode() != "Hidden") {
 
-            //There is probably a way to make this neater
+            // There is probably a way to make this neater
             for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
                 int modWidth = mc.textRenderer.getWidth(module.getName());
-                context.fill(scaledWidth-3, 1+(index*fHeight), scaledWidth-1, fHeight+2+(index*fHeight), ColorUtils.arraylistColor(Clickgui.arraylist.getMode(), index, module.getCategory().name));
-                context.fill(scaledWidth-5-modWidth, 1+(index*fHeight), scaledWidth-3, fHeight+2+(index*fHeight), new Color(0, 0, 0, 160).getRGB());
-                Render2DUtils.text(context, module.getName(), scaledWidth-4-modWidth, 2+(index*fHeight));
+                context.fill(
+                    scaledWidth - 3, 1 + (index * fHeight), scaledWidth - 1,
+                    fHeight + 2 + (index * fHeight),
+                    ColorUtils.arraylistColor(
+                        Clickgui.arraylist.getMode(), index,
+                        module.getCategory().name
+                    )
+                );
+                context.fill(
+                    scaledWidth - 5 - modWidth, 1 + (index * fHeight),
+                    scaledWidth - 3, fHeight + 2 + (index * fHeight),
+                    new Color(0, 0, 0, 160).getRGB()
+                );
+                Render2DUtils.text(
+                    context, module.getName(), scaledWidth - 4 - modWidth,
+                    2 + (index * fHeight)
+                );
                 index++;
             }
         }

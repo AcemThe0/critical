@@ -1,16 +1,18 @@
 package acme.critical.module;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import acme.critical.module.misc.*;
+import java.util.List;
+
+import net.minecraft.client.MinecraftClient;
+
+import acme.critical.module.Mod.Category;
 import acme.critical.module.client.*;
 import acme.critical.module.combat.*;
-import acme.critical.module.visual.*;
+import acme.critical.module.misc.*;
 import acme.critical.module.movement.*;
-import acme.critical.module.Mod.Category;
-import net.minecraft.client.MinecraftClient;
+import acme.critical.module.visual.*;
 
 public class ModMan {
     public static final ModMan INSTANCE = new ModMan();
@@ -25,22 +27,23 @@ public class ModMan {
     }
 
     public <T extends Mod> T getMod(Class<T> clasS) {
-        return (T) modules.stream().filter(mod -> mod.getClass() == clasS).findFirst().orElse(null);
+        return (T)modules.stream()
+            .filter(mod -> mod.getClass() == clasS)
+            .findFirst()
+            .orElse(null);
     }
 
-    public List<Mod> getModules() {
-        return modules;
-    }
+    public List<Mod> getModules() { return modules; }
 
-    public Mod getModByName(String str) {
-        return namedmodules.get(str);
-    }
+    public Mod getModByName(String str) { return namedmodules.get(str); }
 
     public Mod[] modSearch(String str, int count) {
         ArrayList<Mod> ret = new ArrayList();
         for (Mod mod : modules) {
-            if (ret.size() >= count) break;
-            if (mod.getName().toUpperCase().contains(str.toUpperCase())) ret.add(mod);
+            if (ret.size() >= count)
+                break;
+            if (mod.getName().toUpperCase().contains(str.toUpperCase()))
+                ret.add(mod);
         }
 
         return ret.toArray(new Mod[ret.size()]);
@@ -49,7 +52,8 @@ public class ModMan {
     public List<Mod> getEnabledModules() {
         List<Mod> enabledModules = new ArrayList<>();
         for (Mod module : modules) {
-            if (module.isEnabled()) enabledModules.add(module);
+            if (module.isEnabled())
+                enabledModules.add(module);
         }
         return enabledModules;
     }
@@ -106,8 +110,14 @@ public class ModMan {
         modules.add(new Autoclicker());
         modules.add(new Crystalaura());
         modules.add(new Timechanger());
-        //monolith
+        // monolith
 
-        modules.sort(Comparator.comparingInt(m->(int)MinecraftClient.getInstance().textRenderer.getWidth(((Mod)m).getName())).reversed());
+        modules.sort(Comparator
+                         .comparingInt(
+                             m
+                             -> (int)MinecraftClient.getInstance()
+                                    .textRenderer.getWidth(((Mod)m).getName())
+                         )
+                         .reversed());
     }
 }

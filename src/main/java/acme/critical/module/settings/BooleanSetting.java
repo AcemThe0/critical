@@ -8,15 +8,9 @@ public class BooleanSetting extends Setting {
         this.enabled = defaultValue;
     }
 
-    public void toggle() {
-        this.enabled = !this.enabled;
-    }
+    public void toggle() { this.enabled = !this.enabled; }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+    public boolean isEnabled() { return enabled; }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
 }
