@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 
 @Mixin(MinecraftClient.class)
 public interface MinecraftClientAccessor {
-	@Invoker("doAttack")
-	boolean doAttack();
+	//causes game 2 crash on lclick
+	//@Invoker("doAttack")
+	//boolean doAttack();
 }
