@@ -1,15 +1,12 @@
 package acme.critical.event.eventbus;
 
-import java.util.Map;
-import java.util.List;
 import java.lang.reflect.Method;
-import acme.critical.event.Event;
-import org.apache.logging.log4j.Logger;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import acme.critical.event.eventbus.CriticalSubscribe;
-import acme.critical.event.eventbus.CriticalSubscriber;
 
+import org.apache.logging.log4j.Logger;
 
 public class InexactEventHandler extends EventHandler {
 
@@ -21,9 +18,10 @@ public class InexactEventHandler extends EventHandler {
 
     public boolean subscribe(Object object) {
         boolean added = false;
-        for (Method m: object.getClass().getDeclaredMethods()) {
+        for (Method m : object.getClass().getDeclaredMethods()) {
             if (m.isAnnotationPresent(CriticalSubscribe.class) && m.getParameters().length != 0) {
-                subscribers.computeIfAbsent(m.getParameters()[0].getType(), k -> new CopyOnWriteArrayList<>()).add(new CriticalSubscriber(object, m));
+                subscribers.computeIfAbsent(m.getParameters()[0].getType(), k -> new CopyOnWriteArrayList<>())
+                        .add(new CriticalSubscriber(object, m));
                 added = true;
             }
         }
@@ -42,13 +40,14 @@ public class InexactEventHandler extends EventHandler {
     }
 
     public void post(Event event, Logger logger) {
-        for (Map.Entry<Class<?>, List<CriticalSubscriber>> entry: subscribers.entrySet()) {
+        for (Map.Entry<Class<?>, List<CriticalSubscriber>> entry : subscribers.entrySet()) {
             if (entry.getKey().isAssignableFrom(event.getClass())) {
-                for (CriticalSubscriber s: entry.getValue()) {
+                for (CriticalSubscriber s : entry.getValue()) {
                     try {
                         s.callSubscriber(event);
                     } catch (Throwable t) {
-                        logger.error("Exception thrown by subscriber method " + s.getSignature() + " when dispatching event: " + s.getEventClass().getName(), t);
+                        logger.error("Exception thrown by subscriber method " + s.getSignature()
+                                + " when dispatching event: " + s.getEventClass().getName(), t);
                     }
                 }
             }

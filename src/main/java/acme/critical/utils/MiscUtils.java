@@ -11,7 +11,8 @@ public class MiscUtils {
 
 	public static void attack(boolean pressed) {
 		mc.options.attackKey.setPressed(pressed);
-		if (pressed) ((MinecraftClientAccessor) (Object) mc).doAttack();	
+		//Causes application 2 stack overflow on code execution
+		//if (pressed) ((MinecraftClientAccessor) (Object) mc).doAttack();	
 	}
 
 	public static void use(boolean pressed) {

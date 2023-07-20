@@ -1,9 +1,8 @@
 package acme.critical.event.events;
 
-import java.lang.Character;
 import org.lwjgl.glfw.GLFW;
 
-import acme.critical.event.Event;
+import acme.critical.event.eventbus.Event;
 
 public class EventKeyboard extends Event {
 	private int key;
@@ -19,28 +18,39 @@ public class EventKeyboard extends Event {
 	public int getKey() {
 		return key;
 	}
+
 	public int getAction() {
 		return action;
 	}
+
 	public int getModifiers() {
 		return modifiers;
 	}
 
 	public char getKeyReadable() {
-		if (key == GLFW.GLFW_KEY_SPACE) return ' ';
-		char c = GLFW.glfwGetKeyName(key, 0).charAt(0);
-		if ((modifiers & GLFW.GLFW_MOD_SHIFT) != 0) c = Character.toUpperCase(c);
+		char c = ' ';
+
+		if (key == GLFW.GLFW_KEY_SPACE)
+			return c;
+
+		if (GLFW.glfwGetKeyName(key, 0) != null)
+			c = GLFW.glfwGetKeyName(key, 0).charAt(0);
+
+		if ((modifiers & GLFW.GLFW_MOD_SHIFT) != 0)
+			c = Character.toUpperCase(c);
 
 		return c;
 	}
 
 	public boolean isDel() {
-		if (key == GLFW.GLFW_KEY_BACKSPACE || key == GLFW.GLFW_KEY_DELETE) return true;
+		if (key == GLFW.GLFW_KEY_BACKSPACE || key == GLFW.GLFW_KEY_DELETE)
+			return true;
 		return false;
 	}
 
 	public boolean isPressing() {
-		if (action == GLFW.GLFW_RELEASE) return false;
+		if (action == GLFW.GLFW_RELEASE)
+			return false;
 		return true;
 	}
 
