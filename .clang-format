@@ -1,0 +1,4 @@
+AlignAfterOpenBracket: BlockIndent
+IndentWidth: 4
+JavaImportGroups: ['java', 'net.minecraft', 'acme.critical']
+UseTab: Never

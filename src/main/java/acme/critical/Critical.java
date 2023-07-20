@@ -3,12 +3,14 @@ package acme.critical;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.fabricmc.api.ModInitializer;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.DrawContext;
@@ -38,7 +40,7 @@ public class Critical implements ModInitializer {
     public Path cjwDir;
     public Path cjwProfileDir;
 
-    //sneedcraft approved :)
+    // sneedcraft approved :)
     @Override
     public void onInitialize() {
         eventBus = new CriticalEventBus(new InexactEventHandler("critical"), Critical.EventLogger);
@@ -62,29 +64,25 @@ public class Critical implements ModInitializer {
     public void keyPress(EventKeyboard event) {
 	int key = event.getKey();
 	int action = event.getAction();
-        if (action == GLFW.GLFW_PRESS
-	    && (mc.currentScreen == null || mc.currentScreen instanceof TitleScreen)
-	) {
-		for (Mod module : ModMan.INSTANCE.getModules()) {
+        if (action == GLFW.GLFW_PRESS && (mc.currentScreen == null || mc.currentScreen instanceof TitleScreen)) {
+            for (Mod module : ModMan.INSTANCE.getModules()) {
                     if (key == GLFW.GLFW_KEY_RIGHT_SHIFT) mc.setScreen(ClickGUI.INSTANCE);
                     if (key == module.getKey()) module.toggle();
-		}
+            }
 	}
     }
 
     public void onTick() {
         if (mc.player != null && mc.world != null) {
-            for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
-		    module.onTick();
-	    }
+            for (Mod module : ModMan.INSTANCE.getEnabledModules())
+                module.onTick();
         }
     }
 
     public void onRender2D(DrawContext context, float tickDelta) {
         if (mc.player != null && mc.world != null) {
-            for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
-		    module.onRender2D(context, tickDelta);
-	    }
+            for (Mod module : ModMan.INSTANCE.getEnabledModules())
+                module.onRender2D(context, tickDelta);
         }
     }
 }
