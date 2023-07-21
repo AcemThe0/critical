@@ -22,6 +22,7 @@ import acme.critical.utils.FileUtils;
 import acme.critical.utils.Render2DUtils;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -61,6 +62,17 @@ public class Critical implements ModInitializer {
     }
 
     List<Mod> enabledModules = new ArrayList<>();
+
+    public String getVersion() {
+        // in the case that critical is not mounted this will crash! please do
+        // not run critical without critical installed.
+        return FabricLoader.getInstance()
+            .getModContainer("critical")
+            .get()
+            .getMetadata()
+            .getVersion()
+            .getFriendlyString();
+    }
 
     @CriticalSubscribe
     public void keyPress(EventKeyboard event) {

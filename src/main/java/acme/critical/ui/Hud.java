@@ -6,6 +6,7 @@ import java.lang.System;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 
+import acme.critical.Critical;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
 import acme.critical.module.client.Clickgui;
@@ -17,10 +18,10 @@ public class Hud {
     static int fHeight = mc.textRenderer.fontHeight;
 
     public static void render(DrawContext context, float tickDelta) {
-        // mc.textRenderer.drawWithShadow(matrices, "Critical (JW-1.3.0)", 1, 1,
-        // -1); context.drawTextWithShadow(mc.textRenderer, "Critical
-        // (JW-1.3.0)", 1, 1, -1);
-        Render2DUtils.text(context, "Critical (JW-1.4.0)", 1, 1);
+        Render2DUtils.text(
+            context, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")", 1,
+            1
+        );
         Render2DUtils.drawBanana(context, 32, 12, 1);
         renderArrayList(context);
     }

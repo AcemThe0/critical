@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
+import acme.critical.Critical;
 import acme.critical.module.Mod.Category;
 import acme.critical.module.client.Clickgui;
 import acme.critical.utils.Render2DUtils;
@@ -35,7 +36,10 @@ public class ClickGUI extends Screen {
     render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context);
 
-        Render2DUtils.text(context, "Critical (JW-1.4.0)", 1, 1);
+        Render2DUtils.text(
+            context, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")", 1,
+            1
+        );
         Render2DUtils.drawBanana(context, 32, 12, 1);
 
         context.getMatrices().push();
