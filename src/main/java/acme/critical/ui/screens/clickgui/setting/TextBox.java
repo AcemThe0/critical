@@ -44,7 +44,7 @@ public class TextBox extends Component {
             strset.del();
             return;
         }
-        if (strset.getVal().length() <= 14)
+        if (strset.getVal().length() <= 14 && event.getKeyReadable() != '\0')
             strset.add(event.getKeyReadable());
     }
 

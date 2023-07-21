@@ -44,6 +44,8 @@ public class ColorPicker extends Component {
             return;
         }
         char c = event.getKeyReadable();
+        if (c == '\0')
+            return;
         if (c >= 'A' && c <= 'F')
             c += 32;
         if (buffer.length() < 7 &&

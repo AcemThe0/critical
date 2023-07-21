@@ -22,10 +22,10 @@ public class EventKeyboard extends Event {
     public int getModifiers() { return modifiers; }
 
     public char getKeyReadable() {
-        char c = ' ';
+        char c = 0;
 
         if (key == GLFW.GLFW_KEY_SPACE)
-            return c;
+            return ' ';
 
         if (GLFW.glfwGetKeyName(key, 0) != null)
             c = GLFW.glfwGetKeyName(key, 0).charAt(0);
