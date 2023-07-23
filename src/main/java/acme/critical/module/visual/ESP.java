@@ -20,7 +20,7 @@ import acme.critical.utils.FriendsUtils;
 
 public class ESP extends Mod {
     private ModeSetting mode =
-        new ModeSetting("Mode", "2D", "2D", "Glow", "Walls");
+        new ModeSetting("Mode", "Glow", "2D", "Glow", "Walls");
     private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
     public BooleanSetting players = new BooleanSetting("Players", true);
     public BooleanSetting offensive = new BooleanSetting("Offensive", true);
