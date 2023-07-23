@@ -71,6 +71,9 @@ public class ModuleButton {
         else
             c = 2;
 
+        if (isHovered(mouseX, mouseY))
+            Render2DUtils.text(context, module.getDesc(), 4, 4);
+
         if (!module.isEnabled()) {
             Render2DUtils.outset(
                 context, parent.x, parent.y + offset, parent.x + parent.width,
