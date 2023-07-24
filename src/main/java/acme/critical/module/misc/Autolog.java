@@ -38,7 +38,9 @@ public class Autolog extends Mod {
         if (logPlayer.isEnabled()) {
             for (Entity ent : mc.world.getEntities()) {
                 if (ent != mc.player && ent.isPlayer() &&
-                    !FriendsUtils.isFriend(ent))
+                    !FriendsUtils.isFriend(ent) &&
+                    ent.getName().getString() !=
+                        mc.player.getName().getString())
                     return "Player " + ent.getName().getString() +
                         " entered view";
             }
