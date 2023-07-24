@@ -8,12 +8,15 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
 import acme.critical.Critical;
+import acme.critical.module.Mod;
 import acme.critical.module.Mod.Category;
 import acme.critical.module.client.Clickgui;
 import acme.critical.utils.Render2DUtils;
 
 public class ClickGUI extends Screen {
     public static final ClickGUI INSTANCE = new ClickGUI();
+
+    public Mod SelectedMod = null;
 
     private List<Window> frames;
 
@@ -29,6 +32,8 @@ public class ClickGUI extends Screen {
         }
 
         frames.add(new SearchWindow(offset, 15, 80, 15));
+        offset += 80;
+        frames.add(new SettingsWindow(offset, 15, 80, 15));
     }
 
     @Override

@@ -77,16 +77,6 @@ public class Render2DUtils {
     }
 
     public static void
-    outset(DrawContext context, int x, int y, int x2, int y2, int color) {
-        if (flatmode) {
-            int[] colors = getColors(color);
-            context.fill(x, y, x2, y2, colors[2]);
-            return;
-        }
-        rect(context, x, y, x2, y2, color);
-    }
-
-    public static void
     checkBox(DrawContext context, boolean enabled, int x, int y, int w, int h) {
         if (flatmode) {
             inset(context, x, y, x + w, y + h, 0);

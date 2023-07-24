@@ -16,73 +16,32 @@ import acme.critical.utils.ColorUtils;
 import acme.critical.utils.Render2DUtils;
 
 public class ModuleButton {
-    public int widthOffset =
-        MinecraftClient.getInstance().textRenderer.getWidth(
-            "Critical (JW-13.37.69)"
-        );
     public Mod module;
     public Window parent;
     public int offset;
-    public boolean extended;
-    public List<Component> components;
 
     public ModuleButton(Mod module, Window parent, int offset) {
         this.module = module;
         this.parent = parent;
         this.offset = offset;
-        this.extended = false;
-        this.components = new ArrayList<>();
-
-        // hack
-        if (module == null)
-            return;
-
-        int setOffset = parent.height;
-        for (Setting setting : module.getSettings()) {
-            if (setting.isLabeled()) {
-                components.add(new LabelBox(setting, this, setOffset));
-                setOffset += parent.height;
-            }
-
-            if (setting instanceof BooleanSetting) {
-                components.add(new CheckBox(setting, this, setOffset));
-            } else if (setting instanceof ColorSetting) {
-                components.add(new ColorPicker(setting, this, setOffset));
-            } else if (setting instanceof LabelSetting) {
-                components.add(new LabelBox(setting, this, setOffset));
-            } else if (setting instanceof ModeSetting) {
-                components.add(new ModeBox(setting, this, setOffset));
-            } else if (setting instanceof NumberSetting) {
-                components.add(new Slider(setting, this, setOffset));
-            } else if (setting instanceof KeybindSetting) {
-                components.add(new Keybind(setting, this, setOffset));
-            } else if (setting instanceof StringSetting) {
-                components.add(new TextBox(setting, this, setOffset));
-            }
-            setOffset += parent.height;
-        }
     }
 
     public void
     render(DrawContext context, int mouseX, int mouseY, float delta) {
-        int c;
-        if (!isHovered(mouseX, mouseY))
-            c = 0;
-        else
-            c = 2;
-
         if (isHovered(mouseX, mouseY))
             Render2DUtils.text(context, module.getDesc(), 4, 4);
 
         if (!module.isEnabled()) {
-            Render2DUtils.outset(
+            Render2DUtils.rect(
                 context, parent.x, parent.y + offset, parent.x + parent.width,
-                parent.y + offset + parent.height, c
+                parent.y + offset + parent.height,
+                isHovered(mouseX, mouseY) ? 2 : 0
             );
         } else {
             Render2DUtils.inset(
                 context, parent.x, parent.y + offset, parent.x + parent.width,
-                parent.y + offset + parent.height, c
+                parent.y + offset + parent.height,
+                isHovered(mouseX, mouseY) ? 2 : 0
             );
         }
         int textOffset =
@@ -91,35 +50,19 @@ public class ModuleButton {
             context, module.getName(), parent.x + 2,
             parent.y + offset + textOffset
         );
-
-        if (extended) {
-            for (Component component : components) {
-                component.render(context, mouseX, mouseY, delta);
-            }
-        }
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
-        if (isHovered(mouseX, mouseY)) {
-            if (button == 0) {
-                module.toggle();
-            } else if (button == 1) {
-                extended = !extended;
-                parent.updateButtons();
-            }
-        }
+        if (!isHovered(mouseX, mouseY))
+            return;
 
-        for (Component component : components) {
-            if (extended)
-                component.mouseClicked(mouseX, mouseY, button);
-        }
+        if (button == 0)
+            module.toggle();
+        else if (button == 1)
+            ClickGUI.INSTANCE.SelectedMod = module;
     }
 
-    public void mouseReleased(double mouseX, double mouseY, int button) {
-        for (Component component : components) {
-            component.mouseReleased(mouseX, mouseY, button);
-        }
-    }
+    public void mouseReleased(double mouseX, double mouseY, int button) {}
 
     public boolean isHovered(double mouseX, double mouseY) {
         return mouseX > parent.x && mouseX < parent.x + parent.width &&
@@ -127,9 +70,5 @@ public class ModuleButton {
             mouseY < parent.y + offset + parent.height;
     }
 
-    public void keyPressed(int key) {
-        for (Component component : components) {
-            component.keyPressed(key);
-        }
-    }
+    public void keyPressed(int key) {}
 }

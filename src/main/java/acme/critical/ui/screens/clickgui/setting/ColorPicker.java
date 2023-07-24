@@ -22,6 +22,7 @@ public class ColorPicker extends Component {
         super(setting, parent, offset);
         colset = (ColorSetting)setting;
         Critical.INSTANCE.eventBus.subscribe(this);
+        buffer = toString(colset.getColor());
     }
 
     @Override

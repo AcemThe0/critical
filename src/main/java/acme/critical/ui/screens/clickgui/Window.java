@@ -87,13 +87,6 @@ public class Window {
         for (ModuleButton button : buttons) {
             button.offset = offset;
             offset += height;
-
-            if (button.extended) {
-                for (Component component : button.components) {
-                    if (component.setting.isVisible())
-                        offset += height;
-                }
-            }
         }
     }
 

@@ -24,14 +24,11 @@ public class SearchWindow extends Window {
         stringsetting = new StringSetting("Search", "");
         dummy = new ModuleButton(null, this, height);
         textbox = new TextBox(stringsetting, dummy, 0);
-        // make it selected by default
-        textbox.writing = true;
     }
 
     public void
     render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-
         if (!extended)
             return;
 
@@ -53,6 +50,8 @@ public class SearchWindow extends Window {
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
         super.mouseClicked(mouseX, mouseY, button);
+        if (!extended)
+            return;
         textbox.mouseClicked(mouseX, mouseY, button);
     }
 
@@ -62,12 +61,6 @@ public class SearchWindow extends Window {
         for (ModuleButton button : buttons) {
             button.offset = offset;
             offset += height;
-
-            if (button.extended) {
-                for (Component component : button.components)
-                    if (component.setting.isVisible())
-                        offset += height;
-            }
         }
     }
 }
