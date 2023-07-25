@@ -40,6 +40,8 @@ public class SettingsWindow extends Window {
         Mod mod = ClickGUI.INSTANCE.SelectedMod;
         components.clear();
 
+        dumbass = new ModuleButton(mod, this, height);
+
         int setOffset = 0;
         components.add(
             new LabelBox(new Setting(mod.getName()), dumbass, setOffset)
