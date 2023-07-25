@@ -1,11 +1,19 @@
 package acme.critical.mixin;
 
+import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.Critical;
 import acme.critical.event.events.EventWorldRender;
+import acme.critical.utils.Render3DUtils;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,11 +47,5 @@ public class GameRendererMixin {
         Critical.eventBus.post(
             new EventWorldRender.Post(tickDelta, limitTime, matrices)
         );
-
-        // Tessellator tes = Tessellator.getInstance();
-        // tes.getBuffer().begin(DrawMode.LINES, VertexFormats.POSITION_COLOR);
-        // tes.getBuffer().vertex(0, 0, 0).color(255, 255, 255, 255).next();
-        // tes.getBuffer().vertex(1, 1, 0).color(255, 255, 255, 255).next();
-        // tes.draw();
     }
 }

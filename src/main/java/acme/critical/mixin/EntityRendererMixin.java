@@ -33,12 +33,12 @@ public abstract class EntityRendererMixin<T extends Entity> {
         T entity, float yaw, float tickDelta, MatrixStack matrices,
         VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci
     ) {
-        EntMatrixCollector.list.put(
+        /*EntMatrixCollector.list.put(
             entity,
             EntMatrixCollector.die.fromJson(
                 EntMatrixCollector.die.toJson(matrices), MatrixStack.class
             )
-        );
+        );*/
     }
 
     @Inject(
