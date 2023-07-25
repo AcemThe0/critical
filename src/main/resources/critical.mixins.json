@@ -6,6 +6,8 @@
   "mixins": [
   ],
   "client": [
+    "BackgroundRendererMixin",
+    "BiomeColorsMixin",
     "BlockMixin",
     "MouseMixin",
     "EntityMixin",
