@@ -7,7 +7,6 @@ import net.minecraft.util.Identifier;
 import acme.critical.Critical;
 import acme.critical.module.ModMan;
 import acme.critical.module.visual.Norender;
-import acme.critical.module.visual.esp.EntMatrixCollector;
 import acme.critical.ui.Hud;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +21,6 @@ public class InGameHudMixin {
     onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
         Critical.INSTANCE.onRender2D(context, tickDelta);
         Hud.render(context, tickDelta);
-        EntMatrixCollector.list.clear();
     }
 
     @Inject(method = "renderOverlay", at = @At("HEAD"), cancellable = true)

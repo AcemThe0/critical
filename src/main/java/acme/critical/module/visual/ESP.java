@@ -9,6 +9,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
 
 import acme.critical.Critical;
 import acme.critical.event.eventbus.CriticalSubscribe;
@@ -19,7 +20,6 @@ import acme.critical.module.combat.Killaura;
 import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.KeybindSetting;
 import acme.critical.module.settings.ModeSetting;
-import acme.critical.module.visual.esp.EntMatrixCollector;
 import acme.critical.utils.ColorUtils;
 import acme.critical.utils.FriendsUtils;
 import acme.critical.utils.Render3DUtils;
@@ -31,7 +31,7 @@ public class ESP extends Mod {
     private ArrayList<Entity> ents = new ArrayList<>();
 
     private ModeSetting mode =
-        new ModeSetting("Mode", "Box", "Box", "2D", "Glow", "Walls");
+        new ModeSetting("Mode", "Box", "Box", "Glow", "Walls");
     private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
     private BooleanSetting self = new BooleanSetting("Self", false);
     public BooleanSetting players = new BooleanSetting("Players", true);
@@ -67,6 +67,7 @@ public class ESP extends Mod {
         if (mode.getMode() != "Box")
             return;
         MatrixStack matrices = event.getMatrices();
+	float tickDelta = event.getDelta();
 
         matrices.push();
 
@@ -80,40 +81,29 @@ public class ESP extends Mod {
         for (Entity ent : ents) {
             if (!shouldDraw(ent))
                 continue;
-            Render3DUtils.setGlColor(getColor(ent) & 0xa0ffffff);
             matrices.push();
-            matrices.translate(
-                ent.getX() - region.x, ent.getY(), ent.getZ() - region.y
-            );
+	    matrices.translate(
+		MathHelper.lerp(tickDelta, ent.prevX, ent.getX()) - region.x,
+		MathHelper.lerp(tickDelta, ent.prevY, ent.getY()),
+		MathHelper.lerp(tickDelta, ent.prevZ, ent.getZ()) - region.y
+	    );
+
+            Render3DUtils.setGlColor(getColor(ent) & 0xa0ffffff);
             Render3DUtils.boxAABB(
+                matrices, ent.getBoundingBox().offset(ent.getPos().negate())
+            );
+            Render3DUtils.setGlColor(getColor(ent));
+            Render3DUtils.boxAABBOutline(
                 matrices, ent.getBoundingBox().offset(ent.getPos().negate())
             );
             matrices.pop();
         }
 
-        matrices.pop();
-
         Render3DUtils.setGlColor(0xffffffff);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDisable(GL11.GL_BLEND);
-    }
 
-    @Override
-    public void onRender2D(DrawContext context, float tickDelta) {
-        if (mode.getMode() != "2D")
-            return;
-
-        DrawContext context2 = new DrawContext(
-            MinecraftClient.getInstance(), context.getVertexConsumers()
-        );
-
-        for (Map.Entry<Entity, MatrixStack> entry :
-             EntMatrixCollector.list.entrySet()) {
-            Entity ent = entry.getKey();
-            context2.matrices = entry.getValue();
-
-            context2.fill(0, 0, 100, 100, getColor(ent) & 0xa0ffffff);
-        }
+        matrices.pop();
     }
 
     public String getMode() { return mode.getMode(); }

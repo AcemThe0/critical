@@ -13,7 +13,6 @@ import net.minecraft.text.Text;
 
 import acme.critical.module.ModMan;
 import acme.critical.module.visual.Nametags;
-import acme.critical.module.visual.esp.EntMatrixCollector;
 
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
@@ -27,19 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityRenderer.class)
 public abstract class EntityRendererMixin<T extends Entity> {
     @Shadow @Final protected EntityRenderDispatcher dispatcher;
-
-    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    public void onRender(
-        T entity, float yaw, float tickDelta, MatrixStack matrices,
-        VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci
-    ) {
-        /*EntMatrixCollector.list.put(
-            entity,
-            EntMatrixCollector.die.fromJson(
-                EntMatrixCollector.die.toJson(matrices), MatrixStack.class
-            )
-        );*/
-    }
 
     @Inject(
         method = "renderLabelIfPresent", at = @At("HEAD"), cancellable = true
