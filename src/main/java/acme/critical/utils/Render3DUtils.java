@@ -50,6 +50,18 @@ public class Render3DUtils {
         return camera.getPos();
     }
 
+    public static Vec3d getCameraDirVec() {
+        Camera cam = getCamera();
+        double DR = Math.PI / 180.0;
+        double PI = Math.PI;
+        double pcos = -Math.cos(-cam.getPitch() * DR);
+        return new Vec3d(
+            Math.sin(-cam.getYaw() * DR - PI) * pcos,
+            Math.sin(-cam.getPitch() * DR),
+            Math.cos(-cam.getYaw() * DR - PI) * pcos
+        );
+    }
+
     public static Vector2i getCameraRegion() {
         BlockPos blockPos = getCameraBlockPos();
         return new Vector2i(
@@ -136,7 +148,7 @@ public class Render3DUtils {
     }
 
     public static void boxAABBOutline(MatrixStack matrices, Box box) {
-	GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
 
         Tessellator tes = RenderSystem.renderThreadTesselator();
         BufferBuilder bb = tes.getBuffer();
@@ -144,28 +156,70 @@ public class Render3DUtils {
 
         Matrix4f matrix = matrices.peek().getPositionMatrix();
 
-        bb.begin(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION);
+        bb.begin(
+            VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION
+        );
 
-	bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.maxZ).next();
-	bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.minZ).next();
-	bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.maxZ).next();
+        bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.maxY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.maxZ)
+            .next();
+        bb.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.minZ)
+            .next();
+        bb.vertex(matrix, (float)box.maxX, (float)box.minY, (float)box.maxZ)
+            .next();
 
-	tes.draw();
+        tes.draw();
 
-	GL11.glDisable(GL11.GL_LINE_SMOOTH);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
+    }
+
+    public static void simpleLine(MatrixStack matrices, Vec3d p1, Vec3d p2) {
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+
+        Tessellator tes = RenderSystem.renderThreadTesselator();
+        BufferBuilder bb = tes.getBuffer();
+        RenderSystem.setShader(GameRenderer::getPositionProgram);
+
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+
+        bb.begin(
+            VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION
+        );
+
+        bb.vertex(matrix, (float)p1.getX(), (float)p1.getY(), (float)p1.getZ())
+            .next();
+        bb.vertex(matrix, (float)p2.getX(), (float)p2.getY(), (float)p2.getZ())
+            .next();
+
+        tes.draw();
+
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
     }
 }

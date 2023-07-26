@@ -10,6 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 
 import acme.critical.Critical;
 import acme.critical.event.eventbus.CriticalSubscribe;
@@ -35,14 +36,17 @@ public class ESP extends Mod {
     private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
     private BooleanSetting self = new BooleanSetting("Self", false);
     public BooleanSetting players = new BooleanSetting("Players", true);
-    public BooleanSetting offensive = new BooleanSetting("Offensive", true);
+    public BooleanSetting offensive = new BooleanSetting("Offensive", false);
     public BooleanSetting passive = new BooleanSetting("Passive", false);
+    public BooleanSetting tracers = new BooleanSetting("Tracers", true);
+    public BooleanSetting tracePlayerOnly =
+        new BooleanSetting("TPlayerOnly", true);
 
     public ESP() {
         super("ESP", "Extrasensory perception!", Category.VISUAL);
         addSettings(
-            mode, rainbow, self, players, offensive, passive,
-            new KeybindSetting("Key", 0)
+            mode, rainbow, self, players, offensive, passive, tracers,
+            tracePlayerOnly, new KeybindSetting("Key", 0)
         );
     }
 
@@ -67,7 +71,7 @@ public class ESP extends Mod {
         if (mode.getMode() != "Box")
             return;
         MatrixStack matrices = event.getMatrices();
-	float tickDelta = event.getDelta();
+        float tickDelta = event.getDelta();
 
         matrices.push();
 
@@ -78,15 +82,20 @@ public class ESP extends Mod {
         Vector2i region = Render3DUtils.getCameraRegion();
         Render3DUtils.applyRegionOffset(matrices, region);
 
+        Vec3d tracerStartPos =
+            Render3DUtils.getCameraPos().add(Render3DUtils.getCameraDirVec());
+
         for (Entity ent : ents) {
             if (!shouldDraw(ent))
                 continue;
             matrices.push();
-	    matrices.translate(
-		MathHelper.lerp(tickDelta, ent.prevX, ent.getX()) - region.x,
-		MathHelper.lerp(tickDelta, ent.prevY, ent.getY()),
-		MathHelper.lerp(tickDelta, ent.prevZ, ent.getZ()) - region.y
-	    );
+            matrices.translate(-region.x, 0, -region.y);
+            matrices.push();
+            matrices.translate(
+                MathHelper.lerp(tickDelta, ent.prevX, ent.getX()),
+                MathHelper.lerp(tickDelta, ent.prevY, ent.getY()),
+                MathHelper.lerp(tickDelta, ent.prevZ, ent.getZ())
+            );
 
             Render3DUtils.setGlColor(getColor(ent) & 0xa0ffffff);
             Render3DUtils.boxAABB(
@@ -96,6 +105,12 @@ public class ESP extends Mod {
             Render3DUtils.boxAABBOutline(
                 matrices, ent.getBoundingBox().offset(ent.getPos().negate())
             );
+            matrices.pop();
+            if (tracers.isEnabled() &&
+                !(tracePlayerOnly.isEnabled() && !ent.isPlayer()))
+                Render3DUtils.simpleLine(
+                    matrices, tracerStartPos, ent.getBoundingBox().getCenter()
+                );
             matrices.pop();
         }
 
