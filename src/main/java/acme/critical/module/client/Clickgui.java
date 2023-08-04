@@ -18,6 +18,8 @@ public class Clickgui extends Mod {
     public static ModeSetting arraylist = new ModeSetting(
         "List", "Rainbow", "Rainbow", "Static", "Category", "Hidden"
     );
+    public static BooleanSetting doLogo =
+        new BooleanSetting("Logo", true);
     public static BooleanSetting descriptions =
         new BooleanSetting("Descriptions", true);
     public static BooleanSetting chatFeedback =
@@ -42,7 +44,7 @@ public class Clickgui extends Mod {
         colorSelected.setLabeled(true);
         updateColors();
         addSettings(
-            arraylist, descriptions, chatFeedback, arrows, colorBase,
+            arraylist, doLogo, descriptions, chatFeedback, arrows, colorBase,
             colorTitle, colorSelected, flatMode, saveTheme, loadTheme
         );
         Critical.INSTANCE.eventBus.subscribe(this);

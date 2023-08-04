@@ -18,12 +18,14 @@ public class Hud {
     static int fHeight = mc.textRenderer.fontHeight;
 
     public static void render(DrawContext context, float tickDelta) {
-        Render2DUtils.text(
-            context, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")", 1,
-            1
-        );
-        Render2DUtils.drawBanana(context, 32, 12, 1);
-        renderArrayList(context);
+        if (Clickgui.doLogo.isEnabled()) {
+            Render2DUtils.text(
+                context, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")", 1,
+                1
+            );
+            Render2DUtils.drawBanana(context, 32, 12, 1);
+            renderArrayList(context);
+        }
     }
 
     public static void renderArrayList(DrawContext context) {
