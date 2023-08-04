@@ -20,12 +20,12 @@ public class Hud {
     public static void render(DrawContext context, float tickDelta) {
         if (Clickgui.doLogo.isEnabled()) {
             Render2DUtils.text(
-                context, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")", 1,
-                1
+                context, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")",
+                1, 1
             );
             Render2DUtils.drawBanana(context, 32, 12, 1);
-            renderArrayList(context);
         }
+        renderArrayList(context);
     }
 
     public static void renderArrayList(DrawContext context) {

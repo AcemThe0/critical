@@ -18,8 +18,7 @@ public class Clickgui extends Mod {
     public static ModeSetting arraylist = new ModeSetting(
         "List", "Rainbow", "Rainbow", "Static", "Category", "Hidden"
     );
-    public static BooleanSetting doLogo =
-        new BooleanSetting("Logo", true);
+    public static BooleanSetting doLogo = new BooleanSetting("Logo", true);
     public static BooleanSetting descriptions =
         new BooleanSetting("Descriptions", true);
     public static BooleanSetting chatFeedback =
