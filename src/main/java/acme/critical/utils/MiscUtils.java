@@ -1,6 +1,5 @@
 package acme.critical.utils;
 
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.Entity;
@@ -34,16 +33,16 @@ public class MiscUtils {
         }
     }
 
-	public static boolean isEntHostile(EntityType type) {
+    public static boolean isEntHostile(EntityType type) {
         if (type == EntityType.ENDER_DRAGON || type == EntityType.WITHER ||
             type == EntityType.WARDEN)
             return true;
-		if (type.getSpawnGroup() == SpawnGroup.MONSTER)
-			return true;
-		return false;
-	}
+        if (type.getSpawnGroup() == SpawnGroup.MONSTER)
+            return true;
+        return false;
+    }
 
-	public static boolean isEntHostile(Entity ent) {
-		return isEntHostile(ent.getType());
-	}
+    public static boolean isEntHostile(Entity ent) {
+        return isEntHostile(ent.getType());
+    }
 }

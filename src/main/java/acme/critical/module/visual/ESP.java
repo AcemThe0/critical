@@ -142,9 +142,9 @@ public class ESP extends Mod {
             return true;
         if (offensive.isEnabled() && MiscUtils.isEntHostile(ent))
             return true;
-		else if (passive.isEnabled())
-			return true;
-		return false;
+        else if (passive.isEnabled())
+            return true;
+        return false;
     }
 
     public boolean walls_shouldRenderEntity(Entity entity) {

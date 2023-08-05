@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 import acme.critical.Critical;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
 import acme.critical.event.eventbus.CriticalSubscribe;
 import acme.critical.event.events.EventWorldRender;
 import acme.critical.module.Mod;
@@ -19,8 +19,8 @@ import acme.critical.module.settings.KeybindSetting;
 import acme.critical.module.settings.NumberSetting;
 import acme.critical.utils.ColorUtils;
 import acme.critical.utils.FriendsUtils;
-import acme.critical.utils.Render3DUtils;
 import acme.critical.utils.MiscUtils;
+import acme.critical.utils.Render3DUtils;
 
 import org.joml.Quaternionf;
 import org.lwjgl.opengl.GL11;
@@ -41,9 +41,9 @@ public class Nametags extends Mod {
             "Nametags", "View additional info about entities.", Category.VISUAL
         );
         addSettings(
-				size, self, players, offensive, passive, items,
-				new KeybindSetting("Key", 0)
-		);
+            size, self, players, offensive, passive, items,
+            new KeybindSetting("Key", 0)
+        );
     }
 
     @Override
@@ -77,8 +77,8 @@ public class Nametags extends Mod {
         Render3DUtils.applyRegionOffset(matrices, region);
 
         for (var ent : ents) {
-			if (!shouldDraw(ent))
-				continue;
+            if (!shouldDraw(ent))
+                continue;
             matrices.push();
             matrices.translate(-region.x, 0, -region.y);
             var lerp = new Vec3d(
@@ -90,7 +90,7 @@ public class Nametags extends Mod {
 
             var dir = lerp.subtract(Render3DUtils.getCameraPos()).normalize();
             var quat = new Quaternionf();
-            quat = quat.rotateY((float) -MathHelper.atan2(dir.z, dir.x));
+            quat = quat.rotateY((float)-MathHelper.atan2(dir.z, dir.x));
             quat = quat.rotateY(MathHelper.PI / 2.0f);
             matrices.multiply(quat);
 
@@ -100,21 +100,21 @@ public class Nametags extends Mod {
                 scale *= scale_dist;
             matrices.scale(-scale, -scale, -scale);
 
-			String text = ent.getDisplayName().getString();
+            String text = ent.getDisplayName().getString();
             if (ent instanceof LivingEntity) {
-                int hp = (int) ((LivingEntity) ent).getHealth();
+                int hp = (int)((LivingEntity)ent).getHealth();
                 text += " \u00a7a" + hp;
             }
-			if (ent instanceof ItemEntity) {
-				int count = ((ItemEntity) ent).getStack().getCount();
-				text += " \u00a76x" + count;
-			}
+            if (ent instanceof ItemEntity) {
+                int count = ((ItemEntity)ent).getStack().getCount();
+                text += " \u00a76x" + count;
+            }
 
             Render3DUtils.simpleTextCentered(
                 matrices, text, 0.0f, 0.0f,
-				FriendsUtils.isFriend(ent) ?
-					ColorUtils.friendColor : 0xffffffff,
-				true
+                FriendsUtils.isFriend(ent) ? ColorUtils.friendColor
+                                           : 0xffffffff,
+                true
             );
             matrices.pop();
         }
@@ -129,14 +129,14 @@ public class Nametags extends Mod {
         if (!self.isEnabled() &&
             ent.equals(MinecraftClient.getInstance().player))
             return false;
-		if (items.isEnabled() && ent.getType() == EntityType.ITEM)
-			return true;
+        if (items.isEnabled() && ent.getType() == EntityType.ITEM)
+            return true;
         if (players.isEnabled() && ent.isPlayer())
             return true;
         if (offensive.isEnabled() && MiscUtils.isEntHostile(ent))
             return true;
-		else if (passive.isEnabled() && ent.getType() != EntityType.ITEM)
-			return true;
-		return false;
+        else if (passive.isEnabled() && ent.getType() != EntityType.ITEM)
+            return true;
+        return false;
     }
 }

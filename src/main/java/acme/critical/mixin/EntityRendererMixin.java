@@ -35,6 +35,6 @@ public abstract class EntityRendererMixin<T extends Entity> {
     ) {
         Nametags nametags = ModMan.INSTANCE.getMod(Nametags.class);
         if (nametags.isEnabled() && nametags.shouldDraw(entity))
-			ci.cancel();
+            ci.cancel();
     }
 }
