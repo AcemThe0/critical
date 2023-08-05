@@ -23,6 +23,7 @@ import acme.critical.module.settings.KeybindSetting;
 import acme.critical.module.settings.ModeSetting;
 import acme.critical.utils.ColorUtils;
 import acme.critical.utils.FriendsUtils;
+import acme.critical.utils.MiscUtils;
 import acme.critical.utils.Render3DUtils;
 
 import org.joml.Vector2i;
@@ -133,20 +134,17 @@ public class ESP extends Mod {
         return new Color(255, 255, 255).getRGB();
     }
 
-    private boolean shouldDraw(Entity entity) {
-        Killaura ka = ModMan.INSTANCE.getMod(Killaura.class);
+    private boolean shouldDraw(Entity ent) {
         if (!self.isEnabled() &&
-            entity.equals(MinecraftClient.getInstance().player))
+            ent.equals(MinecraftClient.getInstance().player))
             return false;
-        if (players.isEnabled() && entity.isPlayer())
+        if (players.isEnabled() && ent.isPlayer())
             return true;
-        if (passive.isEnabled() &&
-            ka.getEntityType(entity.getType()) == "Passive")
+        if (offensive.isEnabled() && MiscUtils.isEntHostile(ent))
             return true;
-        if (offensive.isEnabled() &&
-            ka.getEntityType(entity.getType()) == "Offensive")
-            return true;
-        return false;
+		else if (passive.isEnabled())
+			return true;
+		return false;
     }
 
     public boolean walls_shouldRenderEntity(Entity entity) {
