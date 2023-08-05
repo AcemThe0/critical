@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 
 import acme.critical.module.client.Clickgui;
+import acme.critical.utils.Render2DUtils;
 
 public class ColorUtils {
     public static int friendColor = new Color(127, 255, 127).getRGB();
@@ -58,7 +59,7 @@ public class ColorUtils {
                 HashMap<String, Integer> colors =
                     new HashMap<String, Integer>();
                 colors.put("Rainbow", Rainbow(rainbowIndex, 4, 0.7f));
-                colors.put("Static", new Color(255, 255, 255, 255).getRGB());
+                colors.put("Static", Render2DUtils.getColors(2)[1]);
                 colors.put("Category", getColorByCategory(category));
 
                 return colors.get(mode) != null

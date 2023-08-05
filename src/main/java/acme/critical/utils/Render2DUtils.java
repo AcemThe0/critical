@@ -83,10 +83,12 @@ public class Render2DUtils {
             if (enabled)
                 rect(context, x + 2, y + 2, x + w - 2, y + h - 2, 2);
         } else {
-            if (enabled)
+            if (enabled) {
                 inset(context, x, y, x + w, y + h, 0);
-            else
-                rect(context, x, y, x + w, y + h, 0);
+                context.fill(x+4, y+4, x + w - 4, y + h - 4, 0xff000000);
+            } else {
+                inset(context, x, y, x + w, y + h, 0);
+            }
         }
     }
 

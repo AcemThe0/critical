@@ -72,6 +72,7 @@ public class ModeBox extends Component {
         // if (isHovered(mouseX, mouseY) && button == 0) modeSet.cycle();
         if (isHovered(mouseX, mouseY) && button == 1)
             extended = !extended;
+
         if (extended && getHoveredMode(mouseX, mouseY) != -1 && button == 0) {
             modeSet.setIndex(getHoveredMode(mouseX, mouseY));
             extended = false;
