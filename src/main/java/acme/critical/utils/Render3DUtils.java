@@ -3,10 +3,13 @@ package acme.critical.utils;
 import java.awt.Color;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer.TextLayerType;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,6 +21,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import org.joml.Matrix4f;
 import org.joml.Vector2i;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11C;
 
 public class Render3DUtils {
     public static void
@@ -209,9 +213,7 @@ public class Render3DUtils {
 
         Matrix4f matrix = matrices.peek().getPositionMatrix();
 
-        bb.begin(
-            VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION
-        );
+        bb.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION);
 
         bb.vertex(matrix, (float)p1.getX(), (float)p1.getY(), (float)p1.getZ())
             .next();
@@ -221,5 +223,32 @@ public class Render3DUtils {
         tes.draw();
 
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
+    }
+
+    public static void simpleText(
+        MatrixStack matrices, String text, float x, float y, int color,
+        boolean shadow
+    ) {
+        var bb = new BufferBuilder(512);
+        var vi = VertexConsumerProvider.immediate(bb);
+        var mat = matrices.peek().getPositionMatrix();
+
+        MinecraftClient.getInstance().textRenderer.draw(
+            text, x, y, color, shadow, mat, vi, TextLayerType.NORMAL, 0,
+            LightmapTextureManager.MAX_LIGHT_COORDINATE
+        );
+
+        // HAHHAHAHAAHA SUCK MY BALLS MOJANG YOU WILL NEVER TAKE ME ALIVE
+        GL11.glClear(GL11C.GL_DEPTH_BUFFER_BIT);
+
+        vi.draw();
+    }
+
+    public static void simpleTextCentered(
+        MatrixStack matrices, String text, float x, float y, int color,
+        boolean shadow
+    ) {
+        var tr = MinecraftClient.getInstance().textRenderer;
+        simpleText(matrices, text, x - tr.getWidth(text) / 2, y, color, shadow);
     }
 }

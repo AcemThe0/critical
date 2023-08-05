@@ -34,7 +34,7 @@ public class GameRendererMixin {
     @Inject(
         method = "renderWorld",
         at = @At(
-            // called right before rendering ends
+            // called right before hand is drawn and rendering ends
             value = "FIELD",
             target = "Lnet/minecraft/client/render/GameRenderer;renderHand:Z",
             opcode = Opcodes.GETFIELD, ordinal = 0
