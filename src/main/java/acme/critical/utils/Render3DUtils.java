@@ -24,6 +24,10 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL11C;
 
 public class Render3DUtils {
+    public static BufferBuilder texbb = new BufferBuilder(512);
+    public static VertexConsumerProvider.Immediate texvi =
+        VertexConsumerProvider.immediate(texbb);
+
     public static void
     applyRegionOffset(MatrixStack matrices, Vector2i region) {
         Vec3d camPos = getCameraPos();
@@ -229,19 +233,17 @@ public class Render3DUtils {
         MatrixStack matrices, String text, float x, float y, int color,
         boolean shadow
     ) {
-        var bb = new BufferBuilder(512);
-        var vi = VertexConsumerProvider.immediate(bb);
         var mat = matrices.peek().getPositionMatrix();
 
         MinecraftClient.getInstance().textRenderer.draw(
-            text, x, y, color, shadow, mat, vi, TextLayerType.NORMAL, 0,
+            text, x, y, color, shadow, mat, texvi, TextLayerType.NORMAL, 0,
             LightmapTextureManager.MAX_LIGHT_COORDINATE
         );
 
         // HAHHAHAHAAHA SUCK MY BALLS MOJANG YOU WILL NEVER TAKE ME ALIVE
         GL11.glClear(GL11C.GL_DEPTH_BUFFER_BIT);
 
-        vi.draw();
+        texvi.draw();
     }
 
     public static void simpleTextCentered(
