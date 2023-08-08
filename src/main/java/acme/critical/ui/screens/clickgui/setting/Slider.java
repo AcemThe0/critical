@@ -33,8 +33,32 @@ public class Slider extends Component {
             parent.parent.x, parent.parent.y + parent.offset + offset,
             parent.parent.width, parent.parent.height
         );
+        Render2DUtils.rect(
+            context,
+            parent.parent.x+parent.parent.width,
+            parent.parent.y+parent.offset+offset,
+            parent.parent.width+parent.parent.x+parent.parent.width,
+            parent.parent.height+parent.parent.y+parent.offset+offset,
+            0
+        );
+
+        int textOffset = ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
+
+        Render2DUtils.text(
+            context,
+            numSet.getName(),
+            parent.parent.x + parent.parent.width + 2,
+            parent.parent.y + parent.offset + offset + textOffset
+        );
 
         if (sliding) {
+            Render2DUtils.text(
+                context,
+                ": "+MathUtils.roundToPlace(numSet.getValue(), 2),
+                (parent.parent.x + parent.parent.width + 2) + mc.textRenderer.getWidth(numSet.getName()),
+                parent.parent.y + parent.offset + offset + textOffset
+            );
+
             if (diff == 0) {
                 numSet.setValue(numSet.getMin());
             } else {
@@ -47,15 +71,6 @@ public class Slider extends Component {
             }
         }
 
-        int textOffset =
-            ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
-        Render2DUtils.text(
-            context,
-            numSet.getName() + ": " +
-                MathUtils.roundToPlace(numSet.getValue(), 2),
-            parent.parent.x + 2,
-            parent.parent.y + parent.offset + offset + textOffset
-        );
         super.render(context, mouseX, mouseY, delta);
     }
 
