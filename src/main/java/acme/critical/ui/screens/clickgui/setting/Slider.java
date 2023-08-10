@@ -34,28 +34,26 @@ public class Slider extends Component {
             parent.parent.width, parent.parent.height
         );
         Render2DUtils.rect(
-            context,
-            parent.parent.x+parent.parent.width,
-            parent.parent.y+parent.offset+offset,
-            parent.parent.width+parent.parent.x+parent.parent.width,
-            parent.parent.height+parent.parent.y+parent.offset+offset,
-            0
+            context, parent.parent.x + parent.parent.width,
+            parent.parent.y + parent.offset + offset,
+            parent.parent.width + parent.parent.x + parent.parent.width,
+            parent.parent.height + parent.parent.y + parent.offset + offset, 0
         );
 
-        int textOffset = ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
+        int textOffset =
+            ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
 
         Render2DUtils.text(
-            context,
-            numSet.getName(),
+            context, numSet.getName(),
             parent.parent.x + parent.parent.width + 2,
             parent.parent.y + parent.offset + offset + textOffset
         );
 
         if (sliding) {
             Render2DUtils.text(
-                context,
-                ": "+MathUtils.roundToPlace(numSet.getValue(), 2),
-                (parent.parent.x + parent.parent.width + 2) + mc.textRenderer.getWidth(numSet.getName()),
+                context, ": " + MathUtils.roundToPlace(numSet.getValue(), 2),
+                (parent.parent.x + parent.parent.width + 2) +
+                    mc.textRenderer.getWidth(numSet.getName()),
                 parent.parent.y + parent.offset + offset + textOffset
             );
 

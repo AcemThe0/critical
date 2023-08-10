@@ -63,6 +63,14 @@ public class Critical implements ModInitializer {
 
     List<Mod> enabledModules = new ArrayList<>();
 
+    public Path getRoot() {
+        return FabricLoader.getInstance()
+            .getModContainer("critical")
+            .get()
+            .getRootPaths()
+            .get(0);
+    }
+
     public String getVersion() {
         // in the case that critical is not mounted this will crash! please do
         // not run critical without critical installed.
