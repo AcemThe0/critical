@@ -19,11 +19,14 @@ import net.minecraft.util.math.Vec3d;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector2i;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL11C;
 
 public class Render3DUtils {
+    public static ObjParser banana = null;
+
     public static BufferBuilder texbb = new BufferBuilder(512);
     public static VertexConsumerProvider.Immediate texvi =
         VertexConsumerProvider.immediate(texbb);
@@ -86,6 +89,39 @@ public class Render3DUtils {
 
     public static void setGlColor(int color) {
         setGlColor(new Color(color, true));
+    }
+
+    public static void spin(MatrixStack matrices, boolean temple, int speed) {
+        float rot = ((System.currentTimeMillis() % (speed * 1000)) /
+                     (speed * 1000.0f)) *
+                    (float)Math.PI * 2;
+        var quat = new Quaternionf();
+        quat = temple ? quat.rotateXYZ(rot, rot, rot) : quat.rotateY(rot);
+        matrices.multiply(quat);
+    }
+
+    private static void bananaLoad() {
+        banana = new ObjParser(
+            "banana.obj", VertexFormat.DrawMode.QUADS,
+            VertexFormats.POSITION_COLOR
+        );
+    }
+
+    public static void banana(MatrixStack matrices) {
+        if (banana == null)
+            bananaLoad();
+
+        Tessellator tes = RenderSystem.renderThreadTesselator();
+        BufferBuilder bb = tes.getBuffer();
+        matrices.push();
+
+        matrices.translate(100.0f, 100.0f, 0.0f);
+        spin(matrices, true, 4);
+        matrices.scale(20.0f, -20.0f, 20.0f);
+
+        banana.draw(matrices);
+
+        matrices.pop();
     }
 
     public static void boxAABB(MatrixStack matrices, Box box) {

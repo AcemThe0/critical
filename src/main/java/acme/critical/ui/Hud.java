@@ -12,6 +12,7 @@ import acme.critical.module.ModMan;
 import acme.critical.module.client.Clickgui;
 import acme.critical.utils.ColorUtils;
 import acme.critical.utils.Render2DUtils;
+import acme.critical.utils.Render3DUtils;
 
 public class Hud {
     private static MinecraftClient mc = MinecraftClient.getInstance();
@@ -24,6 +25,7 @@ public class Hud {
                 1, 1
             );
             Render2DUtils.drawBanana(context, 32, 12, 1);
+            Render3DUtils.banana(context.getMatrices());
         }
         renderArrayList(context);
     }
