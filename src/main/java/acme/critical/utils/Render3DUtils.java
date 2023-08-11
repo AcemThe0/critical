@@ -100,24 +100,19 @@ public class Render3DUtils {
         matrices.multiply(quat);
     }
 
-    private static void bananaLoad() {
-        banana = new ObjParser(
-            "banana.obj", VertexFormat.DrawMode.QUADS,
-            VertexFormats.POSITION_COLOR
-        );
-    }
-
     public static void banana(MatrixStack matrices) {
-        if (banana == null)
-            bananaLoad();
+        if (banana == null) {
+            banana = new ObjParser(
+                "banana.obj", VertexFormat.DrawMode.QUADS,
+                VertexFormats.POSITION_COLOR
+            );
+        }
 
-        Tessellator tes = RenderSystem.renderThreadTesselator();
-        BufferBuilder bb = tes.getBuffer();
         matrices.push();
 
-        matrices.translate(100.0f, 100.0f, 0.0f);
-        spin(matrices, true, 4);
-        matrices.scale(20.0f, -20.0f, 20.0f);
+        matrices.translate(95.0f, 6.0f, 0.0f);
+        spin(matrices, false, 4);
+        matrices.scale(1.5f, -1.5f, 1.5f);
 
         banana.draw(matrices);
 
