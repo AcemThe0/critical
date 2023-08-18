@@ -3,7 +3,7 @@ package acme.critical.ui.screens.clickgui.setting;
 import java.lang.Integer;
 import java.time.Instant;
 
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.Critical;
 import acme.critical.event.eventbus.CriticalSubscribe;
@@ -66,18 +66,18 @@ public class ColorPicker extends Component {
 
     @Override
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         if (colset.updated) {
             buffer = toString(colset.getColor());
             colset.updated = false;
         }
         Render2DUtils.inset(
-            context, parent.parent.x, parent.parent.y + parent.offset + offset,
+            matrices, parent.parent.x, parent.parent.y + parent.offset + offset,
             parent.parent.x + parent.parent.width,
             parent.parent.y + parent.offset + offset + parent.parent.height, 0
         );
         Render2DUtils.coloredRect(
-            context,
+            matrices,
             parent.parent.x + parent.parent.width - parent.parent.height + 2,
             parent.parent.y + parent.offset + offset + 2,
             parent.parent.x + parent.parent.width - 2,
@@ -85,7 +85,7 @@ public class ColorPicker extends Component {
             colset.getColor()
         );
         Render2DUtils.text(
-            context,
+            matrices,
             buffer + ((writing && (Instant.now().getEpochSecond() % 2 == 1))
                           ? "_"
                           : ""),

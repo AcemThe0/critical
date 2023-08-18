@@ -1,7 +1,7 @@
 package acme.critical.ui.screens.clickgui.setting;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.module.settings.Setting;
 import acme.critical.ui.screens.clickgui.ModuleButton;
@@ -20,7 +20,7 @@ public class Component {
     }
 
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {}
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {}
 
     public void mouseClicked(double mouseX, double mouseY, int button) {}
 

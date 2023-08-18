@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.HashMap;
 
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 import acme.critical.module.settings.KeybindSetting;
@@ -48,9 +48,9 @@ public class Keybind extends Component {
         ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
     @Override
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         Render2DUtils.rect(
-            context, parent.parent.x, parent.parent.y + parent.offset + offset,
+            matrices, parent.parent.x, parent.parent.y + parent.offset + offset,
             parent.parent.x + parent.parent.width,
             parent.parent.y + parent.offset + offset + parent.parent.height, 0
         );
@@ -59,13 +59,13 @@ public class Keybind extends Component {
         // parent.parent.y + parent.offset + offset + parent.parent.height, new
         // Color(0, 0, 0, 175).getRGB());
         Render2DUtils.text(
-            context,
+            matrices,
             isBinding ? "Binding..."
                       : "Keybind: " + binding.getKeyChar(binding.getKey()),
             parent.parent.x + 2,
             parent.parent.y + parent.offset + offset + textOffset
         );
 
-        super.render(context, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

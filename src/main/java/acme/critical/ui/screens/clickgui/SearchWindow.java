@@ -2,7 +2,7 @@ package acme.critical.ui.screens.clickgui;
 
 import java.util.Arrays;
 
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
@@ -27,12 +27,12 @@ public class SearchWindow extends Window {
     }
 
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        super.render(matrices, mouseX, mouseY, delta);
         if (!extended)
             return;
 
-        textbox.render(context, mouseX, mouseY, delta);
+        textbox.render(matrices, mouseX, mouseY, delta);
 
         if (stringsetting.getVal() != psearch) {
             psearch = stringsetting.getVal();

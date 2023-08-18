@@ -2,7 +2,6 @@ package acme.critical.ui.screens.clickgui.setting;
 
 import java.awt.Color;
 
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.module.settings.NumberSetting;
@@ -23,18 +22,18 @@ public class Slider extends Component {
 
     @Override
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         double diff = Math.min(
             parent.parent.width, Math.max(0, mouseX - parent.parent.x)
         );
 
         Render2DUtils.slider(
-            context, numSet.getValue(), numSet.getMin(), numSet.getMax(),
+            matrices, numSet.getValue(), numSet.getMin(), numSet.getMax(),
             parent.parent.x, parent.parent.y + parent.offset + offset,
             parent.parent.width, parent.parent.height
         );
         Render2DUtils.rect(
-            context, parent.parent.x + parent.parent.width,
+            matrices, parent.parent.x + parent.parent.width,
             parent.parent.y + parent.offset + offset,
             parent.parent.width + parent.parent.x + parent.parent.width,
             parent.parent.height + parent.parent.y + parent.offset + offset, 0
@@ -44,14 +43,14 @@ public class Slider extends Component {
             ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
 
         Render2DUtils.text(
-            context, numSet.getName(),
+            matrices, numSet.getName(),
             parent.parent.x + parent.parent.width + 2,
             parent.parent.y + parent.offset + offset + textOffset
         );
 
         if (sliding) {
             Render2DUtils.text(
-                context, ": " + MathUtils.roundToPlace(numSet.getValue(), 2),
+                matrices, ": " + MathUtils.roundToPlace(numSet.getValue(), 2),
                 (parent.parent.x + parent.parent.width + 2) +
                     mc.textRenderer.getWidth(numSet.getName()),
                 parent.parent.y + parent.offset + offset + textOffset
@@ -69,7 +68,7 @@ public class Slider extends Component {
             }
         }
 
-        super.render(context, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override

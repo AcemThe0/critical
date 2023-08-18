@@ -3,7 +3,7 @@ package acme.critical.ui.screens.clickgui.setting;
 import java.time.Instant;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
@@ -53,14 +53,14 @@ public class TextBox extends Component {
 
     @Override
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         Render2DUtils.inset(
-            context, parent.parent.x, parent.parent.y + parent.offset + offset,
+            matrices, parent.parent.x, parent.parent.y + parent.offset + offset,
             parent.parent.x + parent.parent.width,
             parent.parent.y + parent.offset + offset + parent.parent.height, 0
         );
         Render2DUtils.text(
-            context,
+            matrices,
             strset.getVal() +
                 ((writing && (Instant.now().getEpochSecond() % 2 == 1)) ? "_"
                                                                         : ""),

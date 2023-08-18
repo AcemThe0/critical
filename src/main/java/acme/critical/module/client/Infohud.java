@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -118,14 +118,14 @@ public class Infohud extends Mod {
             TextLines.add(printedPing);
     }
 
-    public void onRender2D(DrawContext context, float tickDelta) {
+    public void onRender2D(MatrixStack matrices, float tickDelta) {
         int scaledWidth = mc.getWindow().getScaledWidth();
         int scaledHeight = mc.getWindow().getScaledHeight();
 
         int i = 1;
         for (String string : TextLines) {
             Render2DUtils.text(
-                context, string, scaledWidth - mc.textRenderer.getWidth(string),
+                matrices, string, scaledWidth - mc.textRenderer.getWidth(string),
                 scaledHeight - mc.textRenderer.fontHeight * i
             );
             i++;

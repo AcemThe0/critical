@@ -3,7 +3,6 @@ package acme.critical.ui.screens.clickgui.setting;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.module.settings.ModeSetting;
@@ -24,9 +23,9 @@ public class ModeBox extends Component {
 
     @Override
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         Render2DUtils.rect(
-            context, parent.parent.x, parent.parent.y + parent.offset + offset,
+            matrices, parent.parent.x, parent.parent.y + parent.offset + offset,
             parent.parent.x + parent.parent.width,
             parent.parent.y + parent.offset + offset + parent.parent.height, 0
         );
@@ -37,17 +36,17 @@ public class ModeBox extends Component {
         int textOffset =
             ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
         Render2DUtils.text(
-            context, modeSet.getName() + ": " + modeSet.getMode(),
+            matrices, modeSet.getName() + ": " + modeSet.getMode(),
             parent.parent.x + 2,
             parent.parent.y + parent.offset + offset + textOffset
         );
         if (extended) {
             // make popup render above everything else
-            context.getMatrices().push();
-            context.getMatrices().translate(0.0f, 0.0f, 100.0f);
+            matrices.getMatrices().push();
+            matrices.getMatrices().translate(0.0f, 0.0f, 100.0f);
             for (int indexM = 0; indexM < modesSize; indexM++) {
                 Render2DUtils.rect(
-                    context, parent.parent.x + parent.parent.width,
+                    matrices, parent.parent.x + parent.parent.width,
                     (indexM * parent.parent.height) + parent.parent.y +
                         parent.offset + offset,
                     parent.parent.x + (parent.parent.width * 2),
@@ -56,15 +55,15 @@ public class ModeBox extends Component {
                     0
                 );
                 Render2DUtils.text(
-                    context, modes.get(indexM),
+                    matrices, modes.get(indexM),
                     2 + parent.parent.x + parent.parent.width,
                     (indexM * parent.parent.height) + parent.parent.y +
                         parent.offset + offset + textOffset
                 );
             }
-            context.getMatrices().pop();
+            matrices.getMatrices().pop();
         }
-        super.render(context, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override

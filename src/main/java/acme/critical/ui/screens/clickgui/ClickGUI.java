@@ -3,7 +3,7 @@ package acme.critical.ui.screens.clickgui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
@@ -38,25 +38,25 @@ public class ClickGUI extends Screen {
 
     @Override
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        renderBackground(matrices);
 
-        context.getMatrices().push();
+        matrices.getMatrices().push();
 
         for (Window frame : frames) {
-            context.getMatrices().translate(0.0f, 0.0f, 1.0f);
+            matrices.getMatrices().translate(0.0f, 0.0f, 1.0f);
             if (frame.selected) {
-                context.getMatrices().push();
-                context.getMatrices().translate(0.0f, 0.0f, 10.0f);
+                matrices.getMatrices().push();
+                matrices.getMatrices().translate(0.0f, 0.0f, 10.0f);
             }
-            frame.render(context, mouseX, mouseY, delta);
+            frame.render(matrices, mouseX, mouseY, delta);
             frame.updatePosition(mouseX, mouseY);
             if (frame.selected)
-                context.getMatrices().pop();
+                matrices.getMatrices().pop();
         }
 
-        context.getMatrices().pop();
-        super.render(context, mouseX, mouseY, delta);
+        matrices.getMatrices().pop();
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override

@@ -3,7 +3,7 @@ package acme.critical.ui.screens.clickgui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.module.Mod;
 import acme.critical.module.settings.*;
@@ -21,8 +21,8 @@ public class SettingsWindow extends Window {
     }
 
     public void
-    render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        super.render(matrices, mouseX, mouseY, delta);
         if (!extended)
             return;
 
@@ -32,7 +32,7 @@ public class SettingsWindow extends Window {
         pmod = ClickGUI.INSTANCE.SelectedMod;
 
         for (Component component : components) {
-            component.render(context, mouseX, mouseY, delta);
+            component.render(matrices, mouseX, mouseY, delta);
         }
     }
 

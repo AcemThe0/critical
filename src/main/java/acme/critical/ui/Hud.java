@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.lang.System;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawableHelper;
 
 import acme.critical.Critical;
 import acme.critical.module.Mod;
@@ -18,19 +19,19 @@ public class Hud {
     private static MinecraftClient mc = MinecraftClient.getInstance();
     static int fHeight = mc.textRenderer.fontHeight;
 
-    public static void render(DrawContext context, float tickDelta) {
+    public static void render(MatrixStack matrices, float tickDelta) {
         if (Clickgui.doLogo.isEnabled()) {
             Render2DUtils.text(
-                context, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")",
+                matrices, "Critical (JW-" + Critical.INSTANCE.getVersion() + ")",
                 1, 1
             );
-            Render2DUtils.drawBanana(context, 32, 12, 1);
-            Render3DUtils.banana(context.getMatrices());
+            Render2DUtils.drawBanana(matrices, 32, 12, 1);
+            Render3DUtils.banana(matrices.getMatrices());
         }
-        renderArrayList(context);
+        renderArrayList(matrices);
     }
 
-    public static void renderArrayList(DrawContext context) {
+    public static void renderArrayList(MatrixStack matrices) {
         int index = 0;
         int scaledWidth = mc.getWindow().getScaledWidth();
 
@@ -39,7 +40,7 @@ public class Hud {
             // There is probably a way to make this neater
             for (Mod module : ModMan.INSTANCE.getEnabledModules()) {
                 int modWidth = mc.textRenderer.getWidth(module.getName());
-                context.fill(
+                DrawableHelper.fill(matrices,
                     scaledWidth - 3, 1 + (index * fHeight), scaledWidth - 1,
                     fHeight + 2 + (index * fHeight),
                     ColorUtils.arraylistColor(
@@ -47,13 +48,13 @@ public class Hud {
                         module.getCategory().name
                     )
                 );
-                context.fill(
+                DrawableHelper.fill(matrices,
                     scaledWidth - 5 - modWidth, 1 + (index * fHeight),
                     scaledWidth - 3, fHeight + 2 + (index * fHeight),
                     new Color(0, 0, 0, 160).getRGB()
                 );
                 Render2DUtils.text(
-                    context, module.getName(), scaledWidth - 4 - modWidth,
+                    matrices, module.getName(), scaledWidth - 4 - modWidth,
                     2 + (index * fHeight)
                 );
                 index++;
