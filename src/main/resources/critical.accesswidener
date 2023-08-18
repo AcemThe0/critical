@@ -3,9 +3,6 @@ accessWidener  v1  named
 accessible    field    net/minecraft/client/option/KeyBinding    timesPressed    I
 mutable       field    net/minecraft/client/option/KeyBinding    timesPressed    I
 
-accessible    field    net/minecraft/client/gui/DrawContext    matrices    Lnet/minecraft/client/util/math/MatrixStack;
-mutable       field    net/minecraft/client/gui/DrawContext    matrices    Lnet/minecraft/client/util/math/MatrixStack;
-
 accessible    field    net/minecraft/network/packet/s2c/play/EntityVelocityUpdateS2CPacket    velocityX    I
 accessible    field    net/minecraft/network/packet/s2c/play/EntityVelocityUpdateS2CPacket    velocityY    I
 accessible    field    net/minecraft/network/packet/s2c/play/EntityVelocityUpdateS2CPacket    velocityZ    I
