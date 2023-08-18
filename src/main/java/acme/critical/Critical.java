@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.gui.screen.TitleScreen;
 
 import acme.critical.event.eventbus.CriticalEventBus;
@@ -105,10 +105,10 @@ public class Critical implements ModInitializer {
         }
     }
 
-    public void onRender2D(DrawContext context, float tickDelta) {
+    public void onRender2D(MatrixStack matrices, float tickDelta) {
         if (mc.player != null && mc.world != null) {
             for (Mod module : ModMan.INSTANCE.getEnabledModules())
-                module.onRender2D(context, tickDelta);
+                module.onRender2D(matrices, tickDelta);
         }
     }
 }
