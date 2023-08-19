@@ -1,7 +1,8 @@
 package acme.critical.event.events;
 
-import acme.critical.event.Event;
 import net.minecraft.client.util.math.MatrixStack;
+
+import acme.critical.event.eventbus.Event;
 
 public class EventWorldRender extends Event {
 
@@ -9,7 +10,9 @@ public class EventWorldRender extends Event {
     protected long limitTime;
     protected MatrixStack matrices;
 
-    public EventWorldRender(float tickDelta, long limitTime, MatrixStack matrices) {
+    public EventWorldRender(
+        float tickDelta, long limitTime, MatrixStack matrices
+    ) {
         this.tickDelta = tickDelta;
         this.limitTime = limitTime;
         this.matrices = matrices;
@@ -27,15 +30,9 @@ public class EventWorldRender extends Event {
         }
     }
 
-    public float getDelta() {
-        return tickDelta;
-    }
+    public float getDelta() { return tickDelta; }
 
-    public long getLimitTime() {
-        return limitTime;
-    }
+    public long getLimitTime() { return limitTime; }
 
-    public MatrixStack getMatrices() {
-        return matrices;
-    }
+    public MatrixStack getMatrices() { return matrices; }
 }

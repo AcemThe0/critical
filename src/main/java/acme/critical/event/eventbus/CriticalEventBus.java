@@ -1,9 +1,8 @@
 package acme.critical.event.eventbus;
 
-import acme.critical.event.Event;
-import org.apache.logging.log4j.Logger;
-import acme.critical.event.eventbus.EventHandler;
 import java.util.concurrent.atomic.AtomicLong;
+
+import org.apache.logging.log4j.Logger;
 
 public class CriticalEventBus {
 
@@ -30,7 +29,5 @@ public class CriticalEventBus {
         eventsPosted.getAndIncrement();
     }
 
-    public long getEventsPosted() {
-        return eventsPosted.get();
-    }
+    public long getEventsPosted() { return eventsPosted.get(); }
 }

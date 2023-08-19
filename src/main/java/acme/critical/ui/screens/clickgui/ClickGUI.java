@@ -1,21 +1,24 @@
 package acme.critical.ui.screens.clickgui;
 
-import java.util.List;
 import java.util.ArrayList;
-import net.minecraft.text.Text;
-import acme.critical.module.Mod.Category;
-import net.minecraft.client.gui.screen.Screen;
+import java.util.List;
+
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.text.Text;
+
+import acme.critical.Critical;
+import acme.critical.module.Mod;
+import acme.critical.module.Mod.Category;
 import acme.critical.module.client.Clickgui;
-import acme.critical.profile.Profile;
-import acme.critical.profile.files.ThemeFile;
+import acme.critical.utils.Render2DUtils;
 
 public class ClickGUI extends Screen {
     public static final ClickGUI INSTANCE = new ClickGUI();
 
-    //private List<Frame> frames;
+    public Mod SelectedMod = null;
+
     private List<Window> frames;
-    //private SearchWindow searchwindow;
 
     private ClickGUI() {
         super(Text.literal("ClickGUI"));
@@ -28,22 +31,32 @@ public class ClickGUI extends Screen {
             offset += 80;
         }
 
-	frames.add(new SearchWindow(offset, 15, 80, 15));
+        frames.add(new SearchWindow(offset, 15, 80, 15));
+        offset += 80;
+        frames.add(new SettingsWindow(offset, 15, 80, 15));
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        if (Clickgui.reloadTheme.isEnabled()) {
-            Clickgui.reloadTheme.setEnabled(false);
-            Profile.INSTANCE.load(ThemeFile.class);
-        }
-
+    public void
+    render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         renderBackground(matrices);
+
+        matrices.push();
+
         for (Window frame : frames) {
+            matrices.translate(0.0f, 0.0f, 1.0f);
+            if (frame.selected) {
+                matrices.push();
+                matrices.translate(0.0f, 0.0f, 10.0f);
+            }
             frame.render(matrices, mouseX, mouseY, delta);
             frame.updatePosition(mouseX, mouseY);
+            if (frame.selected)
+                matrices.pop();
         }
-    super.render(matrices, mouseX, mouseY, delta);
+
+        matrices.pop();
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override
@@ -51,7 +64,7 @@ public class ClickGUI extends Screen {
         for (Window frame : frames) {
             frame.mouseClicked(mouseX, mouseY, button);
         }
-    return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
@@ -59,7 +72,7 @@ public class ClickGUI extends Screen {
         for (Window frame : frames) {
             frame.mouseReleased(mouseX, mouseY, button);
         }
-    return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
@@ -67,7 +80,7 @@ public class ClickGUI extends Screen {
         for (Window frame : frames) {
             frame.keyPressed(keyCode);
         }
-    return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override

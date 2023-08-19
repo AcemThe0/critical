@@ -1,7 +1,8 @@
 package acme.critical.module.visual;
 
-import acme.critical.module.Mod;
 import net.minecraft.client.gui.screen.DeathScreen;
+
+import acme.critical.module.Mod;
 import acme.critical.module.settings.KeybindSetting;
 
 public class Nodeath extends Mod {
@@ -25,7 +26,9 @@ public class Nodeath extends Mod {
     public void onDisable() {
         if (dead) {
             mc.player.setHealth(0f);
-            mc.setScreen(new DeathScreen(null, mc.world.getLevelProperties().isHardcore()));
+            mc.setScreen(new DeathScreen(
+                null, mc.world.getLevelProperties().isHardcore()
+            ));
         }
         dead = false;
     }

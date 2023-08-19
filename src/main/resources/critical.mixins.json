@@ -6,6 +6,8 @@
   "mixins": [
   ],
   "client": [
+    "BackgroundRendererMixin",
+    "BiomeColorsMixin",
     "BlockMixin",
     "MouseMixin",
     "EntityMixin",
@@ -21,6 +23,7 @@
     "ClientPlayerEntityMixin",
     "PlayerMoveC2SPacketAccessor",
     "RenderEntityDispatcherMixin",
+    "MixinClientPlayNetworkHandler",
     "CustomPayloadC2SPacketAccessor",
     "PlayerPositionLookS2CPacketAccessor",
     "TitleScreenMixin",

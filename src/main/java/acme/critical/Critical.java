@@ -3,15 +3,10 @@ package acme.critical;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.lwjgl.glfw.GLFW;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.screen.TitleScreen;
 
 import acme.critical.event.eventbus.CriticalEventBus;
 import acme.critical.event.eventbus.CriticalSubscribe;
@@ -26,11 +21,19 @@ import acme.critical.utils.ChatUtils;
 import acme.critical.utils.FileUtils;
 import acme.critical.utils.Render2DUtils;
 
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import org.apache.logging.log4j.LogManager;
+import org.lwjgl.glfw.GLFW;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Critical implements ModInitializer {
     public static final Critical INSTANCE = new Critical();
 
     public static CriticalEventBus eventBus;
-    public static final org.apache.logging.log4j.Logger EventLogger = LogManager.getFormatterLogger("critical");
+    public static final org.apache.logging.log4j.Logger EventLogger =
+        LogManager.getFormatterLogger("critical");
     public static final Logger logger = LoggerFactory.getLogger("critical");
     private MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -38,10 +41,12 @@ public class Critical implements ModInitializer {
     public Path cjwDir;
     public Path cjwProfileDir;
 
-    //No longer vcraft approved :(
+    // sneedcraft approved :)
     @Override
     public void onInitialize() {
-        eventBus = new CriticalEventBus(new InexactEventHandler("critical"), Critical.EventLogger);
+        eventBus = new CriticalEventBus(
+            new InexactEventHandler("critical"), Critical.EventLogger
+        );
         logger.info("...");
 
         dotMc = mc.runDirectory.toPath().normalize();
@@ -51,36 +56,59 @@ public class Critical implements ModInitializer {
         FileUtils.mkdir(cjwDir);
         FileUtils.mkdir(cjwProfileDir);
 
-	new Profile("main", cjwProfileDir.resolve("main"));
+        new Profile("main", cjwProfileDir.resolve("main"));
 
-	eventBus.subscribe(this);
+        eventBus.subscribe(this);
     }
 
     List<Mod> enabledModules = new ArrayList<>();
 
+    public Path getRoot() {
+        return FabricLoader.getInstance()
+            .getModContainer("critical")
+            .get()
+            .getRootPaths()
+            .get(0);
+    }
+
+    public String getVersion() {
+        // in the case that critical is not mounted this will crash! please do
+        // not run critical without critical installed.
+        return FabricLoader.getInstance()
+            .getModContainer("critical")
+            .get()
+            .getMetadata()
+            .getVersion()
+            .getFriendlyString();
+    }
+
     @CriticalSubscribe
     public void keyPress(EventKeyboard event) {
-	int key = event.getKey();
-	int action = event.getAction();
-        if (action == GLFW.GLFW_PRESS
-	    && (mc.currentScreen == null || mc.currentScreen instanceof TitleScreen)
-	) {
-		for (Mod module : ModMan.INSTANCE.getModules()) {
-                    if (key == GLFW.GLFW_KEY_RIGHT_SHIFT) mc.setScreen(ClickGUI.INSTANCE);
-                    if (key == module.getKey()) module.toggle();
-		}
-	}
+        int key = event.getKey();
+        int action = event.getAction();
+        if (action == GLFW.GLFW_PRESS &&
+            (mc.currentScreen == null || mc.currentScreen instanceof TitleScreen
+            )) {
+            for (Mod module : ModMan.INSTANCE.getModules()) {
+                if (key == GLFW.GLFW_KEY_RIGHT_SHIFT)
+                    mc.setScreen(ClickGUI.INSTANCE);
+                if (key == module.getKey())
+                    module.toggle();
+            }
+        }
     }
 
     public void onTick() {
         if (mc.player != null && mc.world != null) {
-            for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onTick(); }
+            for (Mod module : ModMan.INSTANCE.getEnabledModules())
+                module.onTick();
         }
     }
 
     public void onRender2D(MatrixStack matrices, float tickDelta) {
         if (mc.player != null && mc.world != null) {
-            for (Mod module : ModMan.INSTANCE.getEnabledModules()) { module.onRender2D(matrices, tickDelta); }
+            for (Mod module : ModMan.INSTANCE.getEnabledModules())
+                module.onRender2D(matrices, tickDelta);
         }
     }
 }

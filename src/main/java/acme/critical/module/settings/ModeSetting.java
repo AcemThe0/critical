@@ -15,22 +15,16 @@ public class ModeSetting extends Setting {
         this.index = this.modes.indexOf(defaultMode);
     }
 
-    public String getMode() {
-        return mode;
-    }
+    public String getMode() { return mode; }
 
-    public List<String> getModes() {
-        return modes;
-    }
+    public List<String> getModes() { return modes; }
 
     public void setMode(String mode) {
         this.mode = mode;
         this.index = modes.indexOf(mode);
     }
 
-    public int getIndex() {
-        return index;
-    }
+    public int getIndex() { return index; }
 
     public void setIndex(int index) {
         this.index = index;
@@ -38,16 +32,14 @@ public class ModeSetting extends Setting {
     }
 
     public void cycle() {
-        if (index < modes.size()-1) {
+        if (index < modes.size() - 1) {
             index++;
             mode = modes.get(index);
-        } else if (index >= modes.size()-1) {
+        } else if (index >= modes.size() - 1) {
             index = 0;
             mode = modes.get(0);
         }
     }
 
-    public boolean isMode(String mode) {
-        return this.mode == mode;
-    }
+    public boolean isMode(String mode) { return this.mode == mode; }
 }

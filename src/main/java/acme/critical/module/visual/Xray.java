@@ -1,26 +1,29 @@
 package acme.critical.module.visual;
 
-import java.util.HashMap;
 import java.util.ArrayList;
-import acme.critical.module.Mod;
+import java.util.HashMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.registry.Registries;
+
+import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.RedstoneOreBlock;
-import net.minecraft.util.registry.Registry;
-import acme.critical.module.visual.Nightvision;
-import acme.critical.module.settings.ModeSetting;
 import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.KeybindSetting;
+import acme.critical.module.settings.ModeSetting;
+import acme.critical.module.visual.Nightvision;
 
-    public class Xray extends Mod {
+public class Xray extends Mod {
     public static ArrayList<Block> blocks = new ArrayList<>();
-    public ModeSetting mode = new ModeSetting("Mode", "Coal", "Coal", "Iron", "Gold", "Lapis", "Emerald", "Redstone", "Diamond", "Quartz", "Debris", "All");
+    public ModeSetting mode = new ModeSetting(
+        "Mode", "None", "Coal", "Iron", "Gold", "Lapis", "Emerald", "Redstone",
+        "Diamond", "Quartz", "Debris", "None"
+    );
     public BooleanSetting containers = new BooleanSetting("Containers", true);
     public BooleanSetting other = new BooleanSetting("Other", true);
-    //Nightvision nightvision = ModMan.INSTANCE.getMod(Nightvision.class);
-    //For some reason, the above line leads to errors
+    // Nightvision nightvision = ModMan.INSTANCE.getMod(Nightvision.class);
+    // For some reason, the above line leads to errors
 
     public Xray() {
         super("Xray", "See blocks!", Category.VISUAL);
@@ -33,8 +36,12 @@ import acme.critical.module.settings.KeybindSetting;
 
         mc.worldRenderer.reload();
 
-        Registry.BLOCK.forEach(block -> {
-            if (targetBlock(block)) {blocks.add(block);}else{blocks.remove(block);}
+        Registries.BLOCK.forEach(block -> {
+            if (targetBlock(block)) {
+                blocks.add(block);
+            } else {
+                blocks.remove(block);
+            }
         });
         Nightvision.setGamma(255.0);
     }
@@ -42,8 +49,10 @@ import acme.critical.module.settings.KeybindSetting;
     @Override
     public void onDisable() {
         mc.chunkCullingEnabled = true;
-        
-        Nightvision.setGamma(Nightvision.nvEnabled ? 255.0f : Nightvision.origGamma);
+
+        Nightvision.setGamma(
+            Nightvision.nvEnabled ? 255.0f : Nightvision.origGamma
+        );
         mc.worldRenderer.reload();
     }
 
@@ -70,16 +79,22 @@ import acme.critical.module.settings.KeybindSetting;
         nuOres.put("Redstone", Blocks.DEEPSLATE_REDSTONE_ORE);
         nuOres.put("Diamond", Blocks.DEEPSLATE_DIAMOND_ORE);
 
-        if (mode.getMode() != "All") {
-            c1 = block == ores.get(mode.getMode()) || block == nuOres.get(mode.getMode());
-        } else {
-            c1 = block instanceof OreBlock || block instanceof RedstoneOreBlock;
+        if (mode.getMode() != "None") {
+            c1 = block == ores.get(mode.getMode()) ||
+                 block == nuOres.get(mode.getMode());
         }
-        
-        if (containers.isEnabled()) c2 = block == Blocks.FURNACE || block == Blocks.DISPENSER || block == Blocks.DROPPER || block == Blocks.BARREL;
-        if (other.isEnabled()) c3 = block == Blocks.TNT || block == Blocks.OBSIDIAN || block == Blocks.BEDROCK || block == Blocks.COMMAND_BLOCK || block == Blocks.END_GATEWAY || block == Blocks.NETHER_PORTAL;
+        // net.minecraft.block.OreBlock was removed, breaking this
+        /*c1 = block instanceof OreBlock || block instanceof RedstoneOreBlock;*/
+        // uh oh, that looks like a feature to me
+
+        if (containers.isEnabled())
+            c2 = block == Blocks.FURNACE || block == Blocks.DISPENSER ||
+                 block == Blocks.DROPPER || block == Blocks.BARREL;
+        if (other.isEnabled())
+            c3 = block == Blocks.TNT || block == Blocks.OBSIDIAN ||
+                 block == Blocks.BEDROCK || block == Blocks.COMMAND_BLOCK ||
+                 block == Blocks.END_GATEWAY || block == Blocks.NETHER_PORTAL;
 
         return c1 || c2 || c3;
     }
-
 }

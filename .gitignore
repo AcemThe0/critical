@@ -1,2 +1,5 @@
+.vscode
+.gradle
 build
-*.gradle
+bin
+run

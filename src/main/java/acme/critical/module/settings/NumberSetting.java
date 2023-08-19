@@ -3,8 +3,11 @@ package acme.critical.module.settings;
 public class NumberSetting extends Setting {
     private double min, max, increment;
     private double value;
-    
-    public NumberSetting(String name, double min, double max, double defaultValue, double increment) {
+
+    public NumberSetting(
+        String name, double min, double max, double defaultValue,
+        double increment
+    ) {
         super(name);
         this.min = min;
         this.max = max;
@@ -19,39 +22,30 @@ public class NumberSetting extends Setting {
         return value;
     }
 
-    public double getIncrement() {
-        return increment;
-    }
+    public double getIncrement() { return increment; }
 
-    public double getMin() {
-        return min;
-    }
+    public double getMin() { return min; }
 
-    public double getMax() {
-        return max;
-    }
+    public double getMax() { return max; }
 
-    public double getValue() {
-        return value;
-    }
+    public double getValue() { return value; }
 
-    public float getValueFloat() {
-        return (float)value;
-    }
+    public float getValueFloat() { return (float)value; }
 
-    public int getValueInt() {
-        return (int)value;
-    }
+    public int getValueInt() { return (int)value; }
 
     public void setValue(double value) {
         value = clamp(value, this.min, this.max);
-        value = Math.round(value * (1.0/this.increment)) / (1.0/this.increment);
+        value =
+            Math.round(value * (1.0 / this.increment)) / (1.0 / this.increment);
 
         this.value = value;
     }
 
     public void increment(boolean positive) {
-        if (positive) setValue(getValue()+getIncrement());
-        else setValue(getValue() - getIncrement());
+        if (positive)
+            setValue(getValue() + getIncrement());
+        else
+            setValue(getValue() - getIncrement());
     }
 }
