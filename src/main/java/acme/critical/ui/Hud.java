@@ -26,7 +26,7 @@ public class Hud {
                 1, 1
             );
             Render2DUtils.drawBanana(matrices, 32, 12, 1);
-            Render3DUtils.banana(matrices.getMatrices());
+            Render3DUtils.banana(matrices);
         }
         renderArrayList(matrices);
     }

@@ -42,8 +42,8 @@ public class ModeBox extends Component {
         );
         if (extended) {
             // make popup render above everything else
-            matrices.getMatrices().push();
-            matrices.getMatrices().translate(0.0f, 0.0f, 100.0f);
+            matrices.push();
+            matrices.translate(0.0f, 0.0f, 100.0f);
             for (int indexM = 0; indexM < modesSize; indexM++) {
                 Render2DUtils.rect(
                     matrices, parent.parent.x + parent.parent.width,
@@ -61,7 +61,7 @@ public class ModeBox extends Component {
                         parent.offset + offset + textOffset
                 );
             }
-            matrices.getMatrices().pop();
+            matrices.pop();
         }
         super.render(matrices, mouseX, mouseY, delta);
     }

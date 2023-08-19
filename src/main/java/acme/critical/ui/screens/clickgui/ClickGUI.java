@@ -41,21 +41,21 @@ public class ClickGUI extends Screen {
     render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         renderBackground(matrices);
 
-        matrices.getMatrices().push();
+        matrices.push();
 
         for (Window frame : frames) {
-            matrices.getMatrices().translate(0.0f, 0.0f, 1.0f);
+            matrices.translate(0.0f, 0.0f, 1.0f);
             if (frame.selected) {
-                matrices.getMatrices().push();
-                matrices.getMatrices().translate(0.0f, 0.0f, 10.0f);
+                matrices.push();
+                matrices.translate(0.0f, 0.0f, 10.0f);
             }
             frame.render(matrices, mouseX, mouseY, delta);
             frame.updatePosition(mouseX, mouseY);
             if (frame.selected)
-                matrices.getMatrices().pop();
+                matrices.pop();
         }
 
-        matrices.getMatrices().pop();
+        matrices.pop();
         super.render(matrices, mouseX, mouseY, delta);
     }
 
