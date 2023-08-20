@@ -3,6 +3,7 @@ package acme.critical.ui.screens.clickgui;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -10,7 +11,6 @@ import net.minecraft.text.Text;
 import acme.critical.Critical;
 import acme.critical.module.Mod;
 import acme.critical.module.Mod.Category;
-import acme.critical.module.client.Clickgui;
 import acme.critical.utils.Render2DUtils;
 
 public class ClickGUI extends Screen {
@@ -19,6 +19,8 @@ public class ClickGUI extends Screen {
     public Mod SelectedMod = null;
 
     private List<Window> frames;
+
+    private float scale = 1.0f;
 
     private ClickGUI() {
         super(Text.literal("ClickGUI"));
@@ -39,10 +41,20 @@ public class ClickGUI extends Screen {
     @Override
     public void
     render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
+        scale = 1.0f /
+            (MinecraftClient.getInstance().options.getGuiScale().getValue());
+        scale *= acme.critical.module.client.Clickgui.getScale();
+
+        mouseX /= scale;
+        mouseY /= scale;
+
+        if (MinecraftClient.getInstance().currentScreen != null)
+            renderBackground(context);
 
         context.getMatrices().push();
+        context.getMatrices().scale(scale, scale, 1.0f);
 
+        context.getMatrices().push();
         for (Window frame : frames) {
             context.getMatrices().translate(0.0f, 0.0f, 1.0f);
             if (frame.selected) {
@@ -54,13 +66,17 @@ public class ClickGUI extends Screen {
             if (frame.selected)
                 context.getMatrices().pop();
         }
-
         context.getMatrices().pop();
+
         super.render(context, mouseX, mouseY, delta);
+        context.getMatrices().pop();
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        mouseX /= scale;
+        mouseY /= scale;
+
         for (Window frame : frames) {
             frame.mouseClicked(mouseX, mouseY, button);
         }
@@ -69,6 +85,9 @@ public class ClickGUI extends Screen {
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        mouseX /= scale;
+        mouseY /= scale;
+
         for (Window frame : frames) {
             frame.mouseReleased(mouseX, mouseY, button);
         }
