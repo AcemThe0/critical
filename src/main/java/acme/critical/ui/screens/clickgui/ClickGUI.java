@@ -48,7 +48,7 @@ public class ClickGUI extends Screen {
         mouseX /= scale;
         mouseY /= scale;
 
-        if (MinecraftClient.getInstance().currentScreen != null)
+        if (MinecraftClient.getInstance().world == null)
             renderBackground(context);
 
         context.getMatrices().push();
