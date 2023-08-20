@@ -9,17 +9,18 @@ import acme.critical.module.settings.ModeSetting;
 
 public class Auto extends Mod {
     private BooleanSetting walk = new BooleanSetting("Walk", false);
-    private BooleanSetting sneak = new BooleanSetting("Sneak", true);
+    private BooleanSetting sneak = new BooleanSetting("Sneak", false);
     private BooleanSetting sprint = new BooleanSetting("Sprint", false);
+     private BooleanSetting jump = new BooleanSetting("Jump", false);
     private ModeSetting sprintM =
         new ModeSetting("Sprint", "Vanilla", "Vanilla", "Omni");
     private ModeSetting sneakM =
-        new ModeSetting("Sneak", "Packet", "Packet", "Vanilla");
+        new ModeSetting("Sneak", "Vanilla", "Packet", "Vanilla");
 
     public Auto() {
         super("Auto", "Automatically move", Category.MOVEMENT);
         addSettings(
-            walk, sneak, sneakM, sprint, sprintM, new KeybindSetting("Key", 0)
+            walk, sneak, sprint, jump, sneakM, sprintM, new KeybindSetting("Key", 0)
         );
     }
 
@@ -36,6 +37,7 @@ public class Auto extends Mod {
             if (sneakM.getMode() == "Vanilla")
                 mc.options.sneakKey.setPressed(true);
         }
+
         if (sprint.isEnabled()) {
             if (sprintM.getMode() == "Vanilla")
                 mc.options.sprintKey.setPressed(true);
@@ -43,6 +45,9 @@ public class Auto extends Mod {
                 mc.player.setSprinting(true);
         }
 
+        if (jump.isEnabled() && mc.player.isOnGround()) {
+            mc.player.jump();
+        }
         super.onTick();
     }
 
