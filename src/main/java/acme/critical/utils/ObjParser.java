@@ -10,12 +10,12 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 
 import acme.critical.utils.FileUtils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.joml.Matrix4f;
 
 public class ObjParser {
     private float[][] vertices = null;

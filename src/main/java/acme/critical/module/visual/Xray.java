@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registries;
+import net.minecraft.util.registry.Registry;
 
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
@@ -36,12 +36,8 @@ public class Xray extends Mod {
 
         mc.worldRenderer.reload();
 
-        Registries.BLOCK.forEach(block -> {
-            if (targetBlock(block)) {
-                blocks.add(block);
-            } else {
-                blocks.remove(block);
-            }
+        Registry.BLOCK.forEach(block -> {
+            if (targetBlock(block)) {blocks.add(block);}else{blocks.remove(block);}
         });
         Nightvision.setGamma(255.0);
     }

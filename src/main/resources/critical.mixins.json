@@ -23,7 +23,6 @@
     "ClientPlayerEntityMixin",
     "PlayerMoveC2SPacketAccessor",
     "RenderEntityDispatcherMixin",
-    "MixinClientPlayNetworkHandler",
     "CustomPayloadC2SPacketAccessor",
     "PlayerPositionLookS2CPacketAccessor",
     "TitleScreenMixin",

@@ -1,14 +1,15 @@
 package acme.critical.mixin;
 
 import net.minecraft.network.ClientConnection;
-import net.minecraft.network.PacketCallbacks;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
 
 import acme.critical.Critical;
 import acme.critical.event.events.EventPacket;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,11 +37,15 @@ public class ClientConnectionMixin {
     // Duct-taped together.
     @Inject(
         method =
-            "Lnet/minecraft/network/ClientConnection;send(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/PacketCallbacks;)V",
+            "send(Lnet/minecraft/network/Packet;Lio/netty/util/concurrent/GenericFutureListener;)V",
         at = @At("HEAD"), cancellable = true
     )
     private void
-    send(Packet<?> packet, PacketCallbacks callback, CallbackInfo ci) {
+    send(
+        Packet<?> packet,
+        GenericFutureListener<? extends Future<? super Void>> callback,
+        CallbackInfo ci
+    ) {
         EventPacket.Send event = new EventPacket.Send(packet);
         Critical.eventBus.post(event);
 

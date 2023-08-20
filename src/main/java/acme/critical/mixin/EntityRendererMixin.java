@@ -14,7 +14,6 @@ import net.minecraft.text.Text;
 import acme.critical.module.ModMan;
 import acme.critical.module.visual.Nametags;
 
-import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

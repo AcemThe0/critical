@@ -1,6 +1,6 @@
 package acme.critical.event.events;
 
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
 
 import acme.critical.event.eventbus.Event;
 

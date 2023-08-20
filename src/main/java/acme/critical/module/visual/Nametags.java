@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 
 import acme.critical.Critical;
@@ -22,7 +23,6 @@ import acme.critical.utils.FriendsUtils;
 import acme.critical.utils.MiscUtils;
 import acme.critical.utils.Render3DUtils;
 
-import org.joml.Quaternionf;
 import org.lwjgl.opengl.GL11;
 
 public class Nametags extends Mod {
@@ -89,9 +89,14 @@ public class Nametags extends Mod {
             matrices.translate(lerp.x, lerp.y + ent.getHeight() + 0.5, lerp.z);
 
             var dir = lerp.subtract(Render3DUtils.getCameraPos()).normalize();
-            var quat = new Quaternionf();
-            quat = quat.rotateY((float)-MathHelper.atan2(dir.z, dir.x));
-            quat = quat.rotateY(MathHelper.PI / 2.0f);
+            //var quat = new Quaternion();
+            //quat = quat.rotateY((float)-MathHelper.atan2(dir.z, dir.x));
+            //quat = quat.rotateY(MathHelper.PI / 2.0f);
+            var quat = Quaternion.fromEulerXyz(
+                0.0f,
+                (float)-MathHelper.atan2(dir.z, dir.x) + MathHelper.PI / 2.0f,
+                0.0f
+            );
             matrices.multiply(quat);
 
             float scale = size.getValueFloat() * 0.01f;

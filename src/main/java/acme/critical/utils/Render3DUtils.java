@@ -15,12 +15,12 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector2i;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL11C;
 
@@ -32,9 +32,9 @@ public class Render3DUtils {
         VertexConsumerProvider.immediate(texbb);
 
     public static void
-    applyRegionOffset(MatrixStack matrices, Vector2i region) {
+    applyRegionOffset(MatrixStack matrices, Vec3i region) {
         Vec3d camPos = getCameraPos();
-        matrices.translate(region.x - camPos.x, -camPos.y, region.y - camPos.z);
+        matrices.translate(region.getX() - camPos.x, -camPos.y, region.getY() - camPos.z);
     }
 
     public static void applyRegionOffset(MatrixStack matrices) {
@@ -73,10 +73,10 @@ public class Render3DUtils {
         );
     }
 
-    public static Vector2i getCameraRegion() {
+    public static Vec3i getCameraRegion() {
         BlockPos blockPos = getCameraBlockPos();
-        return new Vector2i(
-            (blockPos.getX() >> 9) * 512, (blockPos.getZ() >> 9) * 512
+        return new Vec3i(
+            (blockPos.getX() >> 9) * 512, (blockPos.getZ() >> 9) * 512, 0
         );
     }
 
@@ -95,8 +95,9 @@ public class Render3DUtils {
         float rot = ((System.currentTimeMillis() % (speed * 1000)) /
                      (speed * 1000.0f)) *
                     (float)Math.PI * 2;
-        var quat = new Quaternionf();
-        quat = temple ? quat.rotateXYZ(rot, rot, rot) : quat.rotateY(rot);
+        var quat = temple ?
+            Quaternion.fromEulerXyz(rot, rot, rot)
+            : Quaternion.fromEulerXyz(0.0f, rot, 0.0f);
         matrices.multiply(quat);
     }
 
