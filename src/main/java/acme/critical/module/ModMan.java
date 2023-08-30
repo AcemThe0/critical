@@ -72,6 +72,7 @@ public class ModMan {
 
     private void addModules() {
         modules.add(new ESP());
+        modules.add(new Tracers());
         modules.add(new Auto());
         modules.add(new Mhop());
         modules.add(new Xray());
@@ -112,12 +113,11 @@ public class ModMan {
         modules.add(new Timechanger());
         // monolith
 
-        modules.sort(Comparator
-                         .comparingInt(
-                             m
-                             -> (int)MinecraftClient.getInstance()
-                                    .textRenderer.getWidth(((Mod)m).getName())
-                         )
-                         .reversed());
+        var tr = MinecraftClient.getInstance().textRenderer;
+        modules.sort(
+            Comparator
+            .comparingInt(m -> (int)tr.getWidth(((Mod)m).getName()))
+            .reversed()
+        );
     }
 }
