@@ -1,10 +1,9 @@
 package acme.critical.module.visual;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -14,7 +13,6 @@ import acme.critical.event.eventbus.CriticalSubscribe;
 import acme.critical.event.events.EventWorldRender;
 import acme.critical.module.Mod;
 import acme.critical.module.ModMan;
-import acme.critical.module.combat.Killaura;
 import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.KeybindSetting;
 import acme.critical.module.settings.ModeSetting;
@@ -27,7 +25,7 @@ import org.joml.Vector2i;
 import org.lwjgl.opengl.GL11;
 
 public class ESP extends Mod {
-    private ArrayList<Entity> ents = new ArrayList<>();
+    private List<Entity> ents = new ArrayList<>();
     
     private ModeSetting mode = new ModeSetting("Mode", "Box", "Box", "Walls");
     private BooleanSetting rainbow = new BooleanSetting("Rainbow", true);
@@ -64,7 +62,7 @@ public class ESP extends Mod {
     public void onRenderWorld(EventWorldRender.Post event) {
         if (mode.getMode() != "Box")
             return;
-        MatrixStack matrices = event.getMatrices();
+        var matrices = event.getMatrices();
         float tickDelta = event.getDelta();
 
         matrices.push();
