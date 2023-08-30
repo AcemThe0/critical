@@ -10,6 +10,7 @@ import acme.critical.module.settings.BooleanSetting;
 import acme.critical.module.settings.ColorSetting;
 import acme.critical.module.settings.LabelSetting;
 import acme.critical.module.settings.ModeSetting;
+import acme.critical.module.settings.StringSetting;
 import acme.critical.profile.Profile;
 import acme.critical.profile.files.ThemeFile;
 import acme.critical.utils.Render2DUtils;
@@ -24,6 +25,8 @@ public class Clickgui extends Mod {
     public static BooleanSetting chatFeedback =
         new BooleanSetting("ChatToggle", true);
     public static BooleanSetting arrows = new BooleanSetting("Arrowkeys", true);
+    public static StringSetting scale =
+        new StringSetting("Scale", "2.0");
     public static ColorSetting colorBase = new ColorSetting("Base", 0xffffffff);
     public static ColorSetting colorTitle =
         new ColorSetting("Title", 0xffffffff);
@@ -38,15 +41,27 @@ public class Clickgui extends Mod {
 
     public Clickgui() {
         super("ClickGUI", "Customization!", Category.CLIENT);
+        scale.setLabeled(true);
         colorBase.setLabeled(true);
         colorTitle.setLabeled(true);
         colorSelected.setLabeled(true);
         updateColors();
         addSettings(
-            arraylist, doLogo, descriptions, chatFeedback, arrows, colorBase,
-            colorTitle, colorSelected, flatMode, saveTheme, loadTheme
+            arraylist, doLogo, descriptions, chatFeedback, arrows, scale,
+            colorBase, colorTitle, colorSelected, flatMode, saveTheme, loadTheme
         );
         Critical.INSTANCE.eventBus.subscribe(this);
+    }
+
+    public static float getScale() {
+        try {
+            float ret = Float.parseFloat(scale.getVal());
+            ret = ret < 1.0f ? 1.0f : ret;
+            ret = ret > 5.0f ? 5.0f : ret;
+			return ret;
+        } catch (NumberFormatException ex) {
+            return 2.0f;
+        }
     }
 
     @CriticalSubscribe
